@@ -1,29 +1,23 @@
 @ECHO OFF
 echo This is a patcher that creates an IOS31 WAD.
-echo This is only for the Wii U, please don't install this on an actual Wii.
-echo If you want to patch IOS 31 for Wii, please download the other version on the homepage.
-echo Downloading IOS31 from NUS...
+echo This is only for the Wii, please don't install this on an actual Wii U.
+echo If you want to patch IOS 31 for Wii U, please download the other version on the homepage.
+echo 1. Downloading IOS31 from NUS...
 Sharpii.exe NUSD -ios 31 -v latest -o IOS31-old.wad -wad
-echo Done.
-echo Extracting.
+echo 2. Unpacking IOS31...
 Sharpii.exe WAD -u IOS31-old.wad IOS31/
-echo Done.
-echo Downloading APP file with new key...
-wget -O 00000006.app http://riiconnect24.net/IOS/00000006.app -q
-echo Done.
-echo Moving to the folder. (press Y if needed)
-xcopy 00000006.app IOS31\ /Y
-echo Done.
-echo Packing WAD to IOS31.wad
-Sharpii.exe WAD -p IOS31\ IOS31.wad -f
-echo Done.
-echo Changing IOS Slot.
-Sharpii.exe IOS IOS31.wad -o IOS221.wad -s 221
-echo Done.
-echo "Removing all the pointless stuff (type Y if needed):"
+echo 3. Patching the APP file with the new key...
+move IOS31\00000006.app 00000006.app
+xdelta3.exe -f -d -s 00000006.app 00000006.delta IOS31\00000006.app
+echo 4. Packing the new IOS31...
+mkdir WAD
+Sharpii.exe WAD -p IOS31\ WAD\IOS31.wad -f
+echo 5. Changing IOS Slot...
+Sharpii.exe IOS WAD\IOS31.wad -o WAD\IOS221.wad -s 221
+echo 5. Cleaning up files... (Type Y if needed).
+del WAD\IOS31.wad
 del 00000006.app
 del IOS31-old.wad 
-del IOS31
-echo Done.
-echo We're done!
+rmdir /s /q IOS31
+echo We're done.
 pause
