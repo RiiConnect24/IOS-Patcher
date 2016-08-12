@@ -1,4 +1,4 @@
-echo "This is a patcher that creates an IOS31 WAD."
+echo "This is a patcher that creates a patched IOS31 WAD."
 echo "This is only for the Wii, please don't install this on a Wii U."
 echo "If you want to patch IOS 31 for Wii U, please download the other version."
 echo "Please install Mono or else this won't work."
