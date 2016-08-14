@@ -10,6 +10,5 @@ printf '\e[0;31m%s\e[0m \n' '4. Packing the new IOS31...'
 mkdir WAD
 mono Sharpii.exe WAD -p IOS31/ WAD/IOS31.wad -f
 printf '\e[0;31m%s\e[0m \n' '6. Cleaning up files... (Type Y if needed).'
-rm "IOS31 v3864.wad"
 rm -rf IOS31/
 echo "We're done."
