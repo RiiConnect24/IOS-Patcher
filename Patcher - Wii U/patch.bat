@@ -1,7 +1,7 @@
 @ECHO OFF
 echo This is a patcher that creates an IOS31 WAD.
-echo This is only for the Wii, please don't install this on an actual Wii U.
-echo If you want to patch IOS 31 for Wii U, please download the other version on the homepage.
+echo This is only for the Wii U, please don't install this on an actual Wii.
+echo If you want to patch IOS 31 for Wii, please download the other version on the homepage.
 echo 1. Unpacking IOS31...
 Sharpii.exe WAD -u IOS31-old.wad IOS31/
 echo 2. Patching the APP file with the new key...

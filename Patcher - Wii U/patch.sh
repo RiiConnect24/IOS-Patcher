@@ -1,6 +1,6 @@
 echo "This is a patcher that creates an IOS31 WAD."
-echo "This is only for the Wii, please don't install this on a Wii U."
-echo "If you want to patch IOS 31 for Wii U, please download the other version."
+echo "This is only for the Wii U, please don't install this on a Wii."
+echo "If you want to patch IOS 31 for Wii, please download the other version."
 echo "Please install Mono or else this won't work."
 printf '\e[0;31m%s\e[0m \n' '1. Unpacking IOS31...'
 mono Sharpii.exe WAD -u IOS31-old.wad IOS31/
