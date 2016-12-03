@@ -9,13 +9,16 @@ echo 2. Unpacking IOS...
 Sharpii.exe WAD -u IOS31-old.wad IOS31/
 Sharpii.exe WAD -u IOS80-old.wad IOS80/
 echo 3. Patching the APP file with the new key...
-xdelta3.exe -f -d -s IOS31\00000006.app 00000006-31.delta IOS31\00000006.app
-xdelta3.exe -f -d -s IOS80\00000006.app 00000006-80.delta IOS80\00000006.app
+move IOS31\00000006.app 00000006.app
+xdelta3.exe -f -d -s 00000006.app 00000006-31.delta IOS31\00000006.app
+move IOS80\00000006.app 00000006.app
+xdelta3.exe -f -d -s 00000006.app 00000006-80.delta IOS80\00000006.app
 echo 4. Packing the new IOS...
 mkdir WAD
 Sharpii.exe WAD -p IOS31\ WAD\IOS31.wad -f
 Sharpii.exe WAD -p IOS80\ WAD\IOS80.wad -f
 echo 5. Cleaning up files... (Type Y if needed).
+del 00000006.app
 del IOS31-old.wad
 del IOS80-old.wad 
 rmdir /s /q IOS31
