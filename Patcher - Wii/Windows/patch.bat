@@ -16,7 +16,6 @@ mkdir WAD
 Sharpii.exe WAD -p IOS31\ WAD\IOS31.wad -f
 Sharpii.exe WAD -p IOS80\ WAD\IOS80.wad -f
 echo 5. Cleaning up files... (Type Y if needed).
-del 00000006.app
 del IOS31-old.wad
 del IOS80-old.wad 
 rmdir /s /q IOS31
