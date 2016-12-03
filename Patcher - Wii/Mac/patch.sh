@@ -20,6 +20,8 @@ mono Sharpii.exe WAD -p IOS80/ WAD/IOS80.wad -f
 printf '\e[0;31m%s\e[0m \n' '5. Cleaning up files... (Type Y if needed).'
 rm IOS31-old.wad
 rm IOS80-old.wad
-rm -rf IOS31/
-rm -rf IOS80/
+rm -rf IOS31-old
+rm -rf IOS80-old
+rm -rf IOS31
+rm -rf IOS80
 echo "We're done."
