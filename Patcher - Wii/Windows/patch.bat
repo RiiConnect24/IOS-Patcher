@@ -15,8 +15,8 @@ move IOS80\00000006.app 00000006.app
 xdelta3.exe -f -d -s 00000006.app 00000006-80.delta IOS80\00000006.app
 echo 4. Packing the new IOS...
 mkdir WAD
-Sharpii.exe WAD -p IOS31\ WAD\IOS31.wad -f
-Sharpii.exe WAD -p IOS80\ WAD\IOS80.wad -f
+Sharpii.exe WAD -p IOS31\ WAD\IOS31.wad -fs
+Sharpii.exe WAD -p IOS80\ WAD\IOS80.wad -fs
 echo 5. Cleaning up files... (Type Y if needed).
 del 00000006.app
 del IOS31-old.wad
