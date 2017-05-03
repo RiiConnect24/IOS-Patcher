@@ -41,13 +41,33 @@ echo 2. Polish (Author: KcrPL)
 echo 3. Deutsch (Author: TimNook)
 echo 4. Portuguese (Author: Rafael)
 echo 5. French (Author: iDroid)
+echo 6. Italian (Author: GameCube)
 set /p s=Choose: 
 if %s%==1 goto set_language_en
 if %s%==2 goto set_language_pl
 if %s%==3 goto set_language_deu
 if %s%==4 goto set_language_braz
 if %s%==5 goto set_language_fr
+if %s%==6 goto set_language_it
 goto set_language
+:set_language_it
+set text1=Alcuni dei file necessari per eseguire questo programma non sono stati trovati.
+set text2=Scarica nuovamente il pacchetto e riprova
+set text3=Fare clic su qualsiasi pulsante per chiudere il patcher.
+set text4=Stai usando questo patcher per Wii o WiiU?
+set text5=Purtroppo, non puoi utilizzare questo patcher per Wii U :(
+set text6=Se stavi scherzando, fai clic su qualcosa per tornare indietro.
+set text7=In caso contrario, chiudere questo programma.
+set text8=Dobbiamo scaricare IOS 31 e 80.
+set text9=Fare clic su qualsiasi pulsante per procedere al download.
+set text10=Non e possibile scaricare i file perché la connessione a Internet e disabilitata!
+set text11=Abilita la connessione e fai clic su qualsiasi pulsante per riprovare.
+set text12=Attendere ... i file vengono procedere ad essere scaricati ...
+set text13=La patchatura e fatta.
+set text14=I file IOS installati saranno nella cartella chiamata "WAD".
+
+set language=Italian
+goto begin
 :set_language_fr
 set text1=Un des fichiers necessaires pour executer ce programme n'a pas ete trouve.
 set text2=Telechargez l'archive a nouveau puis reessayez
@@ -64,7 +84,7 @@ set text12=Patientez... les fichiers sont en train d'etre telecharges...
 set text13=Le patchage est terminé
 set text14=Les IOS patches se trouvent dans le dossier "WAD".
 
-set language=1
+set language=French
 goto begin
 :set_language_braz
 set text1=Alguns dos arquivos necessarios para rodar o programa, nao foram encontrados.
@@ -82,7 +102,7 @@ set text12=Por favor espere... Os arquivos estao sendo baixados...
 set text13=O Patching acabou.
 set text14=Arquivos de Patched IOS sao chamadas de ''WAD''.
 
-set language=1
+set language=Portuguese
 goto begin
 :set_language_deu
 set text1=Einige der Dateien die dieses Programm braucht um zu funktionieren wurden nicht gefunden!.
@@ -100,7 +120,7 @@ set text12=Bitte warte... die Dateien werden gedownloadet...
 set text13=Das Patching ist fertig.
 set text14=Die gepatchten Dateien werden im Ordner "WAD" sein.
 
-set language=1
+set language=Deutsch
 goto begin
 :set_language_pl
 set text1=Pliki ktore sa potrzebne do uruchomienia programu nie zostaly znalezione.
@@ -117,7 +137,8 @@ set text11=Wlacz twoj internet i nacisnij dowolny przycisk aby sprobowac ponowni
 set text12=Prosze czekac... pliki sa pobierane
 set text13=Patchowanie przebieglo pomyslnie.
 set text14=Spatchowane pliki IOS beda w folderze nazwanym "WAD".
-set language=1
+
+set language=Polish
 goto begin
 :set_language_en
 cls
@@ -136,7 +157,7 @@ set text12=Please wait... files are being downloaded...
 set text13=Patching is done.
 set text14=Patched IOS files will be in folder called "WAD".
 
-set language=1
+set language=English
 goto begin
 :1
 cls
@@ -592,6 +613,10 @@ cls
 echo IOS Patcher for RiiConnect24
 echo ------------------------------
 echo @Larsenv, @KcrPL
+echo.
+echo Language: %language%
+echo In order to change language - restart this program.
+echo :---------------------------------------------------:
 echo.
 echo %text4%
 echo.
