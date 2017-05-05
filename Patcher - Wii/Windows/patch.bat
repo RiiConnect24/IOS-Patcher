@@ -38,7 +38,7 @@ echo Please select your language.
 echo.
 echo 1. English (Author: KcrPL) (Correction: Seriel)
 echo 2. Polish (Author: KcrPL)
-echo 3. Deutsch (Author: TimNook)
+echo 3. Deutsch (Author: TimNook) (Correction: Brawl345)
 echo 4. Portuguese (Author: Rafael)
 echo 5. French (Author: iDroid)
 echo 6. Italian (Author: GameCube)
@@ -105,20 +105,20 @@ set text14=Arquivos de Patched IOS sao chamadas de ''WAD''.
 set language=Portuguese
 goto begin
 :set_language_deu
-set text1=Einige der Dateien die dieses Programm braucht um zu funktionieren wurden nicht gefunden!.
+set text1=Einige der Dateien, die dieses Programm braucht, um zu funktionieren, wurden nicht gefunden!
 set text2=Downloade dieses Paket noch einmal und probiere es erneut!
 set text3=Druecke auf irgendeinen Knopf um das Programm zu beenden.
-set text4=Benutzt du diesen Patcher fuer die Wii U oder fuer die Wii?
+set text4=Benutzt du diesen Patcher fuer die Wii U oder die Wii?
 set text5=Leider kannst du diesen Patcher nicht fuer die Wii U benutzen :(
-set text6=Wenn du einen Witz gemacht hast, drucke einen Knopf um zuruck zu gehen.
+set text6=Wenn du einen Witz gemacht hast, druecke einen Knopf um zurueck zu gehen.
 set text7=Wenn nicht, schliesse dieses Programm.
-set text8=Wir mussen IOS31 und 80 downloaden.
-set text9=Drucke irgendeinen Knopf um mit dem download fortzufahren.
-set text10=Wir koennen keine Dateien downloaden da du nicht mit dem Internet verbunden bist!
-set text11=Verbinde dich mit dem Internet und drücke einen Knopf um es nochmal zu probieren.
-set text12=Bitte warte... die Dateien werden gedownloadet... 
-set text13=Das Patching ist fertig.
-set text14=Die gepatchten Dateien werden im Ordner "WAD" sein.
+set text8=Wir muessen IOS 31 und 80 herunterladen.
+set text9=Druecke irgendeinen Knopf, um mit dem Download zu beginnen.
+set text10=Wir koennen keine Dateien herunterladen, da du nicht mit dem Internet verbunden bist!
+set text11=Verbinde dich mit dem Internet und druecke einen Knopf, um es nochmal zu probieren.
+set text12=Bitte warte... die Dateien werden heruntergeladen... 
+set text13=Das Patchen ist abgeschlossen.
+set text14=Die gepatchten Dateien befinden sich im "WAD"-Ordner.
 
 set language=Deutsch
 goto begin
