@@ -38,7 +38,7 @@ echo Please select your language.
 echo.
 echo 1. English (Author: KcrPL) (Correction: Seriel)
 echo 2. Polish (Author: KcrPL)
-echo 3. Deutsch (Author: TimNook, Brawl345)
+echo 3. Deutsch (Author: TimNook) (Correction: Brawl345)
 echo 4. Portuguese (Author: Rafael)
 echo 5. French (Author: iDroid)
 echo 6. Italian (Author: GameCube)
