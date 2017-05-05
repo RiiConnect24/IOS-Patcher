@@ -1,3 +1,25 @@
+rem ### Want to create translation for your language? ###
+rem ### Download this text file: https://drive.google.com/open?id=0B99PAkYFoBoLUFRERkFNbTBLU3M ###
+rem ### And than send me this on discord - KcrPL#4625. It's easy! :) ###
+rem But please, don't put your own translations in this file! You may not understand the code and you may broke it!
+rem -KcrPL.
+set error4112=0
+set filcheck=0
+set text1=NUL
+set text2=NUL
+set text3=NUL
+set text4=NUL
+set text5=NUL
+set text6=NUL
+set text7=NUL
+set text8=NUL
+set text9=NUL
+set text10=NUL
+set text11=NUL
+set text12=NUL
+set text13=NUL
+set text14=NUL
+
 set language=NotDefined
 title IOS Patcher for RiiConnect24
 set patchingok=1
@@ -12,6 +34,7 @@ if not exist Sharpii.exe goto error_runtime_error
 if not exist WadInstaller.dll goto error_runtime_error
 if not exist wget.exe goto error_runtime_error
 if not exist xdelta3.exe goto error_runtime_error
+set filcheck=1
 goto 1
 :error_runtime_error
 cls
@@ -29,6 +52,8 @@ pause>NUL
 set patchingok=0
 goto end
 :set_language
+rem ### Please do not make any changes to this part of code. ###
+rem # Please contact me on Discord - KcrPL#4625 ###
 cls
 echo IOS Patcher for RiiConnect24
 echo ------------------------------
@@ -38,10 +63,11 @@ echo Please select your language.
 echo.
 echo 1. English (Author: KcrPL) (Correction: Seriel)
 echo 2. Polish (Author: KcrPL)
-echo 3. Deutsch (Author: TimNook)
+echo 3. Deutsch (Author: TimNook) (Correction: Brawl345)
 echo 4. Portuguese (Author: Rafael)
 echo 5. French (Author: iDroid)
 echo 6. Italian (Author: GameCube)
+echo 7. Spanish (Author: Artuto)
 set /p s=Choose: 
 if %s%==1 goto set_language_en
 if %s%==2 goto set_language_pl
@@ -49,7 +75,26 @@ if %s%==3 goto set_language_deu
 if %s%==4 goto set_language_braz
 if %s%==5 goto set_language_fr
 if %s%==6 goto set_language_it
+if %s%==7 goto set_language_es
 goto set_language
+:set_language_es
+set text1=Los archivos necesarios para ejecutar este programa no se han encontrado.
+set text2=Vuelve a descargar el programa e intenta de nuevo.
+set text3=Presiona cualquier tecla para cerrar el programa.
+set text4=Vas a utilizar este programa para Wii o Wii U?
+set text5=Desafortunadamente la Wii U no es soportada...
+set text6=Si estabas bromeando, presiona una tecla para continuar.
+set text7=Si no, cierra este programa.
+set text8=Tenemos que descargar el IOS 31 y 80.
+set text9=Presiona cualquier tecla para comenzar a descargar.
+set text10=No hemos podido descargar los archivos necesarios debido a que tienes desactivada tu conexion a Internet!
+set text11=Activa tu conexion y presiona una tecla para continuar.
+set text12=Espera un momento... Los archivos se estan descargando...
+set text13=Hemos terminado! Parcheo completado.
+set text14=Puedes encontrar los archivos parcheados en la carpeta "WAD".
+
+set language=Spanish
+goto begin
 :set_language_it
 set text1=Alcuni dei file necessari per eseguire questo programma non sono stati trovati.
 set text2=Scarica nuovamente il pacchetto e riprova
@@ -105,20 +150,20 @@ set text14=Arquivos de Patched IOS sao chamadas de ''WAD''.
 set language=Portuguese
 goto begin
 :set_language_deu
-set text1=Einige der Dateien die dieses Programm braucht um zu funktionieren wurden nicht gefunden!.
+set text1=Einige der Dateien, die dieses Programm braucht, um zu funktionieren, wurden nicht gefunden!
 set text2=Downloade dieses Paket noch einmal und probiere es erneut!
 set text3=Druecke auf irgendeinen Knopf um das Programm zu beenden.
-set text4=Benutzt du diesen Patcher fuer die Wii U oder fuer die Wii?
+set text4=Benutzt du diesen Patcher fuer die Wii U oder die Wii?
 set text5=Leider kannst du diesen Patcher nicht fuer die Wii U benutzen :(
-set text6=Wenn du einen Witz gemacht hast, drucke einen Knopf um zuruck zu gehen.
+set text6=Wenn du einen Witz gemacht hast, druecke einen Knopf um zurueck zu gehen.
 set text7=Wenn nicht, schliesse dieses Programm.
-set text8=Wir mussen IOS31 und 80 downloaden.
+set text8=Wir muessen IOS 31 und 80 herunterladen.
 set text9=Drucke irgendeinen Knopf um mit dem download fortzufahren.
-set text10=Wir koennen keine Dateien downloaden da du nicht mit dem Internet verbunden bist!
-set text11=Verbinde dich mit dem Internet und drücke einen Knopf um es nochmal zu probieren.
-set text12=Bitte warte... die Dateien werden gedownloadet... 
-set text13=Das Patching ist fertig.
-set text14=Die gepatchten Dateien werden im Ordner "WAD" sein.
+set text10=Wir koennen keine Dateien herunterladen, da du nicht mit dem Internet verbunden bist!
+set text11=Verbinde dich mit dem Internet und druecke einen Knopf, um es nochmal zu probieren.
+set text12=Bitte warte... die Dateien werden heruntergeladen...
+set text13=Das Patchen ist abgeschlossen.
+set text14=Die gepatchten Dateien befinden sich im "WAD"-Ordner.
 
 set language=Deutsch
 goto begin
@@ -159,7 +204,26 @@ set text14=Patched IOS files will be in folder called "WAD".
 
 set language=English
 goto begin
+
+:DoNotTouchThisSection
+set error4112=1
+goto error4112
+
+:error_code_error
+cls
+echo IOS Patcher for RiiConnect24
+echo ------------------------------
+echo @Larsenv, @KcrPL
+echo.
+echo ERROR.
+echo It seems that error has occurred.
+echo.
+echo It's because this translation is broken. Or file check has failed.
+pause>NUL
+goto error_code_error
+
 :1
+if %filcheck%==0 goto error_code_error
 cls
 echo \
 ping localhost -n 4 >NUL
