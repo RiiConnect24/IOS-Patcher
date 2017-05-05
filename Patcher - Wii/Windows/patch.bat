@@ -5,20 +5,6 @@ rem But please, don't put your own translations in this file! You may not unders
 rem -KcrPL.
 set error4112=0
 set filcheck=0
-set text1=NUL
-set text2=NUL
-set text3=NUL
-set text4=NUL
-set text5=NUL
-set text6=NUL
-set text7=NUL
-set text8=NUL
-set text9=NUL
-set text10=NUL
-set text11=NUL
-set text12=NUL
-set text13=NUL
-set text14=NUL
 
 set language=NotDefined
 title IOS Patcher for RiiConnect24
@@ -223,6 +209,7 @@ pause>NUL
 goto error_code_error
 
 :1
+rem #Dat_sick_animation
 if %filcheck%==0 goto error_code_error
 cls
 echo \
