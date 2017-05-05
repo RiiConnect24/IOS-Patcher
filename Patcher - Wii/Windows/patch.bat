@@ -42,6 +42,7 @@ echo 3. Deutsch (Author: TimNook)
 echo 4. Portuguese (Author: Rafael)
 echo 5. French (Author: iDroid)
 echo 6. Italian (Author: GameCube)
+echo 7. Spanish (Author: Artuto)
 set /p s=Choose: 
 if %s%==1 goto set_language_en
 if %s%==2 goto set_language_pl
@@ -49,6 +50,7 @@ if %s%==3 goto set_language_deu
 if %s%==4 goto set_language_braz
 if %s%==5 goto set_language_fr
 if %s%==6 goto set_language_it
+if %s%==7 goto set_language_es
 goto set_language
 :set_language_it
 set text1=Alcuni dei file necessari per eseguire questo programma non sono stati trovati.
@@ -159,6 +161,23 @@ set text14=Patched IOS files will be in folder called "WAD".
 
 set language=English
 goto begin
+:set_language_es
+set text1=Los archivos necesarios para ejecutar este programa no se han encontrado.
+set text2=Vuelve a descargar el programa e intenta de nuevo.
+set text3=Presiona cualquier tecla para cerrar el programa.
+set text4=¿Vas a utilizar este programa para Wii o Wii U?
+set text5=Desafortunadamente la Wii U no es soportada...
+set text6=Si estabas bromeando, presiona una tecla para continuar.
+set text7=Si no, cierra este programa.
+set text8=Tenemos que descargar el IOS 31 y 80.
+set text9=Presiona cualquier tecla para comenzar a descargar.
+set text10=No hemos podido descargar los archivos necesarios debido a que tienes desactivada tu conexion a Internet!
+set text11=Activa tu conexion y presiona una tecla para continuar.
+set text12=Espera un momento... Los archivos se estan descargando...
+set text13=¡Hemos terminado! Parcheo completado.
+set text14=Puedes encontrar los archivos parcheados en la carpeta "WAD".
+
+set language=Spanish
 :1
 cls
 echo \
