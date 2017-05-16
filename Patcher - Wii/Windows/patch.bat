@@ -3,9 +3,9 @@ rem ### Download this text file: https://drive.google.com/open?id=0B99PAkYFoBoLU
 rem ### And than send me this on discord - KcrPL#4625. It's easy! :) ###
 rem But please, don't put your own translations in this file! You may not understand the code and you may broke it!
 rem -KcrPL.
+chcp 65001
 set error4112=0
 set filcheck=0
-
 set language=NotDefined
 title IOS Patcher for RiiConnect24
 set patchingok=1
@@ -46,6 +46,7 @@ echo ------------------------------
 echo @Larsenv, @KcrPL
 echo.
 echo Please select your language.
+echo U. Changelog (only in English)
 echo.
 echo 1. English (Author: KcrPL) (Correction: Seriel)
 echo 2. Polish (Author: KcrPL)
@@ -54,6 +55,7 @@ echo 4. Portuguese (Author: Rafael)
 echo 5. French (Author: iDroid)
 echo 6. Italian (Author: GameCube)
 echo 7. Spanish (Author: Artuto)
+echo 8. Russian (Author: prosuWANTED)
 set /p s=Choose: 
 if %s%==1 goto set_language_en
 if %s%==2 goto set_language_pl
@@ -62,7 +64,43 @@ if %s%==4 goto set_language_braz
 if %s%==5 goto set_language_fr
 if %s%==6 goto set_language_it
 if %s%==7 goto set_language_es
+if %s%==8 goto set_language_rus
+if %s%==u goto changelog
+if %s%==U goto changelog
 goto set_language
+:changelog
+cls
+echo IOS Patcher for RiiConnect24
+echo ------------------------------
+echo @Larsenv, @KcrPL
+echo.
+echo Changelog:
+echo.
+echo - Added Russian language.
+echo - Added accents support. (Now with: ł, ą, ж, м, и and ß) :)
+echo.
+echo Press any button to go back.
+pause>NUL
+goto set_language
+
+:set_language_rus
+set text1=Некоторые файлы необходимые для работы программы не были найдены.
+set text2=Скачайте заново архив с программой и повторите ещё раз.
+set text3=Нажмите любую кнопку чтобы закрыть патчер.
+set text4=Вы будете использовать этот патчер для Wii или Wii U?
+set text5=К сожалению, патчер не будет работать для Wii U.
+set text6=Нажмите чего-нибудь чтобы вернуться.
+set text7=Если нет, закройте эту программу.
+set text8=Нужно скачать IOS 31 и 80.
+set text9=Нажмите любую кнопку чтобы начать скачивание.
+set text10=Не получается скачать файлы, так как ваш интернет откючён.
+set text11=Пожалуйста включите ваш интернет и нажмите любую клавишу, чтобы продожить.
+set text12=Пожалуйста подождите, файлы скачиваются... 
+set text13=Патч завершён.
+set text14=IOS с патчами помещены в папку "WAD".
+
+set language=Russian
+goto begin
 :set_language_es
 set text1=Los archivos necesarios para ejecutar este programa no se han encontrado.
 set text2=Vuelve a descargar el programa e intenta de nuevo.
@@ -91,10 +129,10 @@ set text6=Se stavi scherzando, fai clic su qualcosa per tornare indietro.
 set text7=In caso contrario, chiudere questo programma.
 set text8=Dobbiamo scaricare IOS 31 e 80.
 set text9=Fare clic su qualsiasi pulsante per procedere al download.
-set text10=Non e possibile scaricare i file perché la connessione a Internet e disabilitata!
+set text10=Non è possibile scaricare i file perché la connessione a Internet è disabilitata!
 set text11=Abilita la connessione e fai clic su qualsiasi pulsante per riprovare.
 set text12=Attendere ... i file vengono procedere ad essere scaricati ...
-set text13=La patchatura e fatta.
+set text13=La patchatura è fatta.
 set text14=I file IOS installati saranno nella cartella chiamata "WAD".
 
 set language=Italian
@@ -154,20 +192,20 @@ set text14=Die gepatchten Dateien befinden sich im "WAD"-Ordner.
 set language=Deutsch
 goto begin
 :set_language_pl
-set text1=Pliki ktore sa potrzebne do uruchomienia programu nie zostaly znalezione.
-set text2=Pobierz ta paczke ponownie oraz sprobuj ponownie.
-set text3=Nacisnij dowolny przycisk aby zamknac ten program
-set text4=Czy bedziesz uzywal tego patchera dla Wii czy dla WiiU?
-set text5=Niestety nie mozesz uzywac tego programu dla Wii U :(
-set text6=Jezeli zartowales, nacisnij dowolny przycisk aby powrocic do poprzedniego menu.
+set text1=Pliki które są potrzebne do uruchomienia programu nie zostały znalezione.
+set text2=Pobierz tą paczke ponownie oraz spróbuj ponownie.
+set text3=Naciśnij dowolny przycisk aby zamknąć ten program
+set text4=Czy będziesz używal tego patchera dla Wii czy dla WiiU?
+set text5=Niestety nie mozesz używac tego programu dla Wii U :(
+set text6=Jezeli żartowales, naciśnij dowolny przycisk aby powrocic do poprzedniego menu.
 set text7=Jesli nie, zamknij program.
-set text8=Musimy pobrac IOS 31 oraz IOS 80.
-set text9=Nacisnij dowolny przycisk aby przystapic do pobierania.
-set text10=Nie mozemy pobrac plikow poniewaz twoje polaczenie internetowe jest niedostepne!
-set text11=Wlacz twoj internet i nacisnij dowolny przycisk aby sprobowac ponownie
-set text12=Prosze czekac... pliki sa pobierane
-set text13=Patchowanie przebieglo pomyslnie.
-set text14=Spatchowane pliki IOS beda w folderze nazwanym "WAD".
+set text8=Musimy pobrać IOS 31 oraz IOS 80.
+set text9=Naciśnij dowolny przycisk aby rozpocząć do pobieranie.
+set text10=Nie możemy pobrać plikow ponieważ twoje połaczenie internetowe jest niedostępne!
+set text11=Włacz twój internet i nacisnij dowolny przycisk aby spróbować ponownie
+set text12=Proszę czekać... pliki są pobierane
+set text13=Patchowanie przebiegło pomyślnie.
+set text14=Spatchowane pliki IOS bedą w folderze nazwanym "WAD".
 
 set language=Polish
 goto begin
