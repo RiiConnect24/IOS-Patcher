@@ -1,3 +1,5 @@
+mode 120,30
+@echo off
 rem ### Want to create translation for your language? ###
 rem ### Download this text file: https://drive.google.com/open?id=0B99PAkYFoBoLUFRERkFNbTBLU3M ###
 rem ### And than send me this on discord - KcrPL#4625. It's easy! :) ###
@@ -10,7 +12,6 @@ set language=NotDefined
 title IOS Patcher for RiiConnect24
 set patchingok=1
 :begin
-@echo off
 cls
 if %language%==NotDefined goto set_language
 if not exist 00000006-31.delta goto error_runtime_error
@@ -21,32 +22,32 @@ if not exist WadInstaller.dll goto error_runtime_error
 if not exist wget.exe goto error_runtime_error
 if not exist xdelta3.exe goto error_runtime_error
 set filcheck=1
-goto 1
+goto 3
 :error_runtime_error
 cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
+echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
 echo.
-echo :--------------------------------------------:
 echo  %text1%
 echo  %text2%
-echo :--------------------------------------------:
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
 echo.
 echo %text3%
 pause>NUL
 set patchingok=0
 goto end
 :set_language
+set s=NUL
 rem ### Please do not make any changes to this part of code. ###
 rem # Please contact me on Discord - KcrPL#4625 ###
 cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
+echo.
+echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
 echo.
 echo Please select your language.
-echo U. Changelog (only in English)
+if %s%==NUL echo.
+if %s%==NUL echo If you want to exit, press ENTER without typing anything
 echo.
 echo 1. English (Author: KcrPL) (Correction: Seriel)
 echo 2. Polish (Author: KcrPL)
@@ -56,6 +57,7 @@ echo 5. French (Author: iDroid)
 echo 6. Italian (Author: GameCube)
 echo 7. Spanish (Author: Artuto)
 echo 8. Russian (Author: prosuWANTED)
+echo.
 set /p s=Choose: 
 if %s%==1 goto set_language_en
 if %s%==2 goto set_language_pl
@@ -65,22 +67,7 @@ if %s%==5 goto set_language_fr
 if %s%==6 goto set_language_it
 if %s%==7 goto set_language_es
 if %s%==8 goto set_language_rus
-if %s%==u goto changelog
-if %s%==U goto changelog
-goto set_language
-:changelog
-cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
-echo.
-echo Changelog:
-echo.
-echo - Added Russian language.
-echo - Added accents support. (Now with: ł, ą, ж, м, и and ß) :)
-echo.
-echo Press any button to go back.
-pause>NUL
+if %s%==NUL exit
 goto set_language
 
 :set_language_rus
@@ -156,20 +143,20 @@ set text14=Les IOS patches se trouvent dans le dossier "WAD".
 set language=French
 goto begin
 :set_language_braz
-set text1=Alguns dos arquivos necessarios para rodar o programa, nao foram encontrados.
+set text1=Alguns dos arquivos necessários para rodar o programa, não foram encontrados.
 set text2=Baixe o arquivo novamente e tente de novo
-set text3=Clique em qualquer botao para fechar o patcher.
-set text4=Voce vai usar esse patcher para Wii ou WiiU?
-set text5=Infelizmente, voce nao pode utilizar esse patch no Wii U :(
-set text6=Se voce estava brincando, clique no botão para voltar.
-set text7=Se nao estava, feche o programa.
-set text8=Nos precisamos baixar as IOS 31 e 80.
-set text9=Clique em qualquer botao para comecar o download.
-set text10=Nos nao podemos baixar os arquivos pois a sua internet esta desligada!
+set text3=Clique em qualquer botão para fechar o patcher.
+set text4=Você vai usar esse patcher para Wii ou WiiU?
+set text5=Infelizmente, você não pode utilizar esse patch no Wii U :(
+set text6=Se você estava brincando, clique no botão para voltar.
+set text7=Se não estava, feche o programa.
+set text8=Nós precisamos baixar as IOS 31 e 80.
+set text9=Clique em qualquer botão para começar o download.
+set text10=Nós não podemos baixar os arquivos pois a sua internet está desligada!
 set text11=Ligue a sua internet e tente novamente.
-set text12=Por favor espere... Os arquivos estao sendo baixados... 
+set text12=Por favor espere... Os arquivos estão sendo baixados... 
 set text13=O Patching acabou.
-set text14=Arquivos de Patched IOS sao chamadas de ''WAD''.
+set text14=Arquivos de Patched IOS são chamadas de ''WAD''.
 
 set language=Portuguese
 goto begin
@@ -232,7 +219,6 @@ goto begin
 :DoNotTouchThisSection
 set error4112=1
 goto error4112
-
 :error_code_error
 cls
 echo IOS Patcher for RiiConnect24
@@ -246,466 +232,11 @@ echo It's because this translation is broken. Or file check has failed.
 pause>NUL
 goto error_code_error
 
-:1
-rem #Dat_sick_animation
-if %filcheck%==0 goto error_code_error
-cls
-echo \
-ping localhost -n 4 >NUL
-echo H\
-ping localhost -n 1 >NUL
-cls
-echo Hi\
-ping localhost -n 1 >NUL
-cls
-echo Hi\
-ping localhost -n 3 >NUL
-cls
-echo Hi.
-echo Th\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Than\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks f\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for ch\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for chec\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checki\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out Ri\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiC\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiCon\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConne\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect2\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo Th\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This pa\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patc\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patche\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is fo\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for p\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patc\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patchi\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching I\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS t\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to m\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to mak\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make Ri\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiC\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiCon\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnec\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect2\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 wo\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on yo\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wi\
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-ping localhost -n 5 >NUL
-goto 2
-:2
-cls
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :-
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :---
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :----
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :---------
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :-------------
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :-------------------
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :------------------------
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :-------------------------------
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :--------------------------------------
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :------------------------------------------
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :-----------------------------------------------
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :---------------------------------------------------
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :----------------------------------------------------------
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :------------------------------------------------------------
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :--------------------------------------------------------------
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :----------------------------------------------------------------
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :-----------------------------------------------------------------
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :------------------------------------------------------------------
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :-------------------------------------------------------------------
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :--------------------------------------------------------------------
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :---------------------------------------------------------------------
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo This patcher is for patching IOS to make RiiConnect24 work on your Wii.
-echo :---------------------------------------------------------------------:
-ping localhost -n 2 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo. 
-echo :---------------------------------------------------------------------:
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo Thanks for checking out RiiConnect24
-echo :---------------------------------------------------------------------:
-ping localhost -n 1 >NUL
-cls
-echo Hi.
-echo :---------------------------------------------------------------------:
-echo @Larsenv, @KcrPL
-ping localhost -n 1 >NUL
-cls
-echo :---------------------------------------------------------------------:
-echo ------------------------------
-echo @Larsenv, @KcrPL
-ping localhost -n 1 >NUL
-cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
-goto 3
+
 :3
 cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
-echo.
-echo Language: %language%
-echo In order to change language - restart this program.
-echo :---------------------------------------------------:
+echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
 echo.
 echo %text4%
 echo.
@@ -717,9 +248,9 @@ if %s%==2 goto error_3
 goto 3
 :error_3
 cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
+echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+
 echo.
 echo %text5%
 echo.
@@ -728,152 +259,87 @@ echo %text7%
 pause>NUL
 goto 3
 :4
-set internet=1
-ping www.google.com -n 1 >NUL || set internet=0
+set instalorder=1
+set intrepeat=0
 cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
+echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
 echo.
 echo %text8%
 echo %text9%
 echo.
-if %internet%==0 echo %text10%
-if %internet%==0 echo %text11%
-pause>NUL
-if %internet%==0 goto 4
+pause>NUL	
 goto 5
+:5_err
+cls
+echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo %text10%
+echo %text11%
+pause>NUL
+goto 5
+
+:5_int
+set internet=1
+ping www.google.com -n 1 >NUL || set internet=0
+if %internet%==0 set /a errinternet=%errinternet%+1
+if %internet%==1 goto 5
+if %errinternet%==5 goto 5_err	
+if %internet%==0 goto 5_int
+
 :5
+set errinternet=0
 if exist WAD rmdir WAD /s /q
 cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
-echo.
+echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+set internet=1
+ping www.google.com -n 1 >NUL || set internet=0
+if %internet%==0 goto 5_int
+
 echo %text12%
-echo 6%%
+rem ### Patching ###
 Sharpii.exe NUSD -ios 31 -v latest -o IOS31-old.wad -wad >NUL
-cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
-echo.
-echo %text12%
-echo 12%%
+if not %errorlevel%==0 goto error_patching
 Sharpii.exe NUSD -ios 80 -v latest -o IOS80-old.wad -wad >NUL
-cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
-echo.
-echo %text12%
-echo 18%%
+if not %errorlevel%==0 goto error_patching
 Sharpii.exe WAD -u IOS31-old.wad IOS31/ >NUL
-cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
-echo.
-echo %text12%
-echo 25%%
+if not %errorlevel%==0 goto error_patching
 Sharpii.exe WAD -u IOS80-old.wad IOS80/ >NUL
-cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
-echo.
-echo %text12%
-echo 31%%
 move IOS31\00000006.app 00000006.app >NUL
+if not %errorlevel%==0 goto error_patching
 xdelta3.exe -f -d -s 00000006.app 00000006-31.delta IOS31\00000006.app >NUL
-cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
-echo.
-echo %text12%
-echo 37%%
+if not %errorlevel%==0 goto error_patching
 move IOS80\00000006.app 00000006.app >NUL
-cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
-echo.
-echo %text12%
-echo 43%%
+if not %errorlevel%==0 goto error_patching
 xdelta3.exe -f -d -s 00000006.app 00000006-80.delta IOS80\00000006.app >NUL
-cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
-echo.
-echo %text12%
-echo 50%%
+if not %errorlevel%==0 goto error_patching
 mkdir WAD
-cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
-echo.
-echo %text12%
-echo 56%%
+if not %errorlevel%==0 goto error_patching
 Sharpii.exe WAD -p IOS31\ WAD\IOS31.wad -fs >NUL
-cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
-echo.
-echo %text12%
-echo 62%%
+if not %errorlevel%==0 goto error_patching
 Sharpii.exe WAD -p IOS80\ WAD\IOS80.wad -fs >NUL
-cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
-echo.
-echo %text12%
-echo 68%%
+if not %errorlevel%==0 goto error_patching
 del 00000006.app /q >NUL
-cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
-echo.
-echo %text12%
-echo 75%%
+if not %errorlevel%==0 goto error_patching
 del IOS31-old.wad /q >NUL
-cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
-echo.
-echo %text12%
-echo 81%%
+if not %errorlevel%==0 goto error_patching
 del IOS80-old.wad /q >NUL
-cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
-echo.
-echo %text12%
-echo 87%%
+if not %errorlevel%==0 goto error_patching
 rmdir /s /q IOS31 >NUL
-cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
-echo.
-echo %text12%
-echo 93%%
+if not %errorlevel%==0 goto error_patching
 rmdir /s /q IOS80 >NUL
-cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
-echo.
-echo 100%%
-timeout 3 /nobreak >NUL
+rem ### Patching Done ###
 goto end
+:error_patching
+cls
+echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo.
+echo There was an error while patching.
+echo Press any button to try again.
+pause>NUL
+goto 4
 :end
 set /a exiting=10
 set /a timeouterror=1
@@ -881,9 +347,9 @@ timeout 1 /nobreak >NUL && set /a timeouterror=0
 goto end1
 :end1
 cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
+echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+
 echo.
 if %patchingok%==1 echo %text13%
 if %patchingok%==1 echo %text14%
@@ -905,3 +371,4 @@ if %timeouterror%==0 timeout 1 /nobreak >NUL
 if %timeouterror%==1 ping localhost -n 2 >NUL
 set /a exiting=%exiting%-1
 goto end1
+-
