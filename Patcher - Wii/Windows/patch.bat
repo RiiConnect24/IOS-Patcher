@@ -125,20 +125,20 @@ set text14=I file IOS installati saranno nella cartella chiamata "WAD".
 set language=Italian
 goto begin
 :set_language_fr
-set text1=Un des fichiers necessaires pour executer ce programme n'a pas ete trouve.
-set text2=Telechargez l'archive a nouveau puis reessayez
+set text1=Un des fichiers nécessaires pour exécuter ce programme n'a pas ete trouvé.
+set text2=Téléchargez l'archive a nouveau puis réessayez
 set text3=Appuyez sur n'importe quelle touche pour fermer le programme
 set text4=Allez-vous utiliser ce patcher pour la Wii ou la Wii U ?
 set text5=Malheureusement, ce patcher est incompatible avec la Wii U...
 set text6=Si vous blaguiais, appuyez sur une touche pour continuer.
 set text7=Si non, fermez le programme.
-set text8=Nous devons telecharger les IOS 31 et 80.
-set text9=Appuyez sur n'importe quelle touche pour proceder au telechargement.
-set text10=Nous ne pouvons pas telecharger les IOS car votre connexion Internet est inaccessible.
-set text11=Retablissez votre connexion Internet puis appuyez sur n'importe quelle touche.
-set text12=Patientez... les fichiers sont en train d'etre telecharges...
+set text8=Nous devons télécharger les IOS 31 et 80.
+set text9=Appuyez sur n'importe quelle touche pour procéder au téléchargement.
+set text10=Nous ne pouvons pas télécharger les IOS car votre connexion Internet est inaccessible.
+set text11=Rétablissez votre connexion Internet puis appuyez sur n'importe quelle touche.
+set text12=Patientez... les fichiers sont en train d'être télécharges...
 set text13=Le patchage est terminé
-set text14=Les IOS patches se trouvent dans le dossier "WAD".
+set text14=Les IOS patchés se trouvent dans le dossier "WAD".
 
 set language=French
 goto begin
