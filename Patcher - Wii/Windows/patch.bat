@@ -1,3 +1,5 @@
+:1
+set version=1.5.5
 mode 120,30
 @echo off
 rem ### Want to create translation for your language? ###
@@ -11,6 +13,8 @@ set filcheck=0
 set language=NotDefined
 title IOS Patcher for RiiConnect24
 set patchingok=1
+if exist C:\Users\%username%\Desktop\IOSPatcherDebug.txt goto debug_1
+goto begin
 :begin
 cls
 if %language%==NotDefined goto set_language
@@ -23,10 +27,143 @@ if not exist wget.exe goto error_runtime_error
 if not exist xdelta3.exe goto error_runtime_error
 set filcheck=1
 goto 3
-:error_runtime_error
+:debug_1
+if not defined %output% set output=No output.
 cls
 echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
 echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo debug menu
+echo.
+echo :---------------:
+echo Output:
+echo %output%
+echo :---------------:
+echo.
+echo 1. Check for runtime files
+echo 2. Check system req
+echo 3. Load a translation into memory
+echo 4. Exit debug menu
+echo 5. Exit.
+echo 6. Download IOS 31 and IOS 80
+echo 7. Delete files/Refresh program.
+echo 8. Change coding page to cmd defualt
+echo 9. Change coding page to 65001 (UTF-8)
+set /p s=Choose: 
+if %s%==1 goto debug_runtime
+if %s%==2 goto debug_system_Req
+if %s%==3 goto set_language
+if %s%==4 goto begin
+if %s%==5 exit
+if %s%==6 goto debug_download
+if %s%==7 goto refresh_database
+if %s%==8 goto debug_coding_8
+if %s%==9 goto debug_coding_utf
+goto debug_1
+:debug_runtime
+set /a tempvariable=0
+if not exist 00000006-31.delta set /a tempvariable=1
+if not exist 00000006-80.delta set /a tempvariable=1
+if not exist libWiiSharp.dll set /a tempvariable=1
+if not exist Sharpii.exe set /a tempvariable=1
+if not exist WadInstaller.dll set /a tempvariable=1
+if not exist wget.exe set /a tempvariable=1
+if not exist xdelta3.exe set /a tempvariable=1
+
+if %tempvariable%==1 set output=Files are corrupted. Please download a new package from GitHub or unpack this program!
+if %tempvariable%==0 set output=It seems that files are OK!
+goto debug_1
+:debug_system_Req
+set /a tempvariable=0
+timeout 1 /nobreak || set /a tempvariable=1 >NUL
+
+if %tempvariable%==0 set output=There should be no problems with this program.
+if %tempvariable%==1 set output=Your OS is probably Windows XP. You may experience some problems with this program.
+goto debug_1
+:refresh_database
+cls
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo  [*] Deleting files.
+echo.
+echo You are about to delete any temporary files that has been created by this Patcher.
+echo.
+echo Is that OK?
+echo.
+echo ҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉
+echo                          1. Yes                                                 2. No
+set /p s= 
+if %s%==1 goto debug_ref
+if %s%==2 goto debug_1
+goto refresh_database
+:debug_ref
+cls
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo  [*] Deleting files.
+echo.
+del /q IOS31-old.wad >NUL
+del /q IOS80-old.wad >NUL
+del /q IOS31\00000006.app >NUL
+rmdir /q /s IOS31 >NUL
+rmdir /q /s IOS80 >NUL
+del /q 00000006.app >NUL
+del /q IOS80\00000006.app >NUL
+
+set output=OK!
+echo Files has been deleted.
+echo This program will restart shortly.
+ping localhost -n 5 >NUL
+goto 1
+:debug_coding_8
+chcp 852
+set output=Coding page change was successfull.goto debug_1
+goto debug_1
+:debug_coding_utf
+chcp 65001
+set output=Coding page change was successfull.
+goto debug_1
+:debug_download
+cls
+echo Downloading IOS 31...
+Sharpii.exe NUSD -ios 31 -v latest -o IOS31-old.wad -wad >NUL
+echo Downloading IOS 80...
+Sharpii.exe NUSD -ios 80 -v latest -o IOS80-old.wad -wad >NUL
+set output=Downloading successfull.
+goto debug_download1
+:debug_download1
+echo Do you want to patch IOS 31 and 80 for RiiConnect?
+echo 1. Yes
+echo 2. No
+set /p s=Choose: 
+if %s%==1 goto debug_download_patch
+if %s%==2 goto debug_1
+goto debug_download_1
+:debug_download_patch
+Sharpii.exe WAD -u IOS31-old.wad IOS31/ >NUL
+Sharpii.exe WAD -u IOS80-old.wad IOS80/ >NUL
+move IOS31\00000006.app 00000006.app >NUL
+xdelta3.exe -f -d -s 00000006.app 00000006-31.delta IOS31\00000006.app >NUL
+move IOS80\00000006.app 00000006.app >NUL
+xdelta3.exe -f -d -s 00000006.app 00000006-80.delta IOS80\00000006.app >NUL
+mkdir WAD
+Sharpii.exe WAD -p IOS31\ WAD\IOS31.wad -fs >NUL
+Sharpii.exe WAD -p IOS80\ WAD\IOS80.wad -fs >NUL
+del 00000006.app /q >NUL
+del IOS31-old.wad /q >NUL
+del IOS80-old.wad /q >NUL
+rmdir /s /q IOS31 >NUL
+rmdir /s /q IOS80 >NUL
+set output=Patching and downloading IOS 31, 80 done.
+goto debug_1
+
+
+
+:error_runtime_error
+mode 120,30
+cls
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo  [*] Error.
 echo.
 echo  %text1%
 echo  %text2%
@@ -37,15 +174,16 @@ pause>NUL
 set patchingok=0
 goto end
 :set_language
+mode 120,30
 set s=NUL
 rem ### Please do not make any changes to this part of code. ###
 rem # Please contact me on Discord - KcrPL#4625 ###
 cls
 echo.
-echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL. v%version%
 echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo  [*] Please select your language.
 echo.
-echo Please select your language.
 if %s%==NUL echo.
 if %s%==NUL echo If you want to exit, press ENTER without typing anything
 echo.
@@ -220,10 +358,12 @@ goto begin
 set error4112=1
 goto error4112
 :error_code_error
+mode 120,30
 cls
-echo IOS Patcher for RiiConnect24
-echo ------------------------------
-echo @Larsenv, @KcrPL
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo  [*] Error.
 echo.
 echo ERROR.
 echo It seems that error has occurred.
@@ -234,23 +374,28 @@ goto error_code_error
 
 
 :3
+mode 120,30
 cls
-echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
 echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo  [*] Configuring
 echo.
 echo %text4%
 echo.
-echo 1. Wii
-echo 2. WiiU
+echo ҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉
+echo                          1. Wii                                                 2. WiiU
 set /p s=Choose: 
 if %s%==1 goto 4
 if %s%==2 goto error_3
 goto 3
 :error_3
+mode 120,30
 cls
-echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
 echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
-
+echo  [*] Error.
 echo.
 echo %text5%
 echo.
@@ -259,11 +404,14 @@ echo %text7%
 pause>NUL
 goto 3
 :4
+mode 120,30
 set instalorder=1
 set intrepeat=0
 cls
-echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
 echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo  [*] Info.
 echo.
 echo %text8%
 echo %text9%
@@ -272,10 +420,15 @@ pause>NUL
 goto 5
 
 :5
+mode 120,30
 if exist WAD rmdir WAD /s /q
 cls
-echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
 echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo  [*] Downloading
+echo.
 echo %text12%
 rem ### Patching ###
 Sharpii.exe NUSD -ios 31 -v latest -o IOS31-old.wad -wad >NUL
@@ -311,12 +464,18 @@ rmdir /s /q IOS80 >NUL
 rem ### Patching Done ###
 goto end
 :error_patching
+mode 120,30
 cls
-echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
 echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo  [*] Error.
 echo.
 echo There was an error while patching.
 echo Press any button to try again.
+echo.
+echo That problem was probably caused by your internet connection.
+echo Check your internet connection and try again.
 pause>NUL
 goto 4
 :end
@@ -325,10 +484,13 @@ set /a timeouterror=1
 timeout 1 /nobreak >NUL && set /a timeouterror=0
 goto end1
 :end1
+mode 120,30
 cls
-echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
 echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
-
+echo  [*] Thanks for using that Patcher! :)
 echo.
 if %patchingok%==1 echo %text13%
 if %patchingok%==1 echo %text14%
@@ -345,6 +507,7 @@ if %exiting%==3 echo :---       : 3
 if %exiting%==2 echo :--        : 2
 if %exiting%==1 echo :-         : 1
 if %exiting%==0 echo :          :
+if %exiting%==0 start WAD
 if %exiting%==0 exit
 if %timeouterror%==0 timeout 1 /nobreak >NUL
 if %timeouterror%==1 ping localhost -n 2 >NUL
