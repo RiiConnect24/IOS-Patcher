@@ -270,33 +270,12 @@ echo %text9%
 echo.
 pause>NUL	
 goto 5
-:5_err
-cls
-echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
-echo %text10%
-echo %text11%
-pause>NUL
-goto 5
-
-:5_int
-set internet=1
-ping www.google.com -n 1 >NUL || set internet=0
-if %internet%==0 set /a errinternet=%errinternet%+1
-if %internet%==1 goto 5
-if %errinternet%==5 goto 5_err	
-if %internet%==0 goto 5_int
 
 :5
-set errinternet=0
 if exist WAD rmdir WAD /s /q
 cls
 echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
 echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
-set internet=1
-ping www.google.com -n 1 >NUL || set internet=0
-if %internet%==0 goto 5_int
-
 echo %text12%
 rem ### Patching ###
 Sharpii.exe NUSD -ios 31 -v latest -o IOS31-old.wad -wad >NUL
@@ -371,4 +350,3 @@ if %timeouterror%==0 timeout 1 /nobreak >NUL
 if %timeouterror%==1 ping localhost -n 2 >NUL
 set /a exiting=%exiting%-1
 goto end1
--
