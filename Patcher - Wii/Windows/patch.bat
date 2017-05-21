@@ -1,5 +1,7 @@
 :1
-set version=1.5.5
+set copyingsdcard=0
+set /a translationsserror=0
+set version=1.5.6
 mode 120,30
 @echo off
 rem ### Want to create translation for your language? ###
@@ -17,6 +19,9 @@ if exist C:\Users\%username%\Desktop\IOSPatcherDebug.txt goto debug_1
 goto begin
 :begin
 cls
+
+if exist "%appdata%\temprc24.txt" del /q "%appdata%\temprc24.txt"
+
 if %language%==NotDefined goto set_language
 if not exist 00000006-31.delta goto error_runtime_error
 if not exist 00000006-80.delta goto error_runtime_error
@@ -174,6 +179,7 @@ pause>NUL
 set patchingok=0
 goto end
 :set_language
+set translationsserror=0
 mode 120,30
 set s=NUL
 rem ### Please do not make any changes to this part of code. ###
@@ -209,6 +215,9 @@ if %s%==NUL exit
 goto set_language
 
 :set_language_rus
+set language=Russian
+if %translationsserror%==1 goto set_language_en
+
 set text1=Некоторые файлы необходимые для работы программы не были найдены.
 set text2=Скачайте заново архив с программой и повторите ещё раз.
 set text3=Нажмите любую кнопку чтобы закрыть патчер.
@@ -224,9 +233,33 @@ set text12=Пожалуйста подождите, файлы скачиваю�
 set text13=Патч завершён.
 set text14=IOS с патчами помещены в папку "WAD".
 
-set language=Russian
+rem ### Not Completed language ###
+set text15=There was an error while patching.
+set text16=Press any button to try again.
+set text17=Check your internet connection and try again.
+set text18=That problem was probably caused by your internet connection.
+set text19=Do you want to copy patched files to an SD Card?
+set text20=Yes
+set text21=No
+set text22=Please wait...
+set text23=An SD card was not found in the system.
+set text24=Please connect SD Card and press any button to try again.
+set text25=Current SD Card Letter:
+set text26=Do you want to change SD Card drive letter?
+set text27=Continue and copy files to SD Card
+set text28=Change drive letter
+set text29=Exit
+set text30=Type in new drive letter
+set text31=There was an error while copying files.
+set text32=Please wait... copying.
+set text33=Files has been copyied to SD Card to folder called "WAD"
+
+
 goto begin
 :set_language_es
+set language=Spanish
+if %translationsserror%==1 goto set_language_en
+
 set text1=Los archivos necesarios para ejecutar este programa no se han encontrado.
 set text2=Vuelve a descargar el programa e intenta de nuevo.
 set text3=Presiona cualquier tecla para cerrar el programa.
@@ -242,9 +275,33 @@ set text12=Espera un momento... Los archivos se estan descargando...
 set text13=Hemos terminado! Parcheo completado.
 set text14=Puedes encontrar los archivos parcheados en la carpeta "WAD".
 
-set language=Spanish
+rem ### Not Completed language ###
+set text15=There was an error while patching.
+set text16=Press any button to try again.
+set text17=Check your internet connection and try again.
+set text18=That problem was probably caused by your internet connection.
+set text19=Do you want to copy patched files to an SD Card?
+set text20=Yes
+set text21=No
+set text22=Please wait...
+set text23=An SD card was not found in the system.
+set text24=Please connect SD Card and press any button to try again.
+set text25=Current SD Card Letter:
+set text26=Do you want to change SD Card drive letter?
+set text27=Continue and copy files to SD Card
+set text28=Change drive letter
+set text29=Exit
+set text30=Type in new drive letter
+set text31=There was an error while copying files.
+set text32=Please wait... copying.
+set text33=Files has been copyied to SD Card to folder called "WAD"
+
+
 goto begin
 :set_language_it
+set language=Italian
+if %translationsserror%==1 goto set_language_en
+
 set text1=Alcuni dei file necessari per eseguire questo programma non sono stati trovati.
 set text2=Scarica nuovamente il pacchetto e riprova
 set text3=Fare clic su qualsiasi pulsante per chiudere il patcher.
@@ -260,9 +317,32 @@ set text12=Attendere ... i file vengono procedere ad essere scaricati ...
 set text13=La patchatura è fatta.
 set text14=I file IOS installati saranno nella cartella chiamata "WAD".
 
-set language=Italian
+rem ### Not Completed language ###
+set text15=There was an error while patching.
+set text16=Press any button to try again.
+set text17=Check your internet connection and try again.
+set text18=That problem was probably caused by your internet connection.
+set text19=Do you want to copy patched files to an SD Card?
+set text20=Yes
+set text21=No
+set text22=Please wait...
+set text23=An SD card was not found in the system.
+set text24=Please connect SD Card and press any button to try again.
+set text25=Current SD Card Letter:
+set text26=Do you want to change SD Card drive letter?
+set text27=Continue and copy files to SD Card
+set text28=Change drive letter
+set text29=Exit
+set text30=Type in new drive letter
+set text31=There was an error while copying files.
+set text32=Please wait... copying.
+set text33=Files has been copyied to SD Card to folder called "WAD"
+
 goto begin
 :set_language_fr
+set language=French
+if %translationsserror%==1 goto set_language_en
+
 set text1=Un des fichiers nécessaires pour exécuter ce programme n'a pas ete trouvé.
 set text2=Téléchargez l'archive a nouveau puis réessayez
 set text3=Appuyez sur n'importe quelle touche pour fermer le programme
@@ -278,9 +358,33 @@ set text12=Patientez... les fichiers sont en train d'être télécharges...
 set text13=Le patchage est terminé
 set text14=Les IOS patchés se trouvent dans le dossier "WAD".
 
-set language=French
+rem ### Not Completed language ###
+set text15=There was an error while patching.
+set text16=Press any button to try again.
+set text17=Check your internet connection and try again.
+set text18=That problem was probably caused by your internet connection.
+set text19=Do you want to copy patched files to an SD Card?
+set text20=Yes
+set text21=No
+set text22=Please wait...
+set text23=An SD card was not found in the system.
+set text24=Please connect SD Card and press any button to try again.
+set text25=Current SD Card Letter:
+set text26=Do you want to change SD Card drive letter?
+set text27=Continue and copy files to SD Card
+set text28=Change drive letter
+set text29=Exit
+set text30=Type in new drive letter
+set text31=There was an error while copying files.
+set text32=Please wait... copying.
+set text33=Files has been copyied to SD Card to folder called "WAD"
+
+
 goto begin
 :set_language_braz
+set language=Portuguese
+if %translationsserror%==1 goto set_language_en
+
 set text1=Alguns dos arquivos necessários para rodar o programa, não foram encontrados.
 set text2=Baixe o arquivo novamente e tente de novo
 set text3=Clique em qualquer botão para fechar o patcher.
@@ -296,9 +400,33 @@ set text12=Por favor espere... Os arquivos estão sendo baixados...
 set text13=O Patching acabou.
 set text14=Arquivos de Patched IOS são chamadas de ''WAD''.
 
-set language=Portuguese
+rem ### Not Completed language ###
+set text15=There was an error while patching.
+set text16=Press any button to try again.
+set text17=Check your internet connection and try again.
+set text18=That problem was probably caused by your internet connection.
+set text19=Do you want to copy patched files to an SD Card?
+set text20=Yes
+set text21=No
+set text22=Please wait...
+set text23=An SD card was not found in the system.
+set text24=Please connect SD Card and press any button to try again.
+set text25=Current SD Card Letter:
+set text26=Do you want to change SD Card drive letter?
+set text27=Continue and copy files to SD Card
+set text28=Change drive letter
+set text29=Exit
+set text30=Type in new drive letter
+set text31=There was an error while copying files.
+set text32=Please wait... copying.
+set text33=Files has been copyied to SD Card to folder called "WAD"
+
+
 goto begin
 :set_language_deu
+set language=Deutsch
+if %translationsserror%==1 goto set_language_en
+
 set text1=Einige der Dateien, die dieses Programm braucht, um zu funktionieren, wurden nicht gefunden!
 set text2=Downloade dieses Paket noch einmal und probiere es erneut!
 set text3=Druecke auf irgendeinen Knopf um das Programm zu beenden.
@@ -314,9 +442,32 @@ set text12=Bitte warte... die Dateien werden heruntergeladen...
 set text13=Das Patchen ist abgeschlossen.
 set text14=Die gepatchten Dateien befinden sich im "WAD"-Ordner.
 
-set language=Deutsch
+rem ### Not Completed language ###
+set text15=There was an error while patching.
+set text16=Press any button to try again.
+set text17=Check your internet connection and try again.
+set text18=That problem was probably caused by your internet connection.
+set text19=Do you want to copy patched files to an SD Card?
+set text20=Yes
+set text21=No
+set text22=Please wait...
+set text23=An SD card was not found in the system.
+set text24=Please connect SD Card and press any button to try again.
+set text25=Current SD Card Letter:
+set text26=Do you want to change SD Card drive letter?
+set text27=Continue and copy files to SD Card
+set text28=Change drive letter
+set text29=Exit
+set text30=Type in new drive letter
+set text31=There was an error while copying files.
+set text32=Please wait... copying.
+set text33=Files has been copyied to SD Card to folder called "WAD"
+
 goto begin
 :set_language_pl
+set language=Polish
+if %translationsserror%==1 goto set_language_en
+
 set text1=Pliki które są potrzebne do uruchomienia programu nie zostały znalezione.
 set text2=Pobierz tą paczke ponownie oraz spróbuj ponownie.
 set text3=Naciśnij dowolny przycisk aby zamknąć ten program
@@ -331,8 +482,26 @@ set text11=Włacz twój internet i nacisnij dowolny przycisk aby spróbować pon
 set text12=Proszę czekać... pliki są pobierane
 set text13=Patchowanie przebiegło pomyślnie.
 set text14=Spatchowane pliki IOS bedą w folderze nazwanym "WAD".
+set text15=Wystąpił błąd podczas patchowania.
+set text16=Naciśnij dowolny przycisk aby spróbować ponownie.
+set text17=Sprawdź połączenie internetowe i spróbuj ponownie.
+set text18=Ten problem został prawdopodobnie spowodowany problem z połączeniem internetowym.
+set text19=Czy chcesz skopiować spatchowane pliki na kartę SD?
+set text20=Tak
+set text21=Nie
+set text22=Proszę czekać...
+set text23=Karta SD nie zostałą znaleziona w systemie
+set text24=Proszę podłącz kartę SD i naciśnij dowolny przycisk aby spróbować ponownie.
+set text25=Aktualna litera karty SD: 
+set text26=Czy chcesz zmienić litere karty SD?
+set text27=Kontynuuj i skopiuj pliki na kartę SD.
+set text28=Zmień literę dysku.
+set text29=Wyjdź
+set text30=Wpisz nową litere karty SD
+set text31=Wystąpił błąd podczas kopiowania pliku.
+set text32=Proszę czekać... kopiowanie.
+set text33=Pliki zostały skopiowane na kartę SD do folderu nazwanego "WAD"
 
-set language=Polish
 goto begin
 :set_language_en
 cls
@@ -350,6 +519,25 @@ set text11=Enable your connection and click any button to try again.
 set text12=Please wait... files are being downloaded... 
 set text13=Patching is done.
 set text14=Patched IOS files will be in folder called "WAD".
+set text15=There was an error while patching.
+set text16=Press any button to try again.
+set text17=Check your internet connection and try again.
+set text18=That problem was probably caused by your internet connection.
+set text19=Do you want to copy patched files to an SD Card?
+set text20=Yes
+set text21=No
+set text22=Please wait...
+set text23=An SD card was not found in the system.
+set text24=Please connect SD Card and press any button to try again.
+set text25=Current SD Card Letter:
+set text26=Do you want to change SD Card drive letter?
+set text27=Continue and copy files to SD Card
+set text28=Change drive letter
+set text29=Exit
+set text30=Type in new drive letter
+set text31=There was an error while copying files.
+set text32=Please wait... copying.
+set text33=Files has been copyied to SD Card to folder called "WAD"
 
 set language=English
 goto begin
@@ -372,8 +560,22 @@ echo It's because this translation is broken. Or file check has failed.
 pause>NUL
 goto error_code_error
 
-
+:error_translation_not_completed
+mode 120,30
+cls
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo  [*] Error.
+echo.
+echo It seems that the translation that you've choose is broken/not completed.
+echo Missing strings of translation will be now replaced with english strings.
+echo.
+echo Press any button to continue.
+pause>NUL
+set /a translationsserror=1
+goto begin
 :3
+
 mode 120,30
 cls
 echo.
@@ -462,7 +664,7 @@ rmdir /s /q IOS31 >NUL
 if not %errorlevel%==0 goto error_patching
 rmdir /s /q IOS80 >NUL
 rem ### Patching Done ###
-goto end
+goto ask_for_copy_to_an_sd_card
 :error_patching
 mode 120,30
 cls
@@ -471,13 +673,251 @@ echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
 echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
 echo  [*] Error.
 echo.
-echo There was an error while patching.
-echo Press any button to try again.
+echo %text15%
+echo %text16%
 echo.
-echo That problem was probably caused by your internet connection.
-echo Check your internet connection and try again.
+echo %text18%
+echo %text17%
 pause>NUL
 goto 4
+:ask_for_copy_to_an_sd_card
+mode 120,30
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo  [*] SD Card
+echo.
+echo %text13%
+echo %text19%
+echo.
+echo ҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉
+echo                          1. %text20%                                                 2. %text21%
+set /p s= 
+if %s%==1 goto sd_card_check
+if %s%==2 goto end
+goto ask_for_copy_to_an_sd_card
+:sd_card_check
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo  [*] SD Card
+echo.
+set sdcard=NotDefined
+echo %text22%
+goto sd_a
+:sd_a
+set /a check=0
+if exist A:\private\wii set /a check=%check%+1
+if exist A:\apps set /a check=%check%+1
+if %check%==2 set sdcard=A
+goto sd_b 
+:sd_b
+set /a check=0
+if exist B:\private\wii set /a check=%check%+1
+if exist B:\apps set /a check=%check%+1
+if %check%==2 set sdcard=B
+goto sd_c
+:sd_c
+set /a check=0
+if exist C:\private\wii set /a check=%check%+1
+if exist C:\apps set /a check=%check%+1
+if %check%==2 set sdcard=C
+goto sd_d
+:sd_d
+set /a check=0
+if exist D:\private\wii set /a check=%check%+1
+if exist D:\apps set /a check=%check%+1
+if %check%==2 set sdcard=D
+goto sd_e
+:sd_e
+set /a check=0
+if exist E:\private\wii set /a check=%check%+1
+if exist E:\apps set /a check=%check%+1
+if %check%==2 set sdcard=E
+goto sd_f
+:sd_f
+set /a check=0
+if exist F:\private\wii set /a check=%check%+1
+if exist F:\apps set /a check=%check%+1
+if %check%==2 set sdcard=F
+goto sd_g
+:sd_g
+set /a check=0
+if exist G:\private\wii set /a check=%check%+1
+if exist G:\apps set /a check=%check%+1
+if %check%==2 set sdcard=G
+goto sd_h
+:sd_h
+set /a check=0
+if exist H:\private\wii set /a check=%check%+1
+if exist H:\apps set /a check=%check%+1
+if %check%==2 set sdcard=H
+goto sd_i
+:sd_i
+set /a check=0
+if exist I:\private\wii set /a check=%check%+1
+if exist I:\apps set /a check=%check%+1
+if %check%==2 set sdcard=J
+goto sd_j
+:sd_j
+set /a check=0
+if exist J:\private\wii set /a check=%check%+1
+if exist J:\apps set /a check=%check%+1
+if %check%==2 set sdcard=J
+goto sd_k
+:sd_k
+set /a check=0
+if exist K:\private\wii set /a check=%check%+1
+if exist K:\apps set /a check=%check%+1
+if %check%==2 set sdcard=K
+goto sd_l
+:sd_l
+set /a check=0
+if exist L:\private\wii set /a check=%check%+1
+if exist L:\apps set /a check=%check%+1
+if %check%==2 set sdcard=L
+goto sd_m
+:sd_m
+set /a check=0
+if exist M:\private\wii set /a check=%check%+1
+if exist M:\apps set /a check=%check%+1
+if %check%==2 set sdcard=M
+goto sd_n
+:sd_n
+set /a check=0
+if exist N:\private\wii set /a check=%check%+1
+if exist N:\apps set /a check=%check%+1
+if %check%==2 set sdcard=N
+goto sd_o
+:sd_o
+set /a check=0
+if exist O:\private\wii set /a check=%check%+1
+if exist O:\apps set /a check=%check%+1
+if %check%==2 set sdcard=O
+goto sd_p
+:sd_p
+set /a check=0
+if exist P:\private\wii set /a check=%check%+1
+if exist P:\apps set /a check=%check%+1
+if %check%==2 set sdcard=P
+goto sd_r
+:sd_r
+set /a check=0
+if exist R:\private\wii set /a check=%check%+1
+if exist R:\apps set /a check=%check%+1
+if %check%==2 set sdcard=R
+goto sd_s
+:sd_s
+set /a check=0
+if exist S:\private\wii set /a check=%check%+1
+if exist S:\apps set /a check=%check%+1
+if %check%==2 set sdcard=S
+goto sd_t
+:sd_t
+set /a check=0
+if exist T:\private\wii set /a check=%check%+1
+if exist T:\apps set /a check=%check%+1
+if %check%==2 set sdcard=T
+goto sd_u
+:sd_u
+set /a check=0
+if exist U:\private\wii set /a check=%check%+1
+if exist U:\apps set /a check=%check%+1
+if %check%==2 set sdcard=U
+goto sd_w
+:sd_w
+set /a check=0
+if exist W:\private\wii set /a check=%check%+1
+if exist W:\apps set /a check=%check%+1
+if %check%==2 set sdcard=W
+goto sd_x
+:sd_x
+set /a check=0
+if exist X:\private\wii set /a check=%check%+1
+if exist X:\apps set /a check=%check%+1
+if %check%==2 set sdcard=X
+goto sd_y
+:sd_y
+set /a check=0
+if exist Y:\private\wii set /a check=%check%+1
+if exist Y:\apps set /a check=%check%+1
+if %check%==2 set sdcard=Y
+goto sd_z
+:sd_z
+set /a check=0
+if exist Z:\private\wii set /a check=%check%+1
+if exist Z:\apps set /a check=%check%+1
+if %check%==2 set sdcard=Z
+goto sd_card_show
+:sd_card_show
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo  [*] SD Card
+echo.
+if %sdcard%==NotDefined echo %text23%
+if %sdcard%==NotDefined echo %text24%
+if not %sdcard%==NotDefined goto sd_card_defined
+pause>NUL
+goto ask_for_copy_to_an_sd_card
+:sd_card_defined
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo  [*] SD Card
+echo.
+echo %text25% %sdcard%
+echo %text26%
+echo.
+echo ҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉
+echo 1. %text27%             2. %text28%                  3. %text29%
+set /p s=
+if %s%==1 goto sd_card_copying
+if %s%==2 goto change_sd_card_letter
+if %s%==3 goto ask_for_copy_to_an_sd_card
+goto sd_card_defined
+:change_sd_card_letter
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo  [*] SD Card
+echo.
+echo %text25% %sdcard%
+echo.
+echo %text30% (e.g H)
+set /p sdcard=
+goto sd_card_defined
+:sd_card_error
+mode 120,30
+cls
+echo.	
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo  [*] Error.
+echo.
+echo %text31%
+pause
+goto ask_for_copy_to_an_sd_card
+:sd_card_copying
+set /a copyingsdcard=1
+set /a errorcopying=0
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo  [*] SD Card
+echo.
+echo %text32%
+copy "WAD" "%sdcard%:\" >NUL || set /a errorcopying=1
+if %errorcopying%==1 goto sd_card_error
+goto end
+
+
 :end
 set /a exiting=10
 set /a timeouterror=1
@@ -495,6 +935,8 @@ echo.
 if %patchingok%==1 echo %text13%
 if %patchingok%==1 echo %text14%
 echo.
+if %copyingsdcard%==1 echo %text33%
+echo.
 echo Exiting the patcher in...
 if %exiting%==10 echo :----------: 10
 if %exiting%==9 echo :--------- : 9
@@ -507,7 +949,8 @@ if %exiting%==3 echo :---       : 3
 if %exiting%==2 echo :--        : 2
 if %exiting%==1 echo :-         : 1
 if %exiting%==0 echo :          :
-if %exiting%==0 start WAD
+if %copyingsdcard%==0 if %exiting%==0 start WAD
+if %copyingsdcard%==1 if %exiting%==0 start %sdcard%:\WAD
 if %exiting%==0 exit
 if %timeouterror%==0 timeout 1 /nobreak >NUL
 if %timeouterror%==1 ping localhost -n 2 >NUL
