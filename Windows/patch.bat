@@ -7,7 +7,7 @@ mode 120,30
 rem ### Want to create translation for your language? ###
 rem ### Download this text file: https://drive.google.com/open?id=0B99PAkYFoBoLUFRERkFNbTBLU3M ###
 rem ### And than send me this on discord - KcrPL#4625. It's easy! :) ###
-rem But please, don't put your own translations in this file! You may not understand the code and you may broke it!
+rem But please, don't put your own translations in this file! You may not understand the code and you may break it!
 rem -KcrPL.
 chcp 65001
 set error4112=0
@@ -23,8 +23,8 @@ cls
 if exist "%appdata%\temprc24.txt" del /q "%appdata%\temprc24.txt"
 
 if %language%==NotDefined goto set_language
-if not exist 00000006-31.delta goto error_runtime_error
-if not exist 00000006-80.delta goto error_runtime_error
+if not exist ..\00000006-31.delta goto error_runtime_error
+if not exist ..\00000006-80.delta goto error_runtime_error
 if not exist libWiiSharp.dll goto error_runtime_error
 if not exist Sharpii.exe goto error_runtime_error
 if not exist WadInstaller.dll goto error_runtime_error
@@ -53,7 +53,7 @@ echo 6. Download IOS 31 and IOS 80
 echo 7. Delete files/Refresh program.
 echo 8. Change coding page to cmd defualt
 echo 9. Change coding page to 65001 (UTF-8)
-set /p s=Choose: 
+set /p s=Choose:
 if %s%==1 goto debug_runtime
 if %s%==2 goto debug_system_Req
 if %s%==3 goto set_language
@@ -66,8 +66,8 @@ if %s%==9 goto debug_coding_utf
 goto debug_1
 :debug_runtime
 set /a tempvariable=0
-if not exist 00000006-31.delta set /a tempvariable=1
-if not exist 00000006-80.delta set /a tempvariable=1
+if not exist ..\00000006-31.delta set /a tempvariable=1
+if not exist ..\00000006-80.delta set /a tempvariable=1
 if not exist libWiiSharp.dll set /a tempvariable=1
 if not exist Sharpii.exe set /a tempvariable=1
 if not exist WadInstaller.dll set /a tempvariable=1
@@ -96,7 +96,7 @@ echo Is that OK?
 echo.
 echo ҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉
 echo                          1. Yes                                                 2. No
-set /p s= 
+set /p s=
 if %s%==1 goto debug_ref
 if %s%==2 goto debug_1
 goto refresh_database
@@ -139,7 +139,7 @@ goto debug_download1
 echo Do you want to patch IOS 31 and 80 for RiiConnect?
 echo 1. Yes
 echo 2. No
-set /p s=Choose: 
+set /p s=Choose:
 if %s%==1 goto debug_download_patch
 if %s%==2 goto debug_1
 goto debug_download_1
@@ -147,9 +147,9 @@ goto debug_download_1
 Sharpii.exe WAD -u IOS31-old.wad IOS31/ >NUL
 Sharpii.exe WAD -u IOS80-old.wad IOS80/ >NUL
 move IOS31\00000006.app 00000006.app >NUL
-xdelta3.exe -f -d -s 00000006.app 00000006-31.delta IOS31\00000006.app >NUL
+xdelta3.exe -f -d -s 00000006.app ..\00000006-31.delta IOS31\00000006.app >NUL
 move IOS80\00000006.app 00000006.app >NUL
-xdelta3.exe -f -d -s 00000006.app 00000006-80.delta IOS80\00000006.app >NUL
+xdelta3.exe -f -d -s 00000006.app ..\00000006-80.delta IOS80\00000006.app >NUL
 mkdir WAD
 Sharpii.exe WAD -p IOS31\ WAD\IOS31.wad -fs >NUL
 Sharpii.exe WAD -p IOS80\ WAD\IOS80.wad -fs >NUL
@@ -205,8 +205,8 @@ echo 7. Spanish (Author: Artuto)
 echo 8. Russian (Author: prosuWANTED)
 echo 9. Greek (Author: Fun4TubeGr)
 echo.
-set /p s=Choose: 
-if %s%==r start www.rc24.xyz	
+set /p s=Choose:
+if %s%==r start www.rc24.xyz
 if %s%==R start www.rc24.xyz
 if %s%==1 goto set_language_en
 if %s%==2 goto set_language_pl
@@ -271,7 +271,7 @@ set text8=Нужно скачать IOS 31 и 80.
 set text9=Нажмите любую кнопку чтобы начать скачивание.
 set text10=Не получается скачать файлы, так как ваш интернет откючён.
 set text11=Пожалуйста включите ваш интернет и нажмите любую клавишу, чтобы продожить.
-set text12=Пожалуйста подождите, файлы скачиваются... 
+set text12=Пожалуйста подождите, файлы скачиваются...
 set text13=Патч завершён.
 set text14=IOS с патчами помещены в папку "WAD".
 
@@ -438,7 +438,7 @@ set text8=Nós precisamos baixar as IOS 31 e 80.
 set text9=Clique em qualquer botão para começar o download.
 set text10=Nós não podemos baixar os arquivos pois a sua internet está desligada!
 set text11=Ligue a sua internet e tente novamente.
-set text12=Por favor espere... Os arquivos estão sendo baixados... 
+set text12=Por favor espere... Os arquivos estão sendo baixados...
 set text13=O Patching acabou.
 set text14=Arquivos de Patched IOS são chamadas de ''WAD''.
 
@@ -534,7 +534,7 @@ set text21=Nie
 set text22=Proszę czekać...
 set text23=Karta SD nie zostałą znaleziona w systemie
 set text24=Proszę podłącz kartę SD i naciśnij dowolny przycisk aby spróbować ponownie.
-set text25=Aktualna litera karty SD: 
+set text25=Aktualna litera karty SD:
 set text26=Czy chcesz zmienić litere karty SD?
 set text27=Kontynuuj i skopiuj pliki na kartę SD.
 set text28=Zmień literę dysku.
@@ -558,7 +558,7 @@ set text8=We need to download IOS 31 and 80.
 set text9=Click any button to proceed to download.
 set text10=We cannot download the files because your Internet connection is disabled!
 set text11=Enable your connection and click any button to try again.
-set text12=Please wait... files are being downloaded... 
+set text12=Please wait... files are being downloaded...
 set text13=Patching is done.
 set text14=Patched IOS files will be in folder called "WAD".
 set text15=There was an error while patching.
@@ -629,7 +629,7 @@ echo %text4%
 echo.
 echo ҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉
 echo                          1. Wii                                                 2. WiiU
-set /p s=Choose: 
+set /p s=Choose:
 if %s%==1 goto 4
 if %s%==2 goto error_3
 goto 3
@@ -660,7 +660,7 @@ echo.
 echo %text8%
 echo %text9%
 echo.
-pause>NUL	
+pause>NUL
 goto 5
 
 :5
@@ -684,11 +684,11 @@ if not %errorlevel%==0 goto error_patching
 Sharpii.exe WAD -u IOS80-old.wad IOS80/ >NUL
 move IOS31\00000006.app 00000006.app >NUL
 if not %errorlevel%==0 goto error_patching
-xdelta3.exe -f -d -s 00000006.app 00000006-31.delta IOS31\00000006.app >NUL
+xdelta3.exe -f -d -s 00000006.app ..\00000006-31.delta IOS31\00000006.app >NUL
 if not %errorlevel%==0 goto error_patching
 move IOS80\00000006.app 00000006.app >NUL
 if not %errorlevel%==0 goto error_patching
-xdelta3.exe -f -d -s 00000006.app 00000006-80.delta IOS80\00000006.app >NUL
+xdelta3.exe -f -d -s 00000006.app ..\00000006-80.delta IOS80\00000006.app >NUL
 if not %errorlevel%==0 goto error_patching
 mkdir WAD
 if not %errorlevel%==0 goto error_patching
@@ -735,7 +735,7 @@ echo %text19%
 echo.
 echo ҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉
 echo                          1. %text20%                                                 2. %text21%
-set /p s= 
+set /p s=
 if %s%==1 goto sd_card_check
 if %s%==2 goto end
 goto ask_for_copy_to_an_sd_card
@@ -754,7 +754,7 @@ set /a check=0
 if exist A:\private\wii set /a check=%check%+1
 if exist A:\apps set /a check=%check%+1
 if %check%==2 set sdcard=A
-goto sd_b 
+goto sd_b
 :sd_b
 set /a check=0
 if exist B:\private\wii set /a check=%check%+1
@@ -937,7 +937,7 @@ goto sd_card_defined
 :sd_card_error
 mode 120,30
 cls
-echo.	
+echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
 echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
 echo  [*] Error.
