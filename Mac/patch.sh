@@ -15,8 +15,9 @@ printf '\e[0;31m%s\e[0m \n' '3. Patching the APP file...'
 ./xdelta3 -f -d -s ./IOS80/00000006.app ../Patches/00000006-80.delta ./IOS80/00000006.app
 printf '\e[0;31m%s\e[0m \n' '4. Packing the new IOS...'
 mkdir WAD
-mono Sharpii.exe WAD -p IOS31/ WAD/IOS31.wad -fs
-mono Sharpii.exe WAD -p IOS80/ WAD/IOS80.wad -fs
+# This verion of Sharpii has fakesigning enabled by default.
+mono Sharpii.exe WAD -p IOS31/ WAD/IOS31.wad
+mono Sharpii.exe WAD -p IOS80/ WAD/IOS80.wad
 printf '\e[0;31m%s\e[0m \n' '5. Cleaning up files... (Type Y if needed).'
 rm IOS31-old.wad
 rm IOS80-old.wad
