@@ -1,7 +1,7 @@
 :1
 set copyingsdcard=0
 set /a translationsserror=0
-set version=1.5.6
+set version=1.5.7
 mode 120,30
 @echo off
 rem ### Want to create translation for your language? ###
@@ -188,11 +188,13 @@ cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL. v%version%
 echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
-echo  [*] Please select your language.
+echo  [*] Please select your language
 echo.
-if %s%==NUL echo.
 if %s%==NUL echo If you want to exit, press ENTER without typing anything
 echo.
+echo R. Open RiiConnect24 site in your default browser.
+echo.
+
 echo 1. English (Author: KcrPL) (Correction: Seriel)
 echo 2. Polish (Author: KcrPL)
 echo 3. Deutsch (Author: TimNook) (Correction: Brawl345)
@@ -201,8 +203,11 @@ echo 5. French (Author: iDroid)
 echo 6. Italian (Author: GameCube)
 echo 7. Spanish (Author: Artuto)
 echo 8. Russian (Author: prosuWANTED)
+echo 9. Greek (Author: Fun4TubeGr)
 echo.
 set /p s=Choose: 
+if %s%==r start www.rc24.xyz	
+if %s%==R start www.rc24.xyz
 if %s%==1 goto set_language_en
 if %s%==2 goto set_language_pl
 if %s%==3 goto set_language_deu
@@ -211,9 +216,46 @@ if %s%==5 goto set_language_fr
 if %s%==6 goto set_language_it
 if %s%==7 goto set_language_es
 if %s%==8 goto set_language_rus
+if %s%==9 goto set_language_gr
 if %s%==NUL exit
 goto set_language
+:set_language_gr
+set language=Greek
 
+set text1=Μερικά αρχεία απο το πρόγραμμα χρειάζονται και δεν βρεθηκαν.
+set text2=Ξανακατεβάστε το πακέτο αρχείων και δοκιμάστε ξανά.
+set text3=Πατήστε Οποιοδήποτε κουμπί για να κλείσετε αυτή την επιδιόρθωση.
+set text4=Θέλετε να χρησιμοποιήσετε την προσαρμογή για το Wii η για το WiiU;
+set text5=Δυστηχός δεν υποστηρίζεται ακόμα για το Wii U :(
+set text6=Εάν αστειεύεστε, κάντε κλικ σε κάτι για να επιστρέψετε.
+set text7=Εάν όχι κλειστέ το πρόγραμμα
+set text8=Χρηάζεται να γίνει λήψη το IOS 31 και 80.
+set text9=Πατήστε Οποιοδήποτε κουμπί για να ξεκινίσει η λήψη.
+set text10=Δεν είναι δυνατή η λήψη των αρχείων επειδή η σύνδεσή σας στο Internet είναι απενεργοποιημένη!
+set text11=Ενεργοποιήστε τη σύνδεσή σας και κάντε κλικ σε οποιοδήποτε κουμπί για να δοκιμάσετε ξανά.
+set text12= Παρακαλώ περιμένετε... γίνεται λήψη των αρχείων...
+set text13=Η προσαρμογή εχει ολοκληρωθεί.
+set text14=Τα προσαρμοσμένα αρχεία IOS θα βρίσκονται στο φάκελο που ονομάζεται "WAD"
+set text15=Παρουσιάστηκε σφάλμα κάτα την προσαρμογή.
+set text16=Πατήστε οποιοδήποτε κουμπί για να δοκιμάστε ξανά.
+set text17=Ελέγξτε τη σύνδεση στο Internet και δοκιμάστε ξανά.
+set text18=Αυτό το πρόβλημα προκaήθηκε πιθανώς από τη σύνδεσή σας στο Internet.
+set text19=Θέλετε να αντιφράψετε τα προσαρμοσμένα αρχεία στην κάρτα SD;
+set text20=Ναί
+set text21=Όχι
+set text22=Παρακαλώ περιμένετε...
+set text23=Η καρτα SD δεν βρέθηκε κάρτα SD στο σύστημα.
+set text24=Παρακαλώ συνδέστε την κάρτα SD και πατίστε οποιοδηποτε κουμπί για να συνεχείσετε.
+set text25=Τρέχουσα γράμμα κάρτας SD:
+set text26=Θέλετε να αλλάξετε το γράμμα μονάδας κάρτας SD;
+set text27=Συνέχεια αντηγραφή αρχιών στην κάρτα SD
+set text28=Αλλάη γράμματος μονάδας δίσκου
+set text29=Έξοδος
+set text30=Πληκτρολογήστε νέο γράμμα μονάδας δίσκου
+set text31=Παρουσιάστηκε σφάλμα κατα την αντιγραφή αρχείων.
+set text32=Παρακαλώ περιμενέτε... γινέται αντιγραφή
+set text33=Τα αρχεία έχουν αντιγραφεί στην κάρτα SD στο φάκελο που ονομάζεται "WAD"
+goto begin
 :set_language_rus
 set language=Russian
 if %translationsserror%==1 goto set_language_en
