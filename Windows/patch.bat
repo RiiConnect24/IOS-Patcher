@@ -1,5 +1,6 @@
 :1
-set copyingsdcard=0
+set /a copyingsdcard=0
+set /a crashing=0
 set /a translationsserror=0
 set version=1.5.7
 mode 120,30
@@ -23,8 +24,8 @@ cls
 if exist "%appdata%\temprc24.txt" del /q "%appdata%\temprc24.txt"
 
 if %language%==NotDefined goto set_language
-if not exist ..\00000006-31.delta goto error_runtime_error
-if not exist ..\00000006-80.delta goto error_runtime_error
+if not exist 00000006-31.delta goto error_runtime_error
+if not exist 00000006-80.delta goto error_runtime_error
 if not exist libWiiSharp.dll goto error_runtime_error
 if not exist Sharpii.exe goto error_runtime_error
 if not exist WadInstaller.dll goto error_runtime_error
@@ -36,7 +37,8 @@ goto 3
 if not defined %output% set output=No output.
 cls
 echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
+
 echo debug menu
 echo.
 echo :---------------:
@@ -66,8 +68,8 @@ if %s%==9 goto debug_coding_utf
 goto debug_1
 :debug_runtime
 set /a tempvariable=0
-if not exist ..\00000006-31.delta set /a tempvariable=1
-if not exist ..\00000006-80.delta set /a tempvariable=1
+if not exist 00000006-31.delta set /a tempvariable=1
+if not exist 00000006-80.delta set /a tempvariable=1
 if not exist libWiiSharp.dll set /a tempvariable=1
 if not exist Sharpii.exe set /a tempvariable=1
 if not exist WadInstaller.dll set /a tempvariable=1
@@ -87,14 +89,14 @@ goto debug_1
 :refresh_database
 cls
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] Deleting files.
 echo.
 echo You are about to delete any temporary files that has been created by this Patcher.
 echo.
 echo Is that OK?
 echo.
-echo ҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉
+echo ------------------------------------------------------------------------------------------------------------------------
 echo                          1. Yes                                                 2. No
 set /p s=
 if %s%==1 goto debug_ref
@@ -103,7 +105,7 @@ goto refresh_database
 :debug_ref
 cls
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] Deleting files.
 echo.
 del /q IOS31-old.wad >NUL
@@ -121,7 +123,7 @@ ping localhost -n 5 >NUL
 goto 1
 :debug_coding_8
 chcp 852
-set output=Coding page change was successfull.goto debug_1
+set output=Coding page change was successfull.
 goto debug_1
 :debug_coding_utf
 chcp 65001
@@ -147,9 +149,9 @@ goto debug_download_1
 Sharpii.exe WAD -u IOS31-old.wad IOS31/ >NUL
 Sharpii.exe WAD -u IOS80-old.wad IOS80/ >NUL
 move IOS31\00000006.app 00000006.app >NUL
-xdelta3.exe -f -d -s 00000006.app ..\00000006-31.delta IOS31\00000006.app >NUL
+xdelta3.exe -f -d -s 00000006.app 00000006-31.delta IOS31\00000006.app >NUL
 move IOS80\00000006.app 00000006.app >NUL
-xdelta3.exe -f -d -s 00000006.app ..\00000006-80.delta IOS80\00000006.app >NUL
+xdelta3.exe -f -d -s 00000006.app 00000006-80.delta IOS80\00000006.app >NUL
 mkdir WAD
 Sharpii.exe WAD -p IOS31\ WAD\IOS31.wad -fs >NUL
 Sharpii.exe WAD -p IOS80\ WAD\IOS80.wad -fs >NUL
@@ -167,12 +169,12 @@ goto debug_1
 mode 120,30
 cls
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] Error.
 echo.
 echo  %text1%
 echo  %text2%
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
 echo.
 echo %text3%
 pause>NUL
@@ -187,14 +189,15 @@ rem # Please contact me on Discord - KcrPL#4625 ###
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL. v%version%
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] Please select your language
 echo.
 if %s%==NUL echo If you want to exit, press ENTER without typing anything
 echo.
 echo R. Open RiiConnect24 site in your default browser.
+if %crashing%==0 echo C. [ ] If this program is crashing try selecting this option.
+if %crashing%==1 echo C. [X] If this program is crashing try selecting this option.
 echo.
-
 echo 1. English (Author: KcrPL) (Correction: Seriel)
 echo 2. Polish (Author: KcrPL)
 echo 3. Deutsch (Author: TimNook) (Correction: Brawl345)
@@ -206,6 +209,8 @@ echo 8. Russian (Author: prosuWANTED)
 echo 9. Greek (Author: Fun4TubeGr)
 echo.
 set /p s=Choose:
+if %s%==c goto change_crashing_var
+if %s%==C goto change_crashing_var
 if %s%==r start www.rc24.xyz
 if %s%==R start www.rc24.xyz
 if %s%==1 goto set_language_en
@@ -219,9 +224,36 @@ if %s%==8 goto set_language_rus
 if %s%==9 goto set_language_gr
 if %s%==NUL exit
 goto set_language
+:change_crashing_var
+if %crashing%==0 goto cr_var_1
+if %crashing%==1 goto cr_var_0
+goto set_language
+:cr_var_1
+set /a crashing=1
+goto set_language
+:cr_var_0
+set /a crashing=0
+goto set_language
+
+:error_crashing
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL. v%version%
+echo ------------------------------------------------------------------------------------------------------------------------
+echo  [*] Info.
+echo.
+echo Anti-Crash function cannot be used with this language. Please use another language.
+echo.
+echo Sorry for the inconvenience. :(
+echo.
+echo Press anything to go back to language select.
+pause>NUL
+goto set_language
+
+
 :set_language_gr
 set language=Greek
-
+if %crashing%==1 goto error_crashing
 set text1=Μερικά αρχεία απο το πρόγραμμα χρειάζονται και δεν βρεθηκαν.
 set text2=Ξανακατεβάστε το πακέτο αρχείων και δοκιμάστε ξανά.
 set text3=Πατήστε Οποιοδήποτε κουμπί για να κλείσετε αυτή την επιδιόρθωση.
@@ -258,7 +290,7 @@ set text33=Τα αρχεία έχουν αντιγραφεί στην κάρτα
 goto begin
 :set_language_rus
 set language=Russian
-if %translationsserror%==1 goto set_language_en
+if %crashing%==1 goto error_crashing
 
 set text1=Некоторые файлы необходимые для работы программы не были найдены.
 set text2=Скачайте заново архив с программой и повторите ещё раз.
@@ -300,22 +332,37 @@ set text33=Files has been copyied to SD Card to folder called "WAD"
 goto begin
 :set_language_es
 set language=Spanish
-if %translationsserror%==1 goto set_language_en
 
-set text1=Los archivos necesarios para ejecutar este programa no se han encontrado.
-set text2=Vuelve a descargar el programa e intenta de nuevo.
-set text3=Presiona cualquier tecla para cerrar el programa.
-set text4=Vas a utilizar este programa para Wii o Wii U?
-set text5=Desafortunadamente la Wii U no es soportada...
-set text6=Si estabas bromeando, presiona una tecla para continuar.
-set text7=Si no, cierra este programa.
-set text8=Tenemos que descargar el IOS 31 y 80.
-set text9=Presiona cualquier tecla para comenzar a descargar.
-set text10=No hemos podido descargar los archivos necesarios debido a que tienes desactivada tu conexion a Internet!
-set text11=Activa tu conexion y presiona una tecla para continuar.
-set text12=Espera un momento... Los archivos se estan descargando...
-set text13=Hemos terminado! Parcheo completado.
-set text14=Puedes encontrar los archivos parcheados en la carpeta "WAD".
+
+if %crashing%==0 set text1=Los archivos necesarios para ejecutar este programa no se han encontrado.
+if %crashing%==0 set text2=Vuelve a descargar el programa e intenta de nuevo.
+if %crashing%==0 set text3=Presiona cualquier tecla para cerrar el programa.
+if %crashing%==0 set text4=Vas a utilizar este programa para Wii o Wii U?
+if %crashing%==0 set text5=Desafortunadamente la Wii U no es soportada...
+if %crashing%==0 set text6=Si estabas bromeando, presiona una tecla para continuar.
+if %crashing%==0 set text7=Si no, cierra este programa.
+if %crashing%==0 set text8=Tenemos que descargar el IOS 31 y 80.
+if %crashing%==0 set text9=Presiona cualquier tecla para comenzar a descargar.
+if %crashing%==0 set text10=No hemos podido descargar los archivos necesarios debido a que tienes desactivada tu conexion a Internet!
+if %crashing%==0 set text11=Activa tu conexion y presiona una tecla para continuar.
+if %crashing%==0 set text12=Espera un momento... Los archivos se estan descargando...
+if %crashing%==0 set text13=Hemos terminado! Parcheo completado.
+if %crashing%==0 set text14=Puedes encontrar los archivos parcheados en la carpeta "WAD".
+
+if %crashing%==1 set text1=Los archivos necesarios para ejecutar este programa no se han encontrado.
+if %crashing%==1 set text2=Vuelve a descargar el programa e intenta de nuevo.
+if %crashing%==1 set text3=Presiona cualquier tecla para cerrar el programa.
+if %crashing%==1 set text4=Vas a utilizar este programa para Wii o Wii U?
+if %crashing%==1 set text5=Desafortunadamente la Wii U no es soportada...
+if %crashing%==1 set text6=Si estabas bromeando, presiona una tecla para continuar.
+if %crashing%==1 set text7=Si no, cierra este programa.
+if %crashing%==1 set text8=Tenemos que descargar el IOS 31 y 80.
+if %crashing%==1 set text9=Presiona cualquier tecla para comenzar a descargar.
+if %crashing%==1 set text10=No hemos podido descargar los archivos necesarios debido a que tienes desactivada tu conexion a Internet!
+if %crashing%==1 set text11=Activa tu conexion y presiona una tecla para continuar.
+if %crashing%==1 set text12=Espera un momento... Los archivos se estan descargando...
+if %crashing%==1 set text13=Hemos terminado! Parcheo completado.
+if %crashing%==1 set text14=Puedes encontrar los archivos parcheados en la carpeta "WAD".
 
 rem ### Not Completed language ###
 set text15=There was an error while patching.
@@ -342,23 +389,35 @@ set text33=Files has been copyied to SD Card to folder called "WAD"
 goto begin
 :set_language_it
 set language=Italian
-if %translationsserror%==1 goto set_language_en
+if %crashing%==0 set text1=Alcuni dei file necessari per eseguire questo programma non sono stati trovati.
+if %crashing%==0 set text2=Scarica nuovamente il pacchetto e riprova
+if %crashing%==0 set text3=Fare clic su qualsiasi pulsante per chiudere il patcher.
+if %crashing%==0 set text4=Stai usando questo patcher per Wii o WiiU?
+if %crashing%==0 set text5=Purtroppo, non puoi utilizzare questo patcher per Wii U :(
+if %crashing%==0 set text6=Se stavi scherzando, fai clic su qualcosa per tornare indietro.
+if %crashing%==0 set text7=In caso contrario, chiudere questo programma.
+if %crashing%==0 set text8=Dobbiamo scaricare IOS 31 e 80.
+if %crashing%==0 set text9=Fare clic su qualsiasi pulsante per procedere al download.
+if %crashing%==0 set text10=Non è possibile scaricare i file perché la connessione a Internet è disabilitata!
+if %crashing%==0 set text11=Abilita la connessione e fai clic su qualsiasi pulsante per riprovare.
+if %crashing%==0 set text12=Attendere ... i file vengono procedere ad essere scaricati ...
+if %crashing%==0 set text13=La patchatura è fatta.
+if %crashing%==0 set text14=I file IOS installati saranno nella cartella chiamata "WAD".
 
-set text1=Alcuni dei file necessari per eseguire questo programma non sono stati trovati.
-set text2=Scarica nuovamente il pacchetto e riprova
-set text3=Fare clic su qualsiasi pulsante per chiudere il patcher.
-set text4=Stai usando questo patcher per Wii o WiiU?
-set text5=Purtroppo, non puoi utilizzare questo patcher per Wii U :(
-set text6=Se stavi scherzando, fai clic su qualcosa per tornare indietro.
-set text7=In caso contrario, chiudere questo programma.
-set text8=Dobbiamo scaricare IOS 31 e 80.
-set text9=Fare clic su qualsiasi pulsante per procedere al download.
-set text10=Non è possibile scaricare i file perché la connessione a Internet è disabilitata!
-set text11=Abilita la connessione e fai clic su qualsiasi pulsante per riprovare.
-set text12=Attendere ... i file vengono procedere ad essere scaricati ...
-set text13=La patchatura è fatta.
-set text14=I file IOS installati saranno nella cartella chiamata "WAD".
-
+if %crashing%==1 set text1=Alcuni dei file necessari per eseguire questo programma non sono stati trovati.
+if %crashing%==1 set text2=Scarica nuovamente il pacchetto e riprova
+if %crashing%==1 set text3=Fare clic su qualsiasi pulsante per chiudere il patcher.
+if %crashing%==1 set text4=Stai usando questo patcher per Wii o WiiU?
+if %crashing%==1 set text5=Purtroppo, non puoi utilizzare questo patcher per Wii U :(
+if %crashing%==1 set text6=Se stavi scherzando, fai clic su qualcosa per tornare indietro.
+if %crashing%==1 set text7=In caso contrario, chiudere questo programma.
+if %crashing%==1 set text8=Dobbiamo scaricare IOS 31 e 80.
+if %crashing%==1 set text9=Fare clic su qualsiasi pulsante per procedere al download.
+if %crashing%==1 set text10=Non e possibile scaricare i file perche la connessione a Internet e disabilitata!
+if %crashing%==1 set text11=Abilita la connessione e fai clic su qualsiasi pulsante per riprovare.
+if %crashing%==1 set text12=Attendere ... i file vengono procedere ad essere scaricati ...
+if %crashing%==1 set text13=La patchatura e fatta.
+if %crashing%==1 set text14=I file IOS installati saranno nella cartella chiamata "WAD".
 rem ### Not Completed language ###
 set text15=There was an error while patching.
 set text16=Press any button to try again.
@@ -383,23 +442,36 @@ set text33=Files has been copyied to SD Card to folder called "WAD"
 goto begin
 :set_language_fr
 set language=French
-if %translationsserror%==1 goto set_language_en
 
-set text1=Un des fichiers nécessaires pour exécuter ce programme n'a pas ete trouvé.
-set text2=Téléchargez l'archive a nouveau puis réessayez
-set text3=Appuyez sur n'importe quelle touche pour fermer le programme
-set text4=Allez-vous utiliser ce patcher pour la Wii ou la Wii U ?
-set text5=Malheureusement, ce patcher est incompatible avec la Wii U...
-set text6=Si vous blaguiais, appuyez sur une touche pour continuer.
-set text7=Si non, fermez le programme.
-set text8=Nous devons télécharger les IOS 31 et 80.
-set text9=Appuyez sur n'importe quelle touche pour procéder au téléchargement.
-set text10=Nous ne pouvons pas télécharger les IOS car votre connexion Internet est inaccessible.
-set text11=Rétablissez votre connexion Internet puis appuyez sur n'importe quelle touche.
-set text12=Patientez... les fichiers sont en train d'être télécharges...
-set text13=Le patchage est terminé
-set text14=Les IOS patchés se trouvent dans le dossier "WAD".
+if %crashing%==0 set text1=Un des fichiers nécessaires pour exécuter ce programme n'a pas ete trouvé.
+if %crashing%==0 set text2=Téléchargez l'archive a nouveau puis réessayez
+if %crashing%==0 set text3=Appuyez sur n'importe quelle touche pour fermer le programme
+if %crashing%==0 set text4=Allez-vous utiliser ce patcher pour la Wii ou la Wii U ?
+if %crashing%==0 set text5=Malheureusement, ce patcher est incompatible avec la Wii U...
+if %crashing%==0 set text6=Si vous blaguiais, appuyez sur une touche pour continuer.
+if %crashing%==0 set text7=Si non, fermez le programme.
+if %crashing%==0 set text8=Nous devons télécharger les IOS 31 et 80.
+if %crashing%==0 set text9=Appuyez sur n'importe quelle touche pour procéder au téléchargement.
+if %crashing%==0 set text10=Nous ne pouvons pas télécharger les IOS car votre connexion Internet est inaccessible.
+if %crashing%==0 set text11=Rétablissez votre connexion Internet puis appuyez sur n'importe quelle touche.
+if %crashing%==0 set text12=Patientez... les fichiers sont en train d'être télécharges...
+if %crashing%==0 set text13=Le patchage est terminé
+if %crashing%==0 set text14=Les IOS patchés se trouvent dans le dossier "WAD".
 
+if %crashing%==1 set text1=Un des fichiers necessaires pour executer ce programme n'a pas ete trouve.
+if %crashing%==1 set text2=Telechargez l'archive a nouveau puis reessayez
+if %crashing%==1 set text3=Appuyez sur n'importe quelle touche pour fermer le programme
+if %crashing%==1 set text4=Allez-vous utiliser ce patcher pour la Wii ou la Wii U ?
+if %crashing%==1 set text5=Malheureusement, ce patcher est incompatible avec la Wii U...
+if %crashing%==1 set text6=Si vous blaguiais, appuyez sur une touche pour continuer.
+if %crashing%==1 set text7=Si non, fermez le programme.
+if %crashing%==1 set text8=Nous devons telecharger les IOS 31 et 80.
+if %crashing%==1 set text9=Appuyez sur n'importe quelle touche pour proceder au télechargement.
+if %crashing%==1 set text10=Nous ne pouvons pas telecharger les IOS car votre connexion Internet est inaccessible.
+if %crashing%==1 set text11=Retablissez votre connexion Internet puis appuyez sur n'importe quelle touche.
+if %crashing%==1 set text12=Patientez... les fichiers sont en train d'etre telecharges...
+if %crashing%==1 set text13=Le patchage est termine
+if %crashing%==1 set text14=Les IOS patchés se trouvent dans le dossier "WAD".
 rem ### Not Completed language ###
 set text15=There was an error while patching.
 set text16=Press any button to try again.
@@ -425,23 +497,36 @@ set text33=Files has been copyied to SD Card to folder called "WAD"
 goto begin
 :set_language_braz
 set language=Portuguese
-if %translationsserror%==1 goto set_language_en
 
-set text1=Alguns dos arquivos necessários para rodar o programa, não foram encontrados.
-set text2=Baixe o arquivo novamente e tente de novo
-set text3=Clique em qualquer botão para fechar o patcher.
-set text4=Você vai usar esse patcher para Wii ou WiiU?
-set text5=Infelizmente, você não pode utilizar esse patch no Wii U :(
-set text6=Se você estava brincando, clique no botão para voltar.
-set text7=Se não estava, feche o programa.
-set text8=Nós precisamos baixar as IOS 31 e 80.
-set text9=Clique em qualquer botão para começar o download.
-set text10=Nós não podemos baixar os arquivos pois a sua internet está desligada!
-set text11=Ligue a sua internet e tente novamente.
-set text12=Por favor espere... Os arquivos estão sendo baixados...
-set text13=O Patching acabou.
-set text14=Arquivos de Patched IOS são chamadas de ''WAD''.
+if %crashing%==0 set text1=Alguns dos arquivos necessários para rodar o programa, não foram encontrados.
+if %crashing%==0 set text2=Baixe o arquivo novamente e tente de novo
+if %crashing%==0 set text3=Clique em qualquer botão para fechar o patcher.
+if %crashing%==0 set text4=Você vai usar esse patcher para Wii ou WiiU?
+if %crashing%==0 set text5=Infelizmente, você não pode utilizar esse patch no Wii U :(
+if %crashing%==0 set text6=Se você estava brincando, clique no botão para voltar.
+if %crashing%==0 set text7=Se não estava, feche o programa.
+if %crashing%==0 set text8=Nós precisamos baixar as IOS 31 e 80.
+if %crashing%==0 set text9=Clique em qualquer botão para começar o download.
+if %crashing%==0 set text10=Nós não podemos baixar os arquivos pois a sua internet está desligada!
+if %crashing%==0 set text11=Ligue a sua internet e tente novamente.
+if %crashing%==0 set text12=Por favor espere... Os arquivos estão sendo baixados...
+if %crashing%==0 set text13=O Patching acabou.
+if %crashing%==0 set text14=Arquivos de Patched IOS são chamadas de ''WAD''.
 
+if %crashing%==1 set text1=Alguns dos arquivos necessários para rodar o programa, nao foram encontrados.
+if %crashing%==1 set text2=Baixe o arquivo novamente e tente de novo
+if %crashing%==1 set text3=Clique em qualquer botão para fechar o patcher.
+if %crashing%==1 set text4=Voce vai usar esse patcher para Wii ou WiiU?
+if %crashing%==1 set text5=Infelizmente, voce nao pode utilizar esse patch no Wii U :(
+if %crashing%==1 set text6=Se voce estava brincando, clique no botao para voltar.
+if %crashing%==1 set text7=Se nao estava, feche o programa.
+if %crashing%==1 set text8=Nos precisamos baixar as IOS 31 e 80.
+if %crashing%==1 set text9=Clique em qualquer botao para comecar o download.
+if %crashing%==1 set text10=Nós nao podemos baixar os arquivos pois a sua internet esta desligada!
+if %crashing%==1 set text11=Ligue a sua internet e tente novamente.
+if %crashing%==1 set text12=Por favor espere... Os arquivos estao sendo baixados...
+if %crashing%==1 set text13=O Patching acabou.
+if %crashing%==1 set text14=Arquivos de Patched IOS sao chamadas de ''WAD''.
 rem ### Not Completed language ###
 set text15=There was an error while patching.
 set text16=Press any button to try again.
@@ -467,22 +552,36 @@ set text33=Files has been copyied to SD Card to folder called "WAD"
 goto begin
 :set_language_deu
 set language=Deutsch
-if %translationsserror%==1 goto set_language_en
 
-set text1=Einige der Dateien, die dieses Programm braucht, um zu funktionieren, wurden nicht gefunden!
-set text2=Downloade dieses Paket noch einmal und probiere es erneut!
-set text3=Druecke auf irgendeinen Knopf um das Programm zu beenden.
-set text4=Benutzt du diesen Patcher fuer die Wii U oder die Wii?
-set text5=Leider kannst du diesen Patcher nicht fuer die Wii U benutzen :(
-set text6=Wenn du einen Witz gemacht hast, druecke einen Knopf um zurueck zu gehen.
-set text7=Wenn nicht, schliesse dieses Programm.
-set text8=Wir muessen IOS 31 und 80 herunterladen.
-set text9=Drucke irgendeinen Knopf um mit dem download fortzufahren.
-set text10=Wir koennen keine Dateien herunterladen, da du nicht mit dem Internet verbunden bist!
-set text11=Verbinde dich mit dem Internet und druecke einen Knopf, um es nochmal zu probieren.
-set text12=Bitte warte... die Dateien werden heruntergeladen...
-set text13=Das Patchen ist abgeschlossen.
-set text14=Die gepatchten Dateien befinden sich im "WAD"-Ordner.
+if %crashing%==0 set text1=Einige der Dateien, die dieses Programm braucht, um zu funktionieren, wurden nicht gefunden!
+if %crashing%==0 set text2=Downloade dieses Paket noch einmal und probiere es erneut!
+if %crashing%==0 set text3=Druecke auf irgendeinen Knopf um das Programm zu beenden.
+if %crashing%==0 set text4=Benutzt du diesen Patcher fuer die Wii U oder die Wii?
+if %crashing%==0 set text5=Leider kannst du diesen Patcher nicht fuer die Wii U benutzen :(
+if %crashing%==0 set text6=Wenn du einen Witz gemacht hast, druecke einen Knopf um zurueck zu gehen.
+if %crashing%==0 set text7=Wenn nicht, schliesse dieses Programm.
+if %crashing%==0 set text8=Wir muessen IOS 31 und 80 herunterladen.
+if %crashing%==0 set text9=Drucke irgendeinen Knopf um mit dem download fortzufahren.
+if %crashing%==0 set text10=Wir koennen keine Dateien herunterladen, da du nicht mit dem Internet verbunden bist!
+if %crashing%==0 set text11=Verbinde dich mit dem Internet und druecke einen Knopf, um es nochmal zu probieren.
+if %crashing%==0 set text12=Bitte warte... die Dateien werden heruntergeladen...
+if %crashing%==0 set text13=Das Patchen ist abgeschlossen.
+if %crashing%==0 set text14=Die gepatchten Dateien befinden sich im "WAD"-Ordner.
+
+if %crashing%==1 set text1=Einige der Dateien, die dieses Programm braucht, um zu funktionieren, wurden nicht gefunden!
+if %crashing%==1 set text2=Downloade dieses Paket noch einmal und probiere es erneut!
+if %crashing%==1 set text3=Druecke auf irgendeinen Knopf um das Programm zu beenden.
+if %crashing%==1 set text4=Benutzt du diesen Patcher fuer die Wii U oder die Wii?
+if %crashing%==1 set text5=Leider kannst du diesen Patcher nicht fuer die Wii U benutzen :(
+if %crashing%==1 set text6=Wenn du einen Witz gemacht hast, druecke einen Knopf um zurueck zu gehen.
+if %crashing%==1 set text7=Wenn nicht, schliesse dieses Programm.
+if %crashing%==1 set text8=Wir muessen IOS 31 und 80 herunterladen.
+if %crashing%==1 set text9=Drucke irgendeinen Knopf um mit dem download fortzufahren.
+if %crashing%==1 set text10=Wir koennen keine Dateien herunterladen, da du nicht mit dem Internet verbunden bist!
+if %crashing%==1 set text11=Verbinde dich mit dem Internet und druecke einen Knopf, um es nochmal zu probieren.
+if %crashing%==1 set text12=Bitte warte... die Dateien werden heruntergeladen...
+if %crashing%==1 set text13=Das Patchen ist abgeschlossen.
+if %crashing%==1 set text14=Die gepatchten Dateien befinden sich im "WAD"-Ordner.
 
 rem ### Not Completed language ###
 set text15=There was an error while patching.
@@ -508,41 +607,75 @@ set text33=Files has been copyied to SD Card to folder called "WAD"
 goto begin
 :set_language_pl
 set language=Polish
-if %translationsserror%==1 goto set_language_en
 
-set text1=Pliki które są potrzebne do uruchomienia programu nie zostały znalezione.
-set text2=Pobierz tą paczke ponownie oraz spróbuj ponownie.
-set text3=Naciśnij dowolny przycisk aby zamknąć ten program
-set text4=Czy będziesz używal tego patchera dla Wii czy dla WiiU?
-set text5=Niestety nie mozesz używac tego programu dla Wii U :(
-set text6=Jezeli żartowales, naciśnij dowolny przycisk aby powrocic do poprzedniego menu.
-set text7=Jesli nie, zamknij program.
-set text8=Musimy pobrać IOS 31 oraz IOS 80.
-set text9=Naciśnij dowolny przycisk aby rozpocząć do pobieranie.
-set text10=Nie możemy pobrać plikow ponieważ twoje połaczenie internetowe jest niedostępne!
-set text11=Włacz twój internet i nacisnij dowolny przycisk aby spróbować ponownie
-set text12=Proszę czekać... pliki są pobierane
-set text13=Patchowanie przebiegło pomyślnie.
-set text14=Spatchowane pliki IOS bedą w folderze nazwanym "WAD".
-set text15=Wystąpił błąd podczas patchowania.
-set text16=Naciśnij dowolny przycisk aby spróbować ponownie.
-set text17=Sprawdź połączenie internetowe i spróbuj ponownie.
-set text18=Ten problem został prawdopodobnie spowodowany problem z połączeniem internetowym.
-set text19=Czy chcesz skopiować spatchowane pliki na kartę SD?
-set text20=Tak
-set text21=Nie
-set text22=Proszę czekać...
-set text23=Karta SD nie zostałą znaleziona w systemie
-set text24=Proszę podłącz kartę SD i naciśnij dowolny przycisk aby spróbować ponownie.
-set text25=Aktualna litera karty SD:
-set text26=Czy chcesz zmienić litere karty SD?
-set text27=Kontynuuj i skopiuj pliki na kartę SD.
-set text28=Zmień literę dysku.
-set text29=Wyjdź
-set text30=Wpisz nową litere karty SD
-set text31=Wystąpił błąd podczas kopiowania pliku.
-set text32=Proszę czekać... kopiowanie.
-set text33=Pliki zostały skopiowane na kartę SD do folderu nazwanego "WAD"
+if %crashing%==0 set text1=Pliki które są potrzebne do uruchomienia programu nie zostały znalezione.
+if %crashing%==0 set text2=Pobierz tą paczke ponownie oraz spróbuj ponownie.
+if %crashing%==0 set text3=Naciśnij dowolny przycisk aby zamknąć ten program
+if %crashing%==0 set text4=Czy będziesz używal tego patchera dla Wii czy dla WiiU?
+if %crashing%==0 set text5=Niestety nie mozesz używac tego programu dla Wii U :(
+if %crashing%==0 set text6=Jezeli żartowales, naciśnij dowolny przycisk aby powrocic do poprzedniego menu.
+if %crashing%==0 set text7=Jesli nie, zamknij program.
+if %crashing%==0 set text8=Musimy pobrać IOS 31 oraz IOS 80.
+if %crashing%==0 set text9=Naciśnij dowolny przycisk aby rozpocząć do pobieranie.
+if %crashing%==0 set text10=Nie możemy pobrać plikow ponieważ twoje połaczenie internetowe jest niedostępne!
+if %crashing%==0 set text11=Włacz twój internet i nacisnij dowolny przycisk aby spróbować ponownie
+if %crashing%==0 set text12=Proszę czekać... pliki są pobierane
+if %crashing%==0 set text13=Patchowanie przebiegło pomyślnie.
+if %crashing%==0 set text14=Spatchowane pliki IOS bedą w folderze nazwanym "WAD".
+if %crashing%==0 set text15=Wystąpił błąd podczas patchowania.
+if %crashing%==0 set text16=Naciśnij dowolny przycisk aby spróbować ponownie.
+if %crashing%==0 set text17=Sprawdź połączenie internetowe i spróbuj ponownie.
+if %crashing%==0 set text18=Ten problem został prawdopodobnie spowodowany problem z połączeniem internetowym.
+if %crashing%==0 set text19=Czy chcesz skopiować spatchowane pliki na kartę SD?
+if %crashing%==0 set text20=Tak
+if %crashing%==0 set text21=Nie
+if %crashing%==0 set text22=Proszę czekać...
+if %crashing%==0 set text23=Karta SD nie zostałą znaleziona w systemie
+if %crashing%==0 set text24=Proszę podłącz kartę SD i naciśnij dowolny przycisk aby spróbować ponownie.
+if %crashing%==0 set text25=Aktualna litera karty SD:
+if %crashing%==0 set text26=Czy chcesz zmienić litere karty SD?
+if %crashing%==0 set text27=Kontynuuj i skopiuj pliki na kartę SD.
+if %crashing%==0 set text28=Zmień literę dysku.
+if %crashing%==0 set text29=Wyjdź
+if %crashing%==0 set text30=Wpisz nową litere karty SD
+if %crashing%==0 set text31=Wystąpił błąd podczas kopiowania pliku.
+if %crashing%==0 set text32=Proszę czekać... kopiowanie.
+if %crashing%==0 set text33=Pliki zostały skopiowane na kartę SD do folderu nazwanego "WAD"
+
+if %crashing%==1 set text1=Pliki ktore sa potrzebne do uruchomienia programu nie zostaly znalezione.
+if %crashing%==1 set text2=Pobierz ta paczke ponownie oraz sprobuj ponownie.
+if %crashing%==1 set text3=Nacisnij dowolny przycisk aby zamknac ten program
+if %crashing%==1 set text4=Czy bedziesz uzywal tego patchera dla Wii czy dla WiiU?
+if %crashing%==1 set text5=Niestety nie mozesz uzywac tego programu dla Wii U :(
+if %crashing%==1 set text6=Jezeli zartowales, nacisnij dowolny przycisk aby powrocic do poprzedniego menu.
+if %crashing%==1 set text7=Jesli nie, zamknij program.
+if %crashing%==1 set text8=Musimy pobrac IOS 31 oraz IOS 80.
+if %crashing%==1 set text9=Nacisnij dowolny przycisk aby rozpoczac do pobieranie.
+if %crashing%==1 set text10=Nie mozemy pobrac plikow poniewaz twoje polaczenie internetowe jest niedostepne!
+if %crashing%==1 set text11=Wlacz twoj internet i nacisnij dowolny przycisk aby sprobowac ponownie
+if %crashing%==1 set text12=Prosze czekac... pliki sa pobierane
+if %crashing%==1 set text13=Patchowanie przebieglo pomyslnie.
+if %crashing%==1 set text14=Spatchowane pliki IOS beda w folderze nazwanym "WAD".
+if %crashing%==1 set text15=Wystapil blad podczas patchowania.
+if %crashing%==1 set text16=Nacisnij dowolny przycisk aby sprobowac ponownie.
+if %crashing%==1 set text17=Sprawdz polaczenie internetowe i sprobuj ponownie.
+if %crashing%==1 set text18=Ten problem zostal prawdopodobnie spowodowany problem z polaczeniem internetowym.
+if %crashing%==1 set text19=Czy chcesz skopiowac spatchowane pliki na karte SD?
+if %crashing%==1 set text20=Tak
+if %crashing%==1 set text21=Nie
+if %crashing%==1 set text22=Prosze czekac...
+if %crashing%==1 set text23=Karta SD nie zostala znaleziona w systemie
+if %crashing%==1 set text24=Prosze podlacz karte SD i nacisnij dowolny przycisk aby sprobowac ponownie.
+if %crashing%==1 set text25=Aktualna litera karty SD:
+if %crashing%==1 set text26=Czy chcesz zmienic litere karty SD?
+if %crashing%==1 set text27=Kontynuuj i skopiuj pliki na karte SD.
+if %crashing%==1 set text28=Zmień litere dysku.
+if %crashing%==1 set text29=Wyjdz
+if %crashing%==1 set text30=Wpisz nowa litere karty SD
+if %crashing%==1 set text31=Wystapil blad podczas kopiowania pliku.
+if %crashing%==1 set text32=Prosze czekac... kopiowanie.
+if %crashing%==1 set text33=Pliki zostaly skopiowane na karte SD do folderu nazwanego "WAD"
+
 
 goto begin
 :set_language_en
@@ -592,7 +725,7 @@ mode 120,30
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] Error.
 echo.
 echo ERROR.
@@ -606,7 +739,7 @@ goto error_code_error
 mode 120,30
 cls
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] Error.
 echo.
 echo It seems that the translation that you've choose is broken/not completed.
@@ -622,12 +755,12 @@ mode 120,30
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] Configuring
 echo.
 echo %text4%
 echo.
-echo ҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉
+echo ------------------------------------------------------------------------------------------------------------------------
 echo                          1. Wii                                                 2. WiiU
 set /p s=Choose:
 if %s%==1 goto 4
@@ -638,7 +771,7 @@ mode 120,30
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] Error.
 echo.
 echo %text5%
@@ -654,7 +787,7 @@ set intrepeat=0
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] Info.
 echo.
 echo %text8%
@@ -670,7 +803,7 @@ cls
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] Downloading
 echo.
 echo %text12%
@@ -684,11 +817,11 @@ if not %errorlevel%==0 goto error_patching
 Sharpii.exe WAD -u IOS80-old.wad IOS80/ >NUL
 move IOS31\00000006.app 00000006.app >NUL
 if not %errorlevel%==0 goto error_patching
-xdelta3.exe -f -d -s 00000006.app ..\00000006-31.delta IOS31\00000006.app >NUL
+xdelta3.exe -f -d -s 00000006.app 00000006-31.delta IOS31\00000006.app >NUL
 if not %errorlevel%==0 goto error_patching
 move IOS80\00000006.app 00000006.app >NUL
 if not %errorlevel%==0 goto error_patching
-xdelta3.exe -f -d -s 00000006.app ..\00000006-80.delta IOS80\00000006.app >NUL
+xdelta3.exe -f -d -s 00000006.app 00000006-80.delta IOS80\00000006.app >NUL
 if not %errorlevel%==0 goto error_patching
 mkdir WAD
 if not %errorlevel%==0 goto error_patching
@@ -712,7 +845,7 @@ mode 120,30
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] Error.
 echo.
 echo %text15%
@@ -727,13 +860,13 @@ mode 120,30
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] SD Card
 echo.
 echo %text13%
 echo %text19%
 echo.
-echo ҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉
+echo ------------------------------------------------------------------------------------------------------------------------
 echo                          1. %text20%                                                 2. %text21%
 set /p s=
 if %s%==1 goto sd_card_check
@@ -743,7 +876,7 @@ goto ask_for_copy_to_an_sd_card
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] SD Card
 echo.
 set sdcard=NotDefined
@@ -897,7 +1030,7 @@ goto sd_card_show
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] SD Card
 echo.
 if %sdcard%==NotDefined echo %text23%
@@ -909,13 +1042,13 @@ goto ask_for_copy_to_an_sd_card
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] SD Card
 echo.
 echo %text25% %sdcard%
 echo %text26%
 echo.
-echo ҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉҉
+echo ------------------------------------------------------------------------------------------------------------------------
 echo 1. %text27%             2. %text28%                  3. %text29%
 set /p s=
 if %s%==1 goto sd_card_copying
@@ -926,7 +1059,7 @@ goto sd_card_defined
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] SD Card
 echo.
 echo %text25% %sdcard%
@@ -939,7 +1072,7 @@ mode 120,30
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] Error.
 echo.
 echo %text31%
@@ -951,7 +1084,7 @@ set /a errorcopying=0
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] SD Card
 echo.
 echo %text32%
@@ -971,7 +1104,7 @@ cls
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞΞ
+echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] Thanks for using that Patcher! :)
 echo.
 if %patchingok%==1 echo %text13%
