@@ -2,7 +2,7 @@
 set /a copyingsdcard=0
 set /a crashing=0
 set /a translationsserror=0
-set version=1.5.7
+set version=1.5.8
 mode 120,30
 @echo off
 rem ### Want to create translation for your language? ###
