@@ -2,7 +2,7 @@
 set /a copyingsdcard=0
 set /a crashing=0
 set /a translationsserror=0
-set version=1.5.8
+set version=1.6.0
 mode 120,30
 @echo off
 rem ### Want to create translation for your language? ###
@@ -14,7 +14,7 @@ chcp 65001
 set error4112=0
 set filcheck=0
 set language=NotDefined
-title IOS Patcher for RiiConnect24
+title IOS Patcher for RiiConnect24 v.%version%
 set patchingok=1
 if exist C:\Users\%username%\Desktop\IOSPatcherDebug.txt goto debug_1
 goto begin
@@ -55,6 +55,7 @@ echo 6. Download IOS 31 and IOS 80
 echo 7. Delete files/Refresh program.
 echo 8. Change coding page to cmd defualt
 echo 9. Change coding page to 65001 (UTF-8)
+echo 10. Open command prompt
 set /p s=Choose:
 if %s%==1 goto debug_runtime
 if %s%==2 goto debug_system_Req
@@ -65,6 +66,8 @@ if %s%==6 goto debug_download
 if %s%==7 goto refresh_database
 if %s%==8 goto debug_coding_8
 if %s%==9 goto debug_coding_utf
+if %s%==10 cmd.exe
+
 goto debug_1
 :debug_runtime
 set /a tempvariable=0
@@ -160,6 +163,8 @@ del IOS31-old.wad /q >NUL
 del IOS80-old.wad /q >NUL
 rmdir /s /q IOS31 >NUL
 rmdir /s /q IOS80 >NUL
+Sharpii.exe IOS WAD\IOS31.wad -fs -es -np -vp
+Sharpii.exe IOS WAD\IOS80.wad -fs -es -np -vp
 set output=Patching and downloading IOS 31, 80 done.
 goto debug_1
 
@@ -766,6 +771,28 @@ set /p s=Choose:
 if %s%==1 goto 4
 if %s%==2 goto error_3
 goto 3
+:advanced_settings
+rem ### Preperations for next update ###
+mode 120,30
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ------------------------------------------------------------------------------------------------------------------------
+echo  [*] Advanced Settings
+echo.
+echo.
+echo M. Go back to main menu
+echo.
+echo 1. Use your own IOS and patch it with your own delta file
+echo 2. Download IOS from NUS and patch it with your own delta file
+echo 3. Download an IOS from NUS and patch it.
+set /p s=Choose: 
+if %s%==1 goto ios_own_delta_own
+if %s%==2 goto down_ios_delta_own
+if %s%==3 goto ios_down_menu
+if %s%==m goto 3
+if %s%==M goto 3
+goto advanced_settings
 :error_3
 mode 120,30
 cls
@@ -838,6 +865,11 @@ if not %errorlevel%==0 goto error_patching
 rmdir /s /q IOS31 >NUL
 if not %errorlevel%==0 goto error_patching
 rmdir /s /q IOS80 >NUL
+if not %errorlevel%==0 goto error_patching
+Sharpii.exe IOS WAD\IOS31.wad -fs -es -np -vp
+if not %errorlevel%==0 goto error_patching
+Sharpii.exe IOS WAD\IOS80.wad -fs -es -np -vp
+if not %errorlevel%==0 goto error_patching	
 rem ### Patching Done ###
 goto ask_for_copy_to_an_sd_card
 :error_patching
