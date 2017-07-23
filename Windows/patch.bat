@@ -1,31 +1,52 @@
+set version=1.6.2
+if exist "C:\Users\%username%\Desktop\IOSPatcherDebug.txt" goto debug_load
 :1
 set /a copyingsdcard=0
 set /a crashing=0
 set /a translationsserror=0
-set version=1.6.0
 mode 120,30
 @echo off
-rem ### Want to create translation for your language? ###
-rem ### Download this text file: https://drive.google.com/open?id=0B99PAkYFoBoLUFRERkFNbTBLU3M ###
-rem ### And than send me this on discord - KcrPL#4625. It's easy! :) ###
-rem But please, don't put your own translations in this file! You may not understand the code and you may break it!
-rem -KcrPL.
 chcp 65001
 set error4112=0
 set filcheck=0
 set language=NotDefined
-title IOS Patcher for RiiConnect24 v.%version%
 set patchingok=1
-if exist C:\Users\%username%\Desktop\IOSPatcherDebug.txt goto debug_1
+title IOS Patcher for RiiConnect24 v.%version%
+
+set /a errorwinxp=0	
+timeout -0 /nobreak || set /a errorwinxp=1 >NUL
+if %errorwinxp%==1 goto winxp_notice
 goto begin
+:winxp_notice
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL. v%version%
+echo ------------------------------------------------------------------------------------------------------------------------
+echo  [*] Windows XP Support ended.
+echo.
+echo Thanks for using that program but support for any system older than Windows 7 has been ended.
+echo It means that you can still use this program but if you will encounter any problem with it we will not help you.
+echo.
+echo We may release ESR if needed. (Extended Support Release)
+echo.
+echo Press any key to continue.
+pause>NUL
+goto begin
+
 :begin
 cls
-
 if exist "%appdata%\temprc24.txt" del /q "%appdata%\temprc24.txt"
-
 if %language%==NotDefined goto set_language
-if not exist 00000006-31.delta goto error_runtime_error
-if not exist 00000006-80.delta goto error_runtime_error
+set /a delta31=0
+set /a delta80=0
+	if exist ../Patches/00000006-31.delta set /a delta31=1
+	if exist 00000006-31.delta set /a delta31=2
+	
+	if exist ../Patches/00000006-80.delta set /a delta80=1
+	if exist 00000006-80.delta set /a delta80=2
+
+if %delta31%==0 goto error_runtime_error
+if %delta80%==0 goto error_runtime_error
 if not exist libWiiSharp.dll goto error_runtime_error
 if not exist Sharpii.exe goto error_runtime_error
 if not exist WadInstaller.dll goto error_runtime_error
@@ -33,25 +54,26 @@ if not exist wget.exe goto error_runtime_error
 if not exist xdelta3.exe goto error_runtime_error
 set filcheck=1
 goto 3
+:debug_load
+cls
+@echo off
+cls
+
 :debug_1
 if not defined %output% set output=No output.
 cls
-echo                                      IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
-
+echo IOS Patcher for RiiConnect24 Larsenv, KcrPL
 echo debug menu
 echo.
-echo :---------------:
 echo Output:
 echo %output%
-echo :---------------:
 echo.
 echo 1. Check for runtime files
 echo 2. Check system req
 echo 3. Load a translation into memory
 echo 4. Exit debug menu
 echo 5. Exit.
-echo 6. Download IOS 31 and IOS 80
+echo 6. Run patching script
 echo 7. Delete files/Refresh program.
 echo 8. Change coding page to cmd defualt
 echo 9. Change coding page to 65001 (UTF-8)
@@ -755,7 +777,6 @@ pause>NUL
 set /a translationsserror=1
 goto begin
 :3
-
 mode 120,30
 cls
 echo.
@@ -771,28 +792,6 @@ set /p s=Choose:
 if %s%==1 goto 4
 if %s%==2 goto error_3
 goto 3
-:advanced_settings
-rem ### Preperations for next update ###
-mode 120,30
-cls
-echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
-echo  [*] Advanced Settings
-echo.
-echo.
-echo M. Go back to main menu
-echo.
-echo 1. Use your own IOS and patch it with your own delta file
-echo 2. Download IOS from NUS and patch it with your own delta file
-echo 3. Download an IOS from NUS and patch it.
-set /p s=Choose: 
-if %s%==1 goto ios_own_delta_own
-if %s%==2 goto down_ios_delta_own
-if %s%==3 goto ios_down_menu
-if %s%==m goto 3
-if %s%==M goto 3
-goto advanced_settings
 :error_3
 mode 120,30
 cls
@@ -835,26 +834,26 @@ echo  [*] Downloading
 echo.
 echo %text12%
 rem ### Patching ###
-Sharpii.exe NUSD -ios 31 -v latest -o IOS31-old.wad -wad >NUL
+call Sharpii.exe NUSD -ios 31 -v latest -o IOS31-old.wad -wad >NUL
 if not %errorlevel%==0 goto error_patching
-Sharpii.exe NUSD -ios 80 -v latest -o IOS80-old.wad -wad >NUL
+call Sharpii.exe NUSD -ios 80 -v latest -o IOS80-old.wad -wad >NUL
 if not %errorlevel%==0 goto error_patching
-Sharpii.exe WAD -u IOS31-old.wad IOS31/ >NUL
+call Sharpii.exe WAD -u IOS31-old.wad IOS31/ >NUL
 if not %errorlevel%==0 goto error_patching
-Sharpii.exe WAD -u IOS80-old.wad IOS80/ >NUL
+call Sharpii.exe WAD -u IOS80-old.wad IOS80/ >NUL
 move IOS31\00000006.app 00000006.app >NUL
 if not %errorlevel%==0 goto error_patching
-xdelta3.exe -f -d -s 00000006.app 00000006-31.delta IOS31\00000006.app >NUL
+call xdelta3.exe -f -d -s 00000006.app 00000006-31.delta IOS31\00000006.app >NUL
 if not %errorlevel%==0 goto error_patching
 move IOS80\00000006.app 00000006.app >NUL
 if not %errorlevel%==0 goto error_patching
-xdelta3.exe -f -d -s 00000006.app 00000006-80.delta IOS80\00000006.app >NUL
+call xdelta3.exe -f -d -s 00000006.app 00000006-80.delta IOS80\00000006.app >NUL
 if not %errorlevel%==0 goto error_patching
 mkdir WAD
 if not %errorlevel%==0 goto error_patching
-Sharpii.exe WAD -p IOS31\ WAD\IOS31.wad -fs >NUL
+call Sharpii.exe WAD -p IOS31\ WAD\IOS31.wad -fs >NUL
 if not %errorlevel%==0 goto error_patching
-Sharpii.exe WAD -p IOS80\ WAD\IOS80.wad -fs >NUL
+call Sharpii.exe WAD -p IOS80\ WAD\IOS80.wad -fs >NUL
 if not %errorlevel%==0 goto error_patching
 del 00000006.app /q >NUL
 if not %errorlevel%==0 goto error_patching
@@ -866,9 +865,9 @@ rmdir /s /q IOS31 >NUL
 if not %errorlevel%==0 goto error_patching
 rmdir /s /q IOS80 >NUL
 if not %errorlevel%==0 goto error_patching
-Sharpii.exe IOS WAD\IOS31.wad -fs -es -np -vp
+call Sharpii.exe IOS WAD\IOS31.wad -fs -es -np -vp
 if not %errorlevel%==0 goto error_patching
-Sharpii.exe IOS WAD\IOS80.wad -fs -es -np -vp
+call Sharpii.exe IOS WAD\IOS80.wad -fs -es -np -vp
 if not %errorlevel%==0 goto error_patching	
 rem ### Patching Done ###
 goto ask_for_copy_to_an_sd_card
