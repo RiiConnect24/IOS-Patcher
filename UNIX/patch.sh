@@ -2,7 +2,6 @@
 cd -P -- "$(dirname -- "$0")"
 echo "This is a patcher that creates an IOS31 and IOS80 WAD."
 echo "This is only for the Wii, please don't install this on a Wii U."
-unamevar="$(uname -s)"
 case "$OSTYPE" in
 	linux*)   
 		hash xdelta3 2>/dev/null || { echo >&2 "I'm missing xdelta3, please install with package manager, or compile and add it to your path."; exit 1; }
