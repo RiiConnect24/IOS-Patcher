@@ -8,7 +8,7 @@ case "$OSTYPE" in
 		hash mono 2>/dev/null || { echo >&2 "I'm missing mono, please install with package manager, or compile and add it to your path."; exit 1; };;
 	darwin*)  
 		hash mono 2>/dev/null || { echo >&2 "I'm missing mono, please install with the homebrew package manager at https://brew.sh/";exit 1;}
-		hash xdelta3 2>/dev/null || { echo >&2 "I'm missing xdelta3, please install with homebrew at https://brew.sh/"; exit 1; };;
+		hash xdelta3 2>/dev/null || { echo >&2 "I'm missing xdelta, please install with homebrew at https://brew.sh/"; exit 1; };;
 esac
 
 if [ ! -f ./Sharpii.exe ]; then
