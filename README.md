@@ -5,4 +5,4 @@
 
 This patcher patches the RSA Key and applies mail patches in IOS31 and IOS80 on the Wii (U) so you can use RiiConnect24 without errors prohibiting you.
 
-The macOS version of the patcher uses a version of Sharpii available at https://github.com/spotlightishere/sharpii
+The macOS/Linux version of the patcher uses a version of Sharpii available at https://github.com/spotlightishere/sharpii
