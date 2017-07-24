@@ -1,4 +1,4 @@
-set version=1.6.4
+set version=1.7.0
 if exist "C:\Users\%username%\Desktop\IOSPatcherDebug.txt" goto debug_load
 :1
 set /a copyingsdcard=0
