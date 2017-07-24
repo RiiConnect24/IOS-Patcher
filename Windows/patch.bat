@@ -98,7 +98,7 @@ if not exist WadInstaller.dll goto error_runtime_error
 if not exist wget.exe goto error_runtime_error
 if not exist xdelta3.exe goto error_runtime_error
 
-set /a errorwinxp=1	
+set /a errorwinxp=0
 timeout -0 /nobreak || set /a errorwinxp=1 >NUL
 if %errorwinxp%==1 goto winxp_notice
 
