@@ -1,4 +1,4 @@
-set version=1.6.2
+set version=1.6.4
 if exist "C:\Users\%username%\Desktop\IOSPatcherDebug.txt" goto debug_load
 :1
 set /a copyingsdcard=0
@@ -11,42 +11,257 @@ set error4112=0
 set filcheck=0
 set language=NotDefined
 set patchingok=1
-title IOS Patcher for RiiConnect24 v.%version%
+title IOS Patcher for RiiConnect24 v.%version%  Created by @Larsenv, @KcrPL
 
-set /a errorwinxp=0	
+
+goto begin_main
+:begin_main
+mode 130,35
+cls
+echo.                                                                       
+echo              `..````                                                  
+echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`                
+echo              hNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd                
+echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs                
+echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+    RiiConnect your Wii.               
+echo             .mmmmNs mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:                
+echo             :mdmmN+`mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.                
+echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN   Press any button to begin                 
+echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd                 
+echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy                 
+echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
+echo             mmmmms smMMMMMMMMMmddMMmmNmNMMMMMMMMMMMM:                 
+echo            `mmmmmo hNMMMMMMMMMmddNMMMNNMMMMMMMMMMMMM.                 
+echo            -mmmmm/ dNMMMMMMMMMNmddMMMNdhdMMMMMMMMMMN                  
+echo            :mmmmm-`mNMMMMMMMMNNmmmNMMNmmmMMMMMMMMMMd                  
+echo            +mmmmN.-mNMMMMMMMMMNmmmmMMMMMMMMMMMMMMMMy                  
+echo            smmmmm`/mMMMMMMMMMNNmmmmNMMMMNMMNMMMMMNmy.                 
+echo            hmmmmd`omMMMMMMMMMNNmmmNmMNNMmNNNNMNdhyhh.                 
+echo            mmmmmh ymMMMMMMMMMNNmmmNmNNNMNNMMMMNyyhhh`                 
+echo           `mmmmmy hmMMNMNNMMMNNmmmmmdNMMNmmMMMMhyhhy                  
+echo           -mddmmo`mNMNNNNMMMNNNmdyoo+mMMMNmNMMMNyyys                  
+echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-                  
+echo          .+mmdhhmmmNNNNNNmdysooooosssomMMMNNNMMMm                     
+echo          o/ossyhdmmNNmdyo+++oooooosssoyNMMNNNMMMM+                    
+echo          o/::::::://++//+++ooooooo+oo++mNMMmNNMMMm                    
+echo         `o//::::::::+////+++++++///:/+shNMMNmNNmMM+                   
+echo         .o////////::+++++++oo++///+syyyymMmNmmmNMMm                   
+echo         -+//////////o+ooooooosydmdddhhsosNMMmNNNmho            `:/    
+echo         .+++++++++++ssss+//oyyysso/:/shmshhs+:.          `-/oydNNNy   
+echo           `..-:/+ooss+-`          +mmhdy`           -/shmNNNNNdy+:`   
+echo                   `.              yddyo++:    `-/oymNNNNNdy+:`        
+echo                                   -odhhhhyddmmmmmNNmhs/:`             
+echo                                     :syhdyyyyso+/-`                   
+echo.                                                                       
+pause>NUL
+cls
+echo.                                                                       
+echo              `..````                                                  
+echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`                
+echo              hNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd                
+echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs                
+echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+        
+echo             .mmmmNs mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:                
+echo             :mdmmN+`mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.                
+echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN            
+echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd                 
+echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy                 
+echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
+echo             mmmmms smMMMMMMMMMmddMMmmNmNMMMMMMMMMMMM:                 
+echo            `mmmmmo hNMMMMMMMMMmddNMMMNNMMMMMMMMMMMMM.                 
+echo            -mmmmm/ dNMMMMMMMMMNmddMMMNdhdMMMMMMMMMMN                  
+echo            :mmmmm-`mNMMMMMMMMNNmmmNMMNmmmMMMMMMMMMMd                  
+echo            +mmmmN.-mNMMMMMMMMMNmmmmMMMMMMMMMMMMMMMMy                  
+echo            smmmmm`/mMMMMMMMMMNNmmmmNMMMMNMMNMMMMMNmy.                 
+echo            hmmmmd`omMMMMMMMMMNNmmmNmMNNMmNNNNMNdhyhh.                 
+echo            mmmmmh ymMMMMMMMMMNNmmmNmNNNMNNMMMMNyyhhh`                 
+echo           `mmmmmy hmMMNMNNMMMNNmmmmmdNMMNmmMMMMhyhhy                  
+echo           -mddmmo`mNMNNNNMMMNNNmdyoo+mMMMNmNMMMNyyys                  
+echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-                  
+echo          .+mmdhhmmmNNNNNNmdysooooosssomMMMNNNMMMm                     
+echo          o/ossyhdmmNNmdyo+++oooooosssoyNMMNNNMMMM+                    
+echo          o/::::::://++//+++ooooooo+oo++mNMMmNNMMMm                    
+echo         `o//::::::::+////+++++++///:/+shNMMNmNNmMM+                   
+echo         .o////////::+++++++oo++///+syyyymMmNmmmNMMm                   
+echo         -+//////////o+ooooooosydmdddhhsosNMMmNNNmho            `:/    
+echo         .+++++++++++ssss+//oyyysso/:/shmshhs+:.          `-/oydNNNy   
+echo           `..-:/+ooss+-`          +mmhdy`           -/shmNNNNNdy+:`   
+echo                   `.              yddyo++:    `-/oymNNNNNdy+:`        
+echo                                   -odhhhhyddmmmmmNNmhs/:`             
+echo                                     :syhdyyyyso+/-`                   
+echo                                                                        Please wait...
+if not exist 00000006-80.delta goto error_runtime_error
+if not exist 00000006-31.delta goto error_runtime_error
+if not exist libWiiSharp.dll goto error_runtime_error
+if not exist Sharpii.exe goto error_runtime_error
+if not exist WadInstaller.dll goto error_runtime_error
+if not exist wget.exe goto error_runtime_error
+if not exist xdelta3.exe goto error_runtime_error
+
+set /a errorwinxp=1	
 timeout -0 /nobreak || set /a errorwinxp=1 >NUL
 if %errorwinxp%==1 goto winxp_notice
-goto begin
+
+set filcheck=1
+
+goto main_fade_out
 :winxp_notice
 cls
+echo.                                                                       
+echo              `..````                                                  
+echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`                
+echo              hNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd                
+echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs                
+echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+        
+echo             .mmmmNs mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:                
+echo             :mdmmN+`mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.                
+echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN            
+echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd                 
+echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy                 
+echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
+echo ---------------------------------------------------------------------------------------------------------------------------------              
+echo    /---\   Windows XP Support Ended.              
+echo   /     \  Thanks for using that program but support for any system older than Windows 7 has been ended.
+echo  /   !   \ It means that you can still use this program but if you will encounter any problem with it we will not help you.
+echo  --------- We may release ESR if needed. (Extended Support Release)             
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL. v%version%
-echo ------------------------------------------------------------------------------------------------------------------------
-echo  [*] Windows XP Support ended.
-echo.
-echo Thanks for using that program but support for any system older than Windows 7 has been ended.
-echo It means that you can still use this program but if you will encounter any problem with it we will not help you.
-echo.
-echo We may release ESR if needed. (Extended Support Release)
-echo.
-echo Press any key to continue.
+echo            Press any key to continue.
+echo ---------------------------------------------------------------------------------------------------------------------------------    
+echo           -mddmmo`mNMNNNNMMMNNNmdyoo+mMMMNmNMMMNyyys                  
+echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-                  
+echo          .+mmdhhmmmNNNNNNmdysooooosssomMMMNNNMMMm                     
+echo          o/ossyhdmmNNmdyo+++oooooosssoyNMMNNNMMMM+                    
+echo          o/::::::://++//+++ooooooo+oo++mNMMmNNMMMm                    
+echo         `o//::::::::+////+++++++///:/+shNMMNmNNmMM+                   
+echo         .o////////::+++++++oo++///+syyyymMmNmmmNMMm                   
+echo         -+//////////o+ooooooosydmdddhhsosNMMmNNNmho            `:/    
+echo         .+++++++++++ssss+//oyyysso/:/shmshhs+:.          `-/oydNNNy   
+echo           `..-:/+ooss+-`          +mmhdy`           -/shmNNNNNdy+:`   
+echo                   `.              yddyo++:    `-/oymNNNNNdy+:`        
+echo                                   -odhhhhyddmmmmmNNmhs/:`             
+echo                                     :syhdyyyyso+/-`
 pause>NUL
-goto begin
+goto main_fade_out
+:main_fade_out
+cls
 
+echo.                                                                       
+echo              `..````                                                  
+echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`                
+echo              hNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd                
+echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs                
+echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+                
+echo             .mmmmNs mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:                
+echo             :mdmmN+`mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.                
+echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN                 
+echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd                 
+echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy                 
+echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
+echo             mmmmms smMMMMMMMMMmddMMmmNmNMMMMMMMMMMMM:                 
+echo            `mmmmmo hNMMMMMMMMMmddNMMMNNMMMMMMMMMMMMM.                 
+echo            -mmmmm/ dNMMMMMMMMMNmddMMMNdhdMMMMMMMMMMN                  
+echo            :mmmmm-`mNMMMMMMMMNNmmmNMMNmmmMMMMMMMMMMd                  
+echo            +mmmmN.-mNMMMMMMMMMNmmmmMMMMMMMMMMMMMMMMy                  
+echo            smmmmm`/mMMMMMMMMMNNmmmmNMMMMNMMNMMMMMNmy.                 
+echo            hmmmmd`omMMMMMMMMMNNmmmNmMNNMmNNNNMNdhyhh.                 
+echo            mmmmmh ymMMMMMMMMMNNmmmNmNNNMNNMMMMNyyhhh`                 
+echo           `mmmmmy hmMMNMNNMMMNNmmmmmdNMMNmmMMMMhyhhy                  
+echo           -mddmmo`mNMNNNNMMMNNNmdyoo+mMMMNmNMMMNyyys                  
+echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-                  
+echo          .+mmdhhmmmNNNNNNmdysooooosssomMMMNNNMMMm                     
+echo          o/ossyhdmmNNmdyo+++oooooosssoyNMMNNNMMMM+                    
+echo          o/::::::://++//+++ooooooo+oo++mNMMmNNMMMm                    
+echo         `o//::::::::+////+++++++///:/+shNMMNmNNmMM+                   
+echo         .o////////::+++++++oo++///+syyyymMmNmmmNMMm                   
+echo         -+//////////o+ooooooosydmdddhhsosNMMmNNNmho            `:/    
+echo         .+++++++++++ssss+//oyyysso/:/shmshhs+:.          `-/oydNNNy   
+echo           `..-:/+ooss+-`          +mmhdy`           -/shmNNNNNdy+:`   
+echo                   `.              yddyo++:    `-/oymNNNNNdy+:`        
+echo                                   -odhhhhyddmmmmmNNmhs/:`             
+echo                                     :syhdyyyyso+/-`                   
+echo. 
+ping localhost -n 3 >NUL
+goto set_language_en
+:error_runtime_error
+cls
+echo.                                                                       
+echo              `..````                                                  
+echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`                
+echo              hNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd                
+echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs                
+echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+        
+echo             .mmmmNs mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:                
+echo             :mdmmN+`mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.                
+echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN            
+echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd                 
+echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy                 
+echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
+echo ---------------------------------------------------------------------------------------------------------------------------------              
+echo    /---\   ERROR.              
+echo   /     \  Some files needed to run this program wasn't found. Please redownload this program.
+echo  /   !   \ Press any button to go back.
+echo  ---------              
+echo ---------------------------------------------------------------------------------------------------------------------------------    
+echo            mmmmmh ymMMMMMMMMMNNmmmNmNNNMNNMMMMNyyhhh`                 
+echo           `mmmmmy hmMMNMNNMMMNNmmmmmdNMMNmmMMMMhyhhy                  
+echo           -mddmmo`mNMNNNNMMMNNNmdyoo+mMMMNmNMMMNyyys                  
+echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-                  
+echo          .+mmdhhmmmNNNNNNmdysooooosssomMMMNNNMMMm                     
+echo          o/ossyhdmmNNmdyo+++oooooosssoyNMMNNNMMMM+                    
+echo          o/::::::://++//+++ooooooo+oo++mNMMmNNMMMm                    
+echo         `o//::::::::+////+++++++///:/+shNMMNmNNmMM+                   
+echo         .o////////::+++++++oo++///+syyyymMmNmmmNMMm                   
+echo         -+//////////o+ooooooosydmdddhhsosNMMmNNNmho            `:/    
+echo         .+++++++++++ssss+//oyyysso/:/shmshhs+:.          `-/oydNNNy   
+echo           `..-:/+ooss+-`          +mmhdy`           -/shmNNNNNdy+:`   
+echo                   `.              yddyo++:    `-/oymNNNNNdy+:`        
+echo                                   -odhhhhyddmmmmmNNmhs/:`             
+echo                                     :syhdyyyyso+/-`                   
+pause>NUL
+goto begin_main
+:error_code_error
+cls
+echo.                                                                       
+echo              `..````                                                  
+echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`                
+echo              hNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd                
+echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs                
+echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+        
+echo             .mmmmNs mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:                
+echo             :mdmmN+`mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.                
+echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN            
+echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd                 
+echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy                 
+echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
+echo ---------------------------------------------------------------------------------------------------------------------------------              
+echo    /---\   ERROR.              
+echo   /     \  Translation file is broken or file check has failed...
+echo  /   !   \ 
+echo  --------- Press any button to go back.             
+echo ---------------------------------------------------------------------------------------------------------------------------------    
+echo            mmmmmh ymMMMMMMMMMNNmmmNmNNNMNNMMMMNyyhhh`                 
+echo           `mmmmmy hmMMNMNNMMMNNmmmmmdNMMNmmMMMMhyhhy                  
+echo           -mddmmo`mNMNNNNMMMNNNmdyoo+mMMMNmNMMMNyyys                  
+echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-                  
+echo          .+mmdhhmmmNNNNNNmdysooooosssomMMMNNNMMMm                     
+echo          o/ossyhdmmNNmdyo+++oooooosssoyNMMNNNMMMM+                    
+echo          o/::::::://++//+++ooooooo+oo++mNMMmNNMMMm                    
+echo         `o//::::::::+////+++++++///:/+shNMMNmNNmMM+                   
+echo         .o////////::+++++++oo++///+syyyymMmNmmmNMMm                   
+echo         -+//////////o+ooooooosydmdddhhsosNMMmNNNmho            `:/    
+echo         .+++++++++++ssss+//oyyysso/:/shmshhs+:.          `-/oydNNNy   
+echo           `..-:/+ooss+-`          +mmhdy`           -/shmNNNNNdy+:`   
+echo                   `.              yddyo++:    `-/oymNNNNNdy+:`        
+echo                                   -odhhhhyddmmmmmNNmhs/:`             
+echo                                     :syhdyyyyso+/-`                   
+pause>NUL
+goto begin_main
 :begin
 cls
 if exist "%appdata%\temprc24.txt" del /q "%appdata%\temprc24.txt"
 if %language%==NotDefined goto set_language
-set /a delta31=0
-set /a delta80=0
-	if exist ../Patches/00000006-31.delta set /a delta31=1
-	if exist 00000006-31.delta set /a delta31=2
-	
-	if exist ../Patches/00000006-80.delta set /a delta80=1
-	if exist 00000006-80.delta set /a delta80=2
-
-if %delta31%==0 goto error_runtime_error
-if %delta80%==0 goto error_runtime_error
+if not exist 00000006-80.delta set /a delta80=2
+if not exist 00000006-31.delta set /a delta31=2
 if not exist libWiiSharp.dll goto error_runtime_error
 if not exist Sharpii.exe goto error_runtime_error
 if not exist WadInstaller.dll goto error_runtime_error
@@ -192,21 +407,8 @@ goto debug_1
 
 
 
-:error_runtime_error
-mode 120,30
-cls
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
-echo  [*] Error.
-echo.
-echo  %text1%
-echo  %text2%
-echo ------------------------------------------------------------------------------------------------------------------------
-echo.
-echo %text3%
-pause>NUL
-set patchingok=0
-goto end
+
+
 :set_language
 set translationsserror=0
 mode 120,30
@@ -759,7 +961,7 @@ echo ERROR.
 echo It seems that error has occurred.
 echo.
 echo It's because this translation is broken. Or file check has failed.
-pause>NUL
+pause>NULc
 goto error_code_error
 
 :error_translation_not_completed
@@ -832,41 +1034,98 @@ echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
 echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] Downloading
 echo.
-echo %text12%
+echo :          : 0%%
 rem ### Patching ###
 call Sharpii.exe NUSD -ios 31 -v latest -o IOS31-old.wad -wad >NUL
 if not %errorlevel%==0 goto error_patching
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ------------------------------------------------------------------------------------------------------------------------
+echo  [*] Downloading
+echo.
+echo :--        : 20%%
 call Sharpii.exe NUSD -ios 80 -v latest -o IOS80-old.wad -wad >NUL
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ------------------------------------------------------------------------------------------------------------------------
+echo  [*] Downloading
+echo.
+echo :----      : 40%%
 if not %errorlevel%==0 goto error_patching
 call Sharpii.exe WAD -u IOS31-old.wad IOS31/ >NUL
 if not %errorlevel%==0 goto error_patching
 call Sharpii.exe WAD -u IOS80-old.wad IOS80/ >NUL
 move IOS31\00000006.app 00000006.app >NUL
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ------------------------------------------------------------------------------------------------------------------------
+echo  [*] Downloading
+echo.
+echo :-----     : 50%%
 if not %errorlevel%==0 goto error_patching
 call xdelta3.exe -f -d -s 00000006.app 00000006-31.delta IOS31\00000006.app >NUL
 if not %errorlevel%==0 goto error_patching
 move IOS80\00000006.app 00000006.app >NUL
+
 if not %errorlevel%==0 goto error_patching
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ------------------------------------------------------------------------------------------------------------------------
+echo  [*] Downloading
+echo.
+echo :-------   : 70%%
 call xdelta3.exe -f -d -s 00000006.app 00000006-80.delta IOS80\00000006.app >NUL
 if not %errorlevel%==0 goto error_patching
 mkdir WAD
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ------------------------------------------------------------------------------------------------------------------------
+echo  [*] Downloading
+echo.
+echo :--------  : 80%%
 if not %errorlevel%==0 goto error_patching
 call Sharpii.exe WAD -p IOS31\ WAD\IOS31.wad -fs >NUL
 if not %errorlevel%==0 goto error_patching
 call Sharpii.exe WAD -p IOS80\ WAD\IOS80.wad -fs >NUL
 if not %errorlevel%==0 goto error_patching
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ------------------------------------------------------------------------------------------------------------------------
+echo  [*] Downloading
+echo.
+echo :--------- : 90%%
 del 00000006.app /q >NUL
 if not %errorlevel%==0 goto error_patching
 del IOS31-old.wad /q >NUL
 if not %errorlevel%==0 goto error_patching
 del IOS80-old.wad /q >NUL
 if not %errorlevel%==0 goto error_patching
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ------------------------------------------------------------------------------------------------------------------------
+echo  [*] Downloading
+echo.
+echo :--------- : 93%%
 rmdir /s /q IOS31 >NUL
 if not %errorlevel%==0 goto error_patching
 rmdir /s /q IOS80 >NUL
 if not %errorlevel%==0 goto error_patching
 call Sharpii.exe IOS WAD\IOS31.wad -fs -es -np -vp
 if not %errorlevel%==0 goto error_patching
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ------------------------------------------------------------------------------------------------------------------------
+echo  [*] Downloading
+echo.
+echo :----------: 100%%
 call Sharpii.exe IOS WAD\IOS80.wad -fs -es -np -vp
 if not %errorlevel%==0 goto error_patching	
 rem ### Patching Done ###
