@@ -1,4 +1,4 @@
-set version=1.7.2
+set version=1.7.3
 if exist "C:\Users\%username%\Desktop\IOSPatcherDebug.txt" goto debug_load
 :1
 set /a copyingsdcard=0
@@ -14,6 +14,16 @@ set patchingok=1
 title IOS Patcher for RiiConnect24 v.%version%  Created by @Larsenv, @KcrPL
 set last_build=2017/08/04
 set at=23:34
+:: ### Auto Update ###
+set /a IOSPatcher_Update_Activate=0
+set /a whatsnew=1
+set /a offlinestorage=1
+set FilesHostedOn=https://rc24.xyz/IOS-Patcher/
+set MainFolder=%appdata%\IOSPatcher
+set TempStorage=%appdata%\IOSPatcher\internet\temp
+
+set /a versioncheck=0	
+
 
 goto begin_main
 :begin_main
@@ -54,6 +64,8 @@ echo                   `.              yddyo++:    `-/oymNNNNNdy+:`
 echo                                   -odhhhhyddmmmmmNNmhs/:`             
 echo                                     :syhdyyyyso+/-`                   
 pause>NUL
+goto startup_script
+:startup_script
 cls
 echo.                                                                       
 echo              `..````                                                  
@@ -90,6 +102,22 @@ echo                   `.              yddyo++:    `-/oymNNNNNdy+:`
 echo                                   -odhhhhyddmmmmmNNmhs/:`             
 echo                                     :syhdyyyyso+/-`                   
 echo                                                                        Please wait...
+set /a updateversion=0.0.0
+if %offlinestorage%==0 if exist %TempStorage%\version.txt del %TempStorage%\version.txt /q
+if not exist %TempStorage% md %TempStorage%
+if %IOSPatcher_Update_Activate%==1 if %offlinestorage%==0 powershell -c `"Invoke-WebRequest -Uri "%FilesHostedOn%/version.txt" -OutFile "%TempStorage%\version.txt"`" || set /a versioncheck=0
+
+set /p updateversion=<%TempStorage%\version.txt
+
+set /a updateavailable=1
+if %IOSPatcher_Update_Activate%==1 if %version%==%updateversion% set /a updateavailable=0 
+
+if %IOSPatcher_Update_Activate%==1 if %updateavailable%==1 goto update_notice
+
+
+
+
+
 if not exist 00000006-80.delta goto error_runtime_error
 if not exist 00000006-31.delta goto error_runtime_error
 if not exist libWiiSharp.dll goto error_runtime_error
@@ -105,6 +133,67 @@ if %errorwinxp%==1 goto winxp_notice
 set filcheck=1
 
 goto main_fade_out
+:update_notice
+cls
+echo.                                                                       
+echo              `..````                                                  
+echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`                
+echo              hNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd                
+echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs                
+echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+        
+echo             .mmmmNs mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:                
+echo             :mdmmN+`mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.                
+echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN            
+echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd                 
+echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy                 
+echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
+echo ---------------------------------------------------------------------------------------------------------------------------              
+echo    /---\   An Update is available.              
+echo   /     \  An Update for this program is available. We suggest updating the IOS Patcher to the latest version.
+echo  /   !   \ 
+echo  ---------  Current version: %version%
+echo             New version: %updateversion%
+echo                       1. Update                      2. Dismiss               3. What's new in this update?
+echo ---------------------------------------------------------------------------------------------------------------------------    
+echo           -mddmmo`mNMNNNNMMMNNNmdyoo+mMMMNmNMMMNyyys                  
+echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-                  
+echo          .+mmdhhmmmNNNNNNmdysooooosssomMMMNNNMMMm                     
+echo          o/ossyhdmmNNmdyo+++oooooosssoyNMMNNNMMMM+                    
+echo          o/::::::://++//+++ooooooo+oo++mNMMmNNMMMm                    
+echo         `o//::::::::+////+++++++///:/+shNMMNmNNmMM+                   
+echo         .o////////::+++++++oo++///+syyyymMmNmmmNMMm                   
+echo         -+//////////o+ooooooosydmdddhhsosNMMmNNNmho            `:/    
+echo         .+++++++++++ssss+//oyyysso/:/shmshhs+:.          `-/oydNNNy   
+echo           `..-:/+ooss+-`          +mmhdy`           -/shmNNNNNdy+:`   
+echo                   `.              yddyo++:    `-/oymNNNNNdy+:`        
+echo                                   -odhhhhyddmmmmmNNmhs/:`             
+echo                                     :syhdyyyyso+/-`
+set /p s=
+if %s%==1 goto update_files
+if %s%==2 goto begin_main
+if %s%==3 goto whatsnew
+goto update_notice
+:whatsnew
+cls
+if not exist %TempStorage%\whatsnew.txt goto whatsnew_notexist
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
+echo ---------------------------------------------------------------------------------------------------------------------------              
+echo.
+echo What's new in update %updateversion%?
+echo.
+type %TempStorage%\whatsnew.txt
+pause>NUL
+goto update_notice
+:whatsnew_notexist
+cls
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
+echo --------------------------------------------------------------------------------------------------------------------------              
+echo.
+echo Error. What's new file is not available.
+echo.
+echo Press any button to go back.
+pause>NUL
+goto update_notice
 :winxp_notice
 cls
 echo.                                                                       
