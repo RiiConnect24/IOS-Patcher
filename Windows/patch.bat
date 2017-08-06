@@ -1,4 +1,5 @@
-set version=1.7.3
+set version=1.7.5
+if exist temp.bat del /q temp.bat
 if exist "C:\Users\%username%\Desktop\IOSPatcherDebug.txt" goto debug_load
 :1
 set /a copyingsdcard=0
@@ -12,20 +13,28 @@ set filcheck=0
 set language=NotDefined
 set patchingok=1
 title IOS Patcher for RiiConnect24 v.%version%  Created by @Larsenv, @KcrPL
-set last_build=2017/08/04
-set at=23:34
+set last_build=2017/08/07
+set at=01:39
 :: ### Auto Update ###
-set /a IOSPatcher_Update_Activate=0
+set /a IOSPatcher_Update_Activate=1
 set /a whatsnew=1
-set /a offlinestorage=1
-set FilesHostedOn=https://rc24.xyz/IOS-Patcher/
+set /a offlinestorage=0
+set FilesHostedOn=https://rc24.xyz/IOS-Patcher
 set MainFolder=%appdata%\IOSPatcher
 set TempStorage=%appdata%\IOSPatcher\internet\temp
 
 set /a versioncheck=0	
 
-
+if not exist patch.bat goto admin_error
 goto begin_main
+:admin_error
+cls
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
+echo.
+echo ERROR.
+echo An error has been occurred. Please try to run this program without ADMIN privileges
+pause>NUL
+goto admin_error
 :begin_main
 mode 125,35
 cls
@@ -102,22 +111,69 @@ echo                   `.              yddyo++:    `-/oymNNNNNdy+:`
 echo                                   -odhhhhyddmmmmmNNmhs/:`             
 echo                                     :syhdyyyyso+/-`                   
 echo                                                                        Please wait...
-set /a updateversion=0.0.0
+set updateversion=0.0.0
 if %offlinestorage%==0 if exist %TempStorage%\version.txt del %TempStorage%\version.txt /q
+if %offlinestorage%==0 if exist %TempStorage%\version.txt` del %TempStorage%\version.txt` /q
+if %offlinestorage%==0 if exist %TempStorage%\whatsnew.txt del %TempStorage%\whatsnew.txt /q
+if %offlinestorage%==0 if exist %TempStorage%\whatsnew.txt` del %TempStorage%\whatsnew.txt` /q
+
 if not exist %TempStorage% md %TempStorage%
-if %IOSPatcher_Update_Activate%==1 if %offlinestorage%==0 powershell -c `"Invoke-WebRequest -Uri "%FilesHostedOn%/version.txt" -OutFile "%TempStorage%\version.txt"`" || set /a versioncheck=0
+if %IOSPatcher_Update_Activate%==1 if %offlinestorage%==0 powershell -command "(new-object System.Net.WebClient).DownloadFile('%FilesHostedOn%/whatsnew.txt', '%TempStorage%/whatsnew.txt')"
+if %IOSPatcher_Update_Activate%==1 if %offlinestorage%==0 powershell -command "(new-object System.Net.WebClient).DownloadFile('%FilesHostedOn%/version.txt', '%TempStorage%/version.txt')"
 
-set /p updateversion=<%TempStorage%\version.txt
+	set /a temperrorlev=%errorlevel%
+	
+	::Bind error codes to errors here
+	if not %errorlevel%==0 goto error_update_not_available
+	
 
-set /a updateavailable=1
-if %IOSPatcher_Update_Activate%==1 if %version%==%updateversion% set /a updateavailable=0 
+if exist "%TempStorage%\version.txt`" ren "%TempStorage%\version.txt`" "version.txt"
+if exist "%TempStorage%\whatsnew.txt`" ren "%TempStorage%\whatsnew.txt`" "whatsnew.txt"
+
+if exist %TempStorage%\version.txt set /p updateversion=<%TempStorage%\version.txt
+if not exist %TempStorage%\version.txt set /a updateavailable=0
+if %IOSPatcher_Update_Activate%==1 if exist %TempStorage%\version.txt set /a updateavailable=1
+if %updateversion%==%version% set /a updateavailable=0 
 
 if %IOSPatcher_Update_Activate%==1 if %updateavailable%==1 goto update_notice
-
-
-
-
-
+	
+:startup_script_files_check
+cls
+echo.                                                                       
+echo              `..````                                                  
+echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`                
+echo              hNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd                
+echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs                
+echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+        
+echo             .mmmmNs mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:                
+echo             :mdmmN+`mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.                
+echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN            
+echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd                 
+echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy                 
+echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
+echo             mmmmms smMMMMMMMMMmddMMmmNmNMMMMMMMMMMMM:                 
+echo            `mmmmmo hNMMMMMMMMMmddNMMMNNMMMMMMMMMMMMM.                 
+echo            -mmmmm/ dNMMMMMMMMMNmddMMMNdhdMMMMMMMMMMN                  
+echo            :mmmmm-`mNMMMMMMMMNNmmmNMMNmmmMMMMMMMMMMd                  
+echo            +mmmmN.-mNMMMMMMMMMNmmmmMMMMMMMMMMMMMMMMy                  
+echo            smmmmm`/mMMMMMMMMMNNmmmmNMMMMNMMNMMMMMNmy.                 
+echo            hmmmmd`omMMMMMMMMMNNmmmNmMNNMmNNNNMNdhyhh.                 
+echo            mmmmmh ymMMMMMMMMMNNmmmNmNNNMNNMMMMNyyhhh`                 
+echo           `mmmmmy hmMMNMNNMMMNNmmmmmdNMMNmmMMMMhyhhy                  
+echo           -mddmmo`mNMNNNNMMMNNNmdyoo+mMMMNmNMMMNyyys                  
+echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-                  
+echo          .+mmdhhmmmNNNNNNmdysooooosssomMMMNNNMMMm                     
+echo          o/ossyhdmmNNmdyo+++oooooosssoyNMMNNNMMMM+                    
+echo          o/::::::://++//+++ooooooo+oo++mNMMmNNMMMm                    
+echo         `o//::::::::+////+++++++///:/+shNMMNmNNmMM+                   
+echo         .o////////::+++++++oo++///+syyyymMmNmmmNMMm                   
+echo         -+//////////o+ooooooosydmdddhhsosNMMmNNNmho            `:/    
+echo         .+++++++++++ssss+//oyyysso/:/shmshhs+:.          `-/oydNNNy   
+echo           `..-:/+ooss+-`          +mmhdy`           -/shmNNNNNdy+:`   
+echo                   `.              yddyo++:    `-/oymNNNNNdy+:`        
+echo                                   -odhhhhyddmmmmmNNmhs/:`             
+echo                                     :syhdyyyyso+/-`                   
+echo                                                                        Please wait...
 if not exist 00000006-80.delta goto error_runtime_error
 if not exist 00000006-31.delta goto error_runtime_error
 if not exist libWiiSharp.dll goto error_runtime_error
@@ -133,7 +189,45 @@ if %errorwinxp%==1 goto winxp_notice
 set filcheck=1
 
 goto main_fade_out
+:error_update_not_available
+cls
+echo.                                                                       
+echo              `..````                                                  
+echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`                
+echo              hNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd                
+echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs                
+echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+        
+echo             .mmmmNs mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:                
+echo             :mdmmN+`mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.                
+echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN            
+echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd                 
+echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy                 
+echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
+echo ---------------------------------------------------------------------------------------------------------------------------              
+echo    /---\   Error.              
+echo   /     \  An Update server is not available.
+echo  /   !   \ 
+echo  ---------  
+echo.            
+echo            Press any button to continue.
+echo ---------------------------------------------------------------------------------------------------------------------------    
+echo           -mddmmo`mNMNNNNMMMNNNmdyoo+mMMMNmNMMMNyyys                  
+echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-                  
+echo          .+mmdhhmmmNNNNNNmdysooooosssomMMMNNNMMMm                     
+echo          o/ossyhdmmNNmdyo+++oooooosssoyNMMNNNMMMM+                    
+echo          o/::::::://++//+++ooooooo+oo++mNMMmNNMMMm                    
+echo         `o//::::::::+////+++++++///:/+shNMMNmNNmMM+                   
+echo         .o////////::+++++++oo++///+syyyymMmNmmmNMMm                   
+echo         -+//////////o+ooooooosydmdddhhsosNMMmNNNmho            `:/    
+echo         .+++++++++++ssss+//oyyysso/:/shmshhs+:.          `-/oydNNNy   
+echo           `..-:/+ooss+-`          +mmhdy`           -/shmNNNNNdy+:`   
+echo                   `.              yddyo++:    `-/oymNNNNNdy+:`        
+echo                                   -odhhhhyddmmmmmNNmhs/:`             
+echo                                     :syhdyyyyso+/-`
+pause>NUL
+goto begin_main
 :update_notice
+set /a update=1
 cls
 echo.                                                                       
 echo              `..````                                                  
@@ -173,6 +267,93 @@ if %s%==1 goto update_files
 if %s%==2 goto begin_main
 if %s%==3 goto whatsnew
 goto update_notice
+:update_files
+cls
+cls
+echo.                                                                       
+echo              `..````                                                  
+echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`                
+echo              hNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd                
+echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs                
+echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+        
+echo             .mmmmNs mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:                
+echo             :mdmmN+`mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.                
+echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN            
+echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd                 
+echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy                 
+echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
+echo ---------------------------------------------------------------------------------------------------------------------------              
+echo    /---\   Updating.
+echo   /     \  Please wait...
+echo  /   !   \ 
+echo  --------- IOS Patcher will restart shortly... 
+echo.             
+echo.
+echo ---------------------------------------------------------------------------------------------------------------------------    
+echo           -mddmmo`mNMNNNNMMMNNNmdyoo+mMMMNmNMMMNyyys                  
+echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-                  
+echo          .+mmdhhmmmNNNNNNmdysooooosssomMMMNNNMMMm                     
+echo          o/ossyhdmmNNmdyo+++oooooosssoyNMMNNNMMMM+                    
+echo          o/::::::://++//+++ooooooo+oo++mNMMmNNMMMm                    
+echo         `o//::::::::+////+++++++///:/+shNMMNmNNmMM+                   
+echo         .o////////::+++++++oo++///+syyyymMmNmmmNMMm                   
+echo         -+//////////o+ooooooosydmdddhhsosNMMmNNNmho            `:/    
+echo         .+++++++++++ssss+//oyyysso/:/shmshhs+:.          `-/oydNNNy   
+echo           `..-:/+ooss+-`          +mmhdy`           -/shmNNNNNdy+:`   
+echo                   `.              yddyo++:    `-/oymNNNNNdy+:`        
+echo                                   -odhhhhyddmmmmmNNmhs/:`             
+echo                                     :syhdyyyyso+/-`
+if exist 00000006-31.delta` del 00000006-31.delta` /q 2> nul
+if exist 00000006-80.delta` del 00000006-80.delta` /q 2> nul
+if exist WadInstaller.dll` del WadInstaller.dll` /q 2> nul
+if exist wget.exe` del wget.exe` /q 2> nul
+if exist xdelta3.exe` del xdelta3.exe` 2> nul
+if exist patch.bat` del patch.bat` /q 2> nul
+if exist libWiiSharp.dll` del  libWiiSharp.dll` /q 2> nul
+if exist Sharpii.exe` del Sharpii.exe` /q 2> nul
+
+powershell -command "(new-object System.Net.WebClient).DownloadFile('%FilesHostedOn%/00000006-31.delta', '00000006-31.delta`')"
+powershell -command "(new-object System.Net.WebClient).DownloadFile('%FilesHostedOn%/00000006-80.delta', '00000006-80.delta`')"
+powershell -command "(new-object System.Net.WebClient).DownloadFile('%FilesHostedOn%/WadInstaller.dll', 'WadInstaller.dll`')"
+powershell -command "(new-object System.Net.WebClient).DownloadFile('%FilesHostedOn%/libWiiSharp.dll', 'libWiiSharp.dll`')"
+powershell -command "(new-object System.Net.WebClient).DownloadFile('%FilesHostedOn%/wget.exe', 'wget.exe`')"
+powershell -command "(new-object System.Net.WebClient).DownloadFile('%FilesHostedOn%/xdelta3.exe', 'xdelta3.exe`')"
+powershell -command "(new-object System.Net.WebClient).DownloadFile('%FilesHostedOn%/Sharpii.exe', 'Sharpii.exe`')"
+powershell -command "(new-object System.Net.WebClient).DownloadFile('%FilesHostedOn%/patch.bat', 'patch.bat`')"
+
+if %update%==1 if not exist 00000006-31.delta` goto error_update_not_available
+if %update%==1 if not exist 00000006-80.delta` goto error_update_not_available
+if %update%==1 if not exist WadInstaller.dll` goto error_update_not_available
+if %update%==1 if not exist wget.exe` goto error_update_not_available
+if %update%==1 if not exist xdelta3.exe` goto error_update_not_available
+if %update%==1 if not exist Sharpii.exe` goto error_update_not_available
+if %update%==1 if not exist patch.bat` goto error_update_not_available
+if %update%==1 if not exist libWiiSharp.dll` goto error_update_not_available
+
+if %update%==1 if exist 00000006-31.delta del 00000006-31.delta /q
+if %update%==1 if exist 00000006-80.delta del 00000006-80.delta /q
+if %update%==1 if exist WadInstaller.dll del WadInstaller.dll /q
+if %update%==1 if exist wget.exe del wget.exe /q
+if %update%==1 if exist xdelta3.exe del xdelta3.exe /q
+if %update%==1 if exist Sharpii.exe del Sharpii.exe /q
+if %update%==1 if exist libWiiSharp.dll del libWiiSharp.dll /q
+
+ren 00000006-31.delta` 00000006-31.delta
+ren 00000006-80.delta` 00000006-80.delta
+ren WadInstaller.dll` WadInstaller.dll
+ren wget.exe` wget.exe
+ren xdelta3.exe` xdelta3.exe
+ren Sharpii.exe` Sharpii.exe
+ren libWiiSharp.dll` libWiiSharp.dll
+
+echo ping localhost -n 2 >>temp.bat
+echo del patch.bat /q >>temp.bat
+echo ren patch.bat` patch.bat >>temp.bat
+echo start patch.bat >>temp.bat
+start temp.bat
+exit	
+exit
+exit
 :whatsnew
 cls
 if not exist %TempStorage%\whatsnew.txt goto whatsnew_notexist
@@ -272,6 +453,7 @@ echo.
 ping localhost -n 3 >NUL
 goto set_language_en
 :error_runtime_error
+set /a update=0
 cls
 echo.                                                                       
 echo              `..````                                                  
@@ -287,8 +469,8 @@ echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy
 echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
 echo ---------------------------------------------------------------------------------------------------------------------------              
 echo    /---\   ERROR.              
-echo   /     \  Some files needed to run this program weren't found. Please redownload this program.
-echo  /   !   \ Press any button to go back.
+echo   /     \  Some files needed to run this program weren't found.
+echo  /   !   \ Press any button to download these files.
 echo  ---------              
 echo ---------------------------------------------------------------------------------------------------------------------------    
 echo            mmmmmh ymMMMMMMMMMNNmmmNmNNNMNNMMMMNyyhhh`                 
@@ -307,7 +489,7 @@ echo                   `.              yddyo++:    `-/oymNNNNNdy+:`
 echo                                   -odhhhhyddmmmmmNNmhs/:`             
 echo                                     :syhdyyyyso+/-`                   
 pause>NUL
-goto begin_main
+goto update_files
 :error_code_error
 cls
 echo.                                                                       
