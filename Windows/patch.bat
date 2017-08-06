@@ -121,8 +121,8 @@ echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy
 echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
 echo ---------------------------------------------------------------------------------------------------------------------------              
 echo    /---\   Windows XP Support Ended.              
-echo   /     \  Thanks for using that program but support for any system older than Windows 7 has been ended.
-echo  /   !   \ It means that you can still use this program but if you will encounter any problem with it we will not help you.
+echo   /     \  Thanks for using the program but support for any system older than Windows 7 has been ended.
+echo  /   !   \ It means that you can still use this program but if you encounter any problem with it we will not help you.
 echo  --------- We may release ESR if needed. (Extended Support Release)             
 echo.
 echo            Press any key to continue.
@@ -198,7 +198,7 @@ echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy
 echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
 echo ---------------------------------------------------------------------------------------------------------------------------              
 echo    /---\   ERROR.              
-echo   /     \  Some files needed to run this program wasn't found. Please redownload this program.
+echo   /     \  Some files needed to run this program weren't found. Please redownload this program.
 echo  /   !   \ Press any button to go back.
 echo  ---------              
 echo ---------------------------------------------------------------------------------------------------------------------------    
@@ -317,7 +317,7 @@ if not exist wget.exe set /a tempvariable=1
 if not exist xdelta3.exe set /a tempvariable=1
 
 if %tempvariable%==1 set output=Files are corrupted. Please download a new package from GitHub or unpack this program!
-if %tempvariable%==0 set output=It seems that files are OK!
+if %tempvariable%==0 set output=It seems that the files are OK!
 goto debug_1
 :debug_system_Req
 set /a tempvariable=0
@@ -332,7 +332,7 @@ echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
 echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] Deleting files.
 echo.
-echo You are about to delete any temporary files that has been created by this Patcher.
+echo You are about to delete any temporary files that have been created by this Patcher.
 echo.
 echo Is that OK?
 echo.
@@ -363,11 +363,11 @@ ping localhost -n 5 >NUL
 goto 1
 :debug_coding_8
 chcp 852
-set output=Coding page change was successfull.
+set output=Coding page change was successful.
 goto debug_1
 :debug_coding_utf
 chcp 65001
-set output=Coding page change was successfull.
+set output=Coding page change was successful.
 goto debug_1
 :debug_download
 cls
@@ -428,7 +428,7 @@ echo I don't know how you got here (probably from debug menu).
 echo If from debug menu, congratulation :P.
 echo.
 echo It was very fun to create this section of the program but it's time to delete it.
-echo If you were using it, i'm sorry. Over 50% of every language were not translated.
+echo If you were using it, I'm sorry. Over 50% of every language were not translated.
 echo Thanks to:
 echo  TimNook for Deutsch translation, iDroid for French translation, GameCube for Italian translation,
 echo   Artuto for Spanish translation, prosuWANTED for Russian translation and Fun4TubeGr for Greek translation.
@@ -473,7 +473,7 @@ set text29=Exit
 set text30=Type in new drive letter
 set text31=There was an error while copying files.
 set text32=Please wait... copying.
-set text33=Files has been copyied to SD Card to folder called "WAD"
+set text33=Files has been copied to SD Card to folder called "WAD"
 
 set language=English
 goto begin
@@ -503,7 +503,7 @@ echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
 echo ------------------------------------------------------------------------------------------------------------------------
 echo  [*] Error.
 echo.
-echo It seems that the translation that you've choose is broken/not completed.
+echo It seems that the translation that you've chosen is broken/not completed.
 echo Missing strings of translation will be now replaced with english strings.
 echo.
 echo Press any button to continue.
@@ -1015,7 +1015,7 @@ cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
 echo ------------------------------------------------------------------------------------------------------------------------
-echo  [*] Thanks for using that Patcher! :)
+echo  [*] Thanks for using the Patcher! :)
 echo.
 if %patchingok%==1 echo %text13%
 if %patchingok%==1 echo %text14%
