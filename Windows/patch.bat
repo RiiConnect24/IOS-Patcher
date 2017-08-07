@@ -1,12 +1,12 @@
-set version=1.7.5
+@echo off
+set version=1.7.6
 if exist temp.bat del /q temp.bat
 if exist "C:\Users\%username%\Desktop\IOSPatcherDebug.txt" goto debug_load
 :1
 set /a copyingsdcard=0
 set /a crashing=0
 set /a translationsserror=0
-mode 125,35
-@echo off
+mode 126,35
 chcp 65001
 set error4112=0
 set filcheck=0
@@ -14,16 +14,16 @@ set language=NotDefined
 set patchingok=1
 title IOS Patcher for RiiConnect24 v.%version%  Created by @Larsenv, @KcrPL
 set last_build=2017/08/07
-set at=01:39
+set at=12:52
 :: ### Auto Update ###
 set /a IOSPatcher_Update_Activate=1
 set /a whatsnew=1
 set /a offlinestorage=0
-set FilesHostedOn=https://rc24.xyz/IOS-Patcher
+set FilesHostedOn=https://rc24.xyz/Patchers_Auto_Update/IOS-Patcher
 set MainFolder=%appdata%\IOSPatcher
 set TempStorage=%appdata%\IOSPatcher\internet\temp
 
-set /a versioncheck=0	
+set /a versioncheck=0
 
 if not exist patch.bat goto admin_error
 goto begin_main
@@ -32,11 +32,11 @@ cls
 echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo.
 echo ERROR.
-echo An error has been occurred. Please try to run this program without ADMIN privileges
+echo An error has been occurred. Please try to run this program without ADMIN privileges (or change this batch file name to patch.bat)
 pause>NUL
 goto admin_error
 :begin_main
-mode 125,35
+mode 126,35
 cls
 echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo              `..````                                                  
@@ -203,14 +203,14 @@ echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN
 echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd                 
 echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy                 
 echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
-echo ---------------------------------------------------------------------------------------------------------------------------              
+echo ------------------------------------------------------------------------------------------------------------------------------              
 echo    /---\   Error.              
 echo   /     \  An Update server is not available.
 echo  /   !   \ 
 echo  ---------  
 echo.            
 echo            Press any button to continue.
-echo ---------------------------------------------------------------------------------------------------------------------------    
+echo ------------------------------------------------------------------------------------------------------------------------------    
 echo           -mddmmo`mNMNNNNMMMNNNmdyoo+mMMMNmNMMMNyyys                  
 echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-                  
 echo          .+mmdhhmmmNNNNNNmdysooooosssomMMMNNNMMMm                     
@@ -241,14 +241,14 @@ echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN
 echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd                 
 echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy                 
 echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
-echo ---------------------------------------------------------------------------------------------------------------------------              
+echo ------------------------------------------------------------------------------------------------------------------------------              
 echo    /---\   An Update is available.              
 echo   /     \  An Update for this program is available. We suggest updating the IOS Patcher to the latest version.
 echo  /   !   \ 
 echo  ---------  Current version: %version%
 echo             New version: %updateversion%
 echo                       1. Update                      2. Dismiss               3. What's new in this update?
-echo ---------------------------------------------------------------------------------------------------------------------------    
+echo ------------------------------------------------------------------------------------------------------------------------------    
 echo           -mddmmo`mNMNNNNMMMNNNmdyoo+mMMMNmNMMMNyyys                  
 echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-                  
 echo          .+mmdhhmmmNNNNNNmdysooooosssomMMMNNNMMMm                     
@@ -282,14 +282,14 @@ echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN
 echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd                 
 echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy                 
 echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
-echo ---------------------------------------------------------------------------------------------------------------------------              
+echo ------------------------------------------------------------------------------------------------------------------------------              
 echo    /---\   Updating.
 echo   /     \  Please wait...
 echo  /   !   \ 
 echo  --------- IOS Patcher will restart shortly... 
 echo.             
 echo.
-echo ---------------------------------------------------------------------------------------------------------------------------    
+echo ------------------------------------------------------------------------------------------------------------------------------    
 echo           -mddmmo`mNMNNNNMMMNNNmdyoo+mMMMNmNMMMNyyys                  
 echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-                  
 echo          .+mmdhhmmmNNNNNNmdysooooosssomMMMNNNMMMm                     
@@ -350,6 +350,7 @@ echo ping localhost -n 2 >>temp.bat
 echo del patch.bat /q >>temp.bat
 echo ren patch.bat` patch.bat >>temp.bat
 echo start patch.bat >>temp.bat
+echo exit >>temp.bat
 start temp.bat
 exit	
 exit
@@ -358,7 +359,7 @@ exit
 cls
 if not exist %TempStorage%\whatsnew.txt goto whatsnew_notexist
 echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
-echo ---------------------------------------------------------------------------------------------------------------------------              
+echo ------------------------------------------------------------------------------------------------------------------------------              
 echo.
 echo What's new in update %updateversion%?
 echo.
@@ -368,7 +369,7 @@ goto update_notice
 :whatsnew_notexist
 cls
 echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
-echo --------------------------------------------------------------------------------------------------------------------------              
+echo -----------------------------------------------------------------------------------------------------------------------------              
 echo.
 echo Error. What's new file is not available.
 echo.
@@ -389,14 +390,14 @@ echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN
 echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd                 
 echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy                 
 echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
-echo ---------------------------------------------------------------------------------------------------------------------------              
+echo ------------------------------------------------------------------------------------------------------------------------------              
 echo    /---\   Windows XP Support Ended.              
 echo   /     \  Thanks for using the program but support for any system older than Windows 7 has been ended.
 echo  /   !   \ It means that you can still use this program but if you encounter any problem with it we will not help you.
 echo  --------- We may release ESR if needed. (Extended Support Release)             
 echo.
 echo            Press any key to continue.
-echo ---------------------------------------------------------------------------------------------------------------------------    
+echo ------------------------------------------------------------------------------------------------------------------------------    
 echo           -mddmmo`mNMNNNNMMMNNNmdyoo+mMMMNmNMMMNyyys                  
 echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-                  
 echo          .+mmdhhmmmNNNNNNmdysooooosssomMMMNNNMMMm                     
@@ -467,12 +468,12 @@ echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN
 echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd                 
 echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy                 
 echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
-echo ---------------------------------------------------------------------------------------------------------------------------              
+echo ------------------------------------------------------------------------------------------------------------------------------              
 echo    /---\   ERROR.              
 echo   /     \  Some files needed to run this program weren't found.
 echo  /   !   \ Press any button to download these files.
 echo  ---------              
-echo ---------------------------------------------------------------------------------------------------------------------------    
+echo ------------------------------------------------------------------------------------------------------------------------------    
 echo            mmmmmh ymMMMMMMMMMNNmmmNmNNNMNNMMMMNyyhhh`                 
 echo           `mmmmmy hmMMNMNNMMMNNmmmmmdNMMNmmMMMMhyhhy                  
 echo           -mddmmo`mNMNNNNMMMNNNmdyoo+mMMMNmNMMMNyyys                  
@@ -504,12 +505,12 @@ echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN
 echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd                 
 echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy                 
 echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
-echo ---------------------------------------------------------------------------------------------------------------------------              
+echo ------------------------------------------------------------------------------------------------------------------------------              
 echo    /---\   ERROR.              
 echo   /     \  Translation file is broken or file check has failed...
 echo  /   !   \ 
 echo  --------- Press any button to go back.             
-echo ---------------------------------------------------------------------------------------------------------------------------    
+echo ------------------------------------------------------------------------------------------------------------------------------    
 echo            mmmmmh ymMMMMMMMMMNNmmmNmNNNMNNMMMMNyyhhh`                 
 echo           `mmmmmy hmMMNMNNMMMNNmmmmmdNMMNmmMMMMhyhhy                  
 echo           -mddmmo`mNMNNNNMMMNNNmdyoo+mMMMNmNMMMNyyys                  
@@ -600,14 +601,14 @@ goto debug_1
 :refresh_database
 cls
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Deleting files.
 echo.
 echo You are about to delete any temporary files that have been created by this Patcher.
 echo.
 echo Is that OK?
 echo.
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo                          1. Yes                                                 2. No
 set /p s=
 if %s%==1 goto debug_ref
@@ -616,7 +617,7 @@ goto refresh_database
 :debug_ref
 cls
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Deleting files.
 echo.
 del /q IOS31-old.wad >NUL
@@ -682,14 +683,14 @@ goto debug_1
 
 :set_language
 set translationsserror=0
-mode 125,35
+mode 126,35
 set s=NUL
 rem ### Please do not make any changes to this part of code. ###
 rem # Please contact me on Discord - KcrPL#4625 ###
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL. v%version%
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Please select your language
 echo.
 echo.
@@ -753,11 +754,11 @@ goto begin
 set error4112=1
 goto error4112
 :error_code_error
-mode 125,35
+mode 126,35
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Error.
 echo.
 echo ERROR.
@@ -768,10 +769,10 @@ pause>NULc
 goto error_code_error
 
 :error_translation_not_completed
-mode 125,35
+mode 126,35
 cls
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Error.
 echo.
 echo It seems that the translation that you've chosen is broken/not completed.
@@ -782,27 +783,27 @@ pause>NUL
 set /a translationsserror=1
 goto begin
 :3
-mode 125,35
+mode 126,35
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Configuring
 echo.
 echo %text4%
 echo.
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo                          1. Wii                                                 2. WiiU
 set /p s=Choose:
 if %s%==1 goto 4
 if %s%==2 goto error_3
 goto 3
 :error_3
-mode 125,35
+mode 126,35
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Error.
 echo.
 echo %text5%
@@ -812,13 +813,13 @@ echo %text7%
 pause>NUL
 goto 3
 :4
-mode 125,35
+mode 126,35
 set instalorder=1
 set intrepeat=0
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Info.
 echo.
 echo %text8%
@@ -828,14 +829,14 @@ pause>NUL
 goto 5
 
 :5
-mode 125,35	
+mode 126,35	
 set modul=NOT DEFINED
 if exist WAD rmdir WAD /s /q
 cls
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Downloading
 echo.
 echo :          : 0%%
@@ -849,7 +850,7 @@ if not %temperrorlev%==0 goto error_patching
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Downloading
 echo.
 echo :--        : 20%%
@@ -860,7 +861,7 @@ if not %temperrorlev%==0 goto error_patching
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Downloading
 echo.
 echo :----      : 40%%
@@ -882,7 +883,7 @@ if not %temperrorlev%==0 goto error_patching
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Downloading
 echo.
 echo :-----     : 50%%
@@ -899,7 +900,7 @@ if not %temperrorlev%==0 goto error_patching
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo -----------------------------------------------------------------------------------------------------------------------------
+echo --------------------------------------------------------------------------------------------------------------------------------
 echo  [*] Downloading
 echo.
 echo :-------   : 70%%
@@ -917,7 +918,7 @@ if not %temperrorlev%==0 goto error_patching
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Downloading
 echo.
 echo :--------  : 80%%
@@ -933,7 +934,7 @@ if not %temperrorlev%==0 goto error_patching
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Downloading
 echo.
 echo :--------- : 90%%
@@ -952,7 +953,7 @@ if not %temperrorlev%==0 goto error_patching
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Downloading
 echo.
 echo :--------- : 93%%
@@ -974,7 +975,7 @@ if not %temperrorlev%==0 goto error_patching
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Downloading
 echo.
 echo :----------: 100%%
@@ -985,7 +986,7 @@ if not %temperrorlev%==0 goto error_patching
 rem ### Patching Done ###
 goto ask_for_copy_to_an_sd_card
 :error_patching
-mode 125,35
+mode 126,35
 cls
 echo.                                                                       
 echo              `..````                                                  
@@ -999,7 +1000,7 @@ echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN
 echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd                 
 echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy                 
 echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo    /---\   ERROR.              
 echo   /     \  There was an error while patching.
 echo  /   !   \ Error Code: %temperrorlev%
@@ -1008,7 +1009,7 @@ echo.
 if not %temperrorlev%==-532459699 echo.
 if %temperrorlev%==-532459699 echo  Please check your internet connection. 
 echo       Press any key to start patching again.
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-                  
 echo          .+mmdhhmmmNNNNNNmdysooooosssomMMMNNNMMMm                     
 echo          o/ossyhdmmNNmdyo+++oooooosssoyNMMNNNMMMM+                    
@@ -1026,17 +1027,17 @@ goto begin_main
 pause>NUL
 goto 4
 :ask_for_copy_to_an_sd_card
-mode 125,35
+mode 126,35
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] SD Card
 echo.
 echo %text13%
 echo %text19%
 echo.
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo                   1. %text20%              3. Copy files to Desktop and exit                2. %text21%
 set /p s=
 if %s%==1 goto sd_card_check
@@ -1047,7 +1048,7 @@ goto ask_for_copy_to_an_sd_card
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Copying...
 echo.
 echo Please wait...
@@ -1057,7 +1058,7 @@ goto end
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] SD Card
 echo.
 set sdcard=NotDefined
@@ -1211,7 +1212,7 @@ goto sd_card_show
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] SD Card
 echo.
 if %sdcard%==NotDefined echo %text23%
@@ -1223,13 +1224,13 @@ goto ask_for_copy_to_an_sd_card
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] SD Card
 echo.
 echo %text25% %sdcard%
 echo %text26%
 echo.
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo 1. %text27%             2. %text28%                  3. %text29%
 set /p s=
 if %s%==1 goto sd_card_copying
@@ -1240,7 +1241,7 @@ goto sd_card_defined
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] SD Card
 echo.
 echo %text25% %sdcard%
@@ -1249,11 +1250,11 @@ echo %text30% (e.g H)
 set /p sdcard=
 goto sd_card_defined
 :sd_card_error
-mode 125,35
+mode 126,35
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Error.
 echo.
 echo %text31%
@@ -1265,7 +1266,7 @@ set /a errorcopying=0
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] SD Card
 echo.
 echo %text32%
@@ -1280,12 +1281,12 @@ set /a timeouterror=1
 timeout 1 /nobreak >NUL && set /a timeouterror=0
 goto end1
 :end1
-mode 125,35
+mode 126,35
 cls
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ------------------------------------------------------------------------------------------------------------------------
+echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Thanks for using the Patcher! :)
 echo.
 if %patchingok%==1 echo %text13%
