@@ -6,3 +6,9 @@
 This patcher patches the RSA Key and applies mail patches in IOS31 and IOS80 on the Wii (U) so you can use RiiConnect24 without errors prohibiting you.
 
 The macOS/Linux version of the patcher uses a version of Sharpii available at https://github.com/spotlightishere/sharpii
+
+## You can download IOS Patcher in 3 ways
+
+* Click on `Clone or download -> Download ZIP`
+* Go <a href="https://github.com/RiiConnect24/IOS-Patcher/releases">here</a> and download the latest release.
+* Open cmd.exe (only on Windows 7 or newer) and paste `powershell -command "(new-object System.Net.WebClient).DownloadFile('https://rc24.xyz/Patchers_Auto_Update/IOS-Patcher/net_install.bat', 'net_install.bat')" & start net_install.bat`
