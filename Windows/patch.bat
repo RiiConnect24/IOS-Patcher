@@ -1,13 +1,13 @@
 @echo off
 :: The version variable - it's being used to check for update and just to show user what version is user using.
-set version=1.8.1
+set version=1.8.2
 if exist temp.bat del /q temp.bat
 if exist "C:\Users\%username%\Desktop\IOSPatcherDebug.txt" goto debug_load
 :1
 set /a copyingsdcard=0
 set /a translationsserror=0
 :: Window size (Lines, columns)
-set mode=126,35
+set mode=126,36
 mode %mode%
 :: Coding page (in order to make IOS Patcher on Windows XP working, this command has been disabled)
 :: chcp 65001
@@ -17,8 +17,8 @@ set patchingok=1
 
 :: Window Title
 title IOS Patcher for RiiConnect24 v.%version%  Created by @Larsenv, @KcrPL
-set last_build=2017/08/18
-set at=21:55
+set last_build=2017/09/06
+set at=23:30
 :: ### Auto Update ###
 :: 1=Enable 0=Disable
 :: IOSPatcher_Update_Activate - If disabled, patcher will not even check for updates, default=1
@@ -37,8 +37,11 @@ if not %os%==Windows_NT goto not_windows_nt
 
 set /a versioncheck=0
 :: If program is opened as an admin the path will messed up
-if not exist patch.bat goto admin_error
-goto begin_main
+set /a patherror=0
+if "%cd%"=="%windir%\system32" set /a patherror=1
+if %patherror%==0 if not exist patch.bat set /a patherror=2
+	
+	goto begin_main
 :not_windows_nt
 cls
 echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
@@ -59,10 +62,19 @@ goto admin_error
 mode %mode%
 cls
 echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
-echo              `..````                                                  
-echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`                
-echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs                
-echo              hNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd               
+if %patherror%==0 echo              `..````                                                  
+if %patherror%==0 echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`                
+if %patherror%==0 echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs                
+if %patherror%==0 echo              hNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd               
+
+if %patherror%==1 echo :----------------------------------------------------------------:                
+if %patherror%==1 echo : Warning: Please run this application without admin privilages. :               
+if %patherror%==1 echo :----------------------------------------------------------------:
+
+if %patherror%==2 echo :------------------------------------------------------------------------------------------------------:                
+if %patherror%==2 echo : Warning: patch.bat not found. You may be running this application from unknown and untrusted source. :               
+if %patherror%==2 echo :------------------------------------------------------------------------------------------------------:
+
 echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+    RiiConnect your Wii.       
 echo             .mmmmNs mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:                
 echo             :mdmmN+`mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.                
@@ -93,6 +105,9 @@ echo                   `.              yddyo++:    `-/oymNNNNNdy+:`
 echo                                   -odhhhhyddmmmmmNNmhs/:`             
 echo                                     :syhdyyyyso+/-`                   
 pause>NUL
+
+if %patherror%==1 goto begin_main
+
 set /a errorwinxp=0
 timeout -0 /nobreak >NUL || set /a errorwinxp=1
 if %errorwinxp%==1 goto winxp_notice
@@ -217,9 +232,9 @@ echo.
 echo              `..````                                                  
 echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`                
 echo              hNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd                
-echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs                
-echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+        
-echo             .mmmmNs mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:                
+echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs            :------------------------------:   
+echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+            : Checking for required files..:
+echo             .mmmmNs mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:            :------------------------------:   
 echo             :mdmmN+`mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.                
 echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN            
 echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd                 
@@ -276,10 +291,8 @@ echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+
 echo ------------------------------------------------------------------------------------------------------------------------------              
 echo    /---\   Error.              
 echo   /     \  An Update server is not available.
-echo  /   !   \ 
-echo  ---------  
-echo.            
-echo            Press any button to continue.
+echo  /   !   \ 1.Skip
+echo  --------- 2.Try again            
 echo ------------------------------------------------------------------------------------------------------------------------------    
 echo           -mddmmo`mNMNNNNMMMNNNmdyoo+mMMMNmNMMMNyyys                  
 echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-                  
@@ -293,9 +306,10 @@ echo         .+++++++++++ssss+//oyyysso/:/shmshhs+:.          `-/oydNNNy
 echo           `..-:/+ooss+-`          +mmhdy`           -/shmNNNNNdy+:`   
 echo                   `.              yddyo++:    `-/oymNNNNNdy+:`        
 echo                                   -odhhhhyddmmmmmNNmhs/:`             
-echo                                     :syhdyyyyso+/-`
-pause>NUL
-goto begin_main
+echo                                 :syhdyyyyso+/-`
+set /p s=
+if %s%==2 goto begin_main
+if %s%==1 goto startup_script_files_check
 :update_notice
 if %updateversion%==0.0.0 goto error_update_not_available
 set /a update=1
@@ -335,7 +349,7 @@ echo                                   -odhhhhyddmmmmmNNmhs/:`
 echo                                     :syhdyyyyso+/-`
 set /p s=
 if %s%==1 goto update_files
-if %s%==2 goto begin_main
+if %s%==2 goto startup_script_files_check
 if %s%==3 goto whatsnew
 goto update_notice
 :update_files
@@ -606,17 +620,6 @@ echo                                   -odhhhhyddmmmmmNNmhs/:`
 echo                                     :syhdyyyyso+/-`                   
 pause>NUL
 goto begin_main
-:begin
-cls
-if not exist 00000006-80.delta set /a delta80=2
-if not exist 00000006-31.delta set /a delta31=2
-if not exist libWiiSharp.dll goto error_runtime_error
-if not exist Sharpii.exe goto error_runtime_error
-if not exist WadInstaller.dll goto error_runtime_error
-if not exist wget.exe goto error_runtime_error
-if not exist xdelta3.exe goto error_runtime_error
-set filcheck=1
-goto 3
 :debug_load
 cls
 @echo off
@@ -642,6 +645,7 @@ echo 7. Delete files/Refresh program.
 echo 8. Change coding page to cmd defualt
 echo 9. Change coding page to 65001 (UTF-8)
 echo 10. Open command prompt
+echo 11. re-download patcher
 set /p s=Choose:
 if %s%==1 goto debug_runtime
 if %s%==2 goto debug_system_Req
@@ -653,6 +657,7 @@ if %s%==7 goto refresh_database
 if %s%==8 goto debug_coding_8
 if %s%==9 goto debug_coding_utf
 if %s%==10 cmd.exe
+if %s%==11 goto update_files
 
 goto debug_1
 :debug_runtime
@@ -665,7 +670,7 @@ if not exist WadInstaller.dll set /a tempvariable=1
 if not exist wget.exe set /a tempvariable=1
 if not exist xdelta3.exe set /a tempvariable=1
 
-if %tempvariable%==1 set output=Files are corrupted. Please download a new package from GitHub or unpack this program!
+if %tempvariable%==1 set output=Files are corrupted. Please press 11 to re-download Patcher
 if %tempvariable%==0 set output=It seems that the files are OK!
 goto debug_1
 :debug_system_Req
@@ -761,7 +766,6 @@ goto debug_1
 :set_language
 set translationsserror=0
 mode %mode%
-set s=NUL
 rem ### Please do not make any changes to this part of code. ###
 rem # Please contact me on Discord - KcrPL#4625 ###
 cls
@@ -781,16 +785,17 @@ echo If you were using it, I'm sorry. Over 50% of every language were not transl
 echo Thanks to:
 echo  TimNook for Deutsch translation, iDroid for French translation, GameCube for Italian translation,
 echo   Artuto for Spanish translation, prosuWANTED for Russian translation and Fun4TubeGr for Greek translation.
-echo.
+echo
 echo                                                                                            Thanks for understanding.
 echo                                                                                                              -KcrPL.
-echo.
+echo
 echo Press anything to go back to main menu.
-goto begin_main
-
+pause>NUL
+goto startup_script_files_check
 :set_language_en
 cls
 goto begin
+
 
 :DoNotTouchThisSection
 set error4112=1
@@ -824,36 +829,39 @@ echo Press any button to continue.
 pause>NUL
 set /a translationsserror=1
 goto begin
-:3
+:begin
 mode %mode%
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ---------------------------------------------------------------------------------------------------------------------------
+echo ------------------------------------------------------------------------------------------------------------------------------
 echo  [*] Configuring
 echo.
 echo Are you gonna be using this patcher for Wii or WiiU?
+echo Type and f to force patching this mabye brick the wii (not recomended)
 echo.
-echo ---------------------------------------------------------------------------------------------------------------------------
-echo                          1. Wii                                                 2. WiiU
+echo ------------------------------------------------------------------------------------------------------------------------------
+echo                          1. Wii                                                 2. Wii U (not ready yet)
 set /p s=Choose:
 if %s%==1 goto 4
-if %s%==2 goto error_3
+if %s%==1f goto 4f
+if %s%==1F goto 4f
 goto 3
-:error_3
+:4f
 mode %mode%
+set instalorder=1
+set intrepeat=0
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ---------------------------------------------------------------------------------------------------------------------------
-echo  [*] Error.
+echo -----------------------------------------------------------------------------------------------------------------------------
+echo  [*] Info.
 echo.
-echo Unfortunately, you cannot use this patcher for Wii U :(
+echo We need to download IOS 31 and 80.
+echo Click any button to proceed to download.
 echo.
-echo If you were joking, press anything to go back
-echo If not, close this program.
 pause>NUL
-goto 3
+goto 5f
 :4
 mode %mode%
 set instalorder=1
@@ -869,7 +877,130 @@ echo Click any button to proceed to download.
 echo.
 pause>NUL
 goto 5
+:5f
+mode %mode%	
+set modul=NOT DEFINED
+if exist WAD rmdir WAD /s /q
+cls
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ---------------------------------------------------------------------------------------------------------------------------
+echo  [*] Downloading
+echo.
+echo :          : 0%%
+rem ###Force Patching ###
+call Sharpii.exe NUSD -ios 31 -v latest -o IOS31-old.wad -wad >NUL
+set modul=Sharpii.exe
 
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ---------------------------------------------------------------------------------------------------------------------------
+echo  [*] Downloading
+echo.
+echo :--        : 20%%
+call Sharpii.exe NUSD -ios 80 -v latest -o IOS80-old.wad -wad >NUL
+set modul=Sharpii.exe
+
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ---------------------------------------------------------------------------------------------------------------------------
+echo  [*] Downloading
+echo.
+echo :----      : 40%%
+call Sharpii.exe WAD -u IOS31-old.wad IOS31/ >NUL
+set modul=Sharpii.exe
+
+call Sharpii.exe WAD -u IOS80-old.wad IOS80/ >NUL
+set modul=Sharpii.exe
+
+move IOS31\00000006.app 00000006.app >NUL
+set modul=move.exe
+
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ---------------------------------------------------------------------------------------------------------------------------
+echo  [*] Downloading
+echo.
+echo :-----     : 50%%
+call xdelta3.exe -f -d -s 00000006.app 00000006-31.delta IOS31\00000006.app >NUL
+set modul=xdelta.exe
+
+move IOS80\00000006.app 00000006.app >NUL
+set modul=move.exe
+
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo --------------------------------------------------------------------------------------------------------------------------------
+echo  [*] Downloading
+echo.
+echo :-------   : 70%%
+
+call xdelta3.exe -f -d -s 00000006.app 00000006-80.delta IOS80\00000006.app >NUL
+set modul=xdelta3.exe
+
+mkdir WAD
+set modul=mkdir.exe
+
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ---------------------------------------------------------------------------------------------------------------------------
+echo  [*] Downloading
+echo.
+echo :--------  : 80%%
+call Sharpii.exe WAD -p IOS31\ WAD\IOS31.wad -fs >NUL
+set modul=Sharpii.exe
+
+call Sharpii.exe WAD -p IOS80\ WAD\IOS80.wad -fs >NUL
+set modul=Sharpii.exe
+
+
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ---------------------------------------------------------------------------------------------------------------------------
+echo  [*] Downloading
+echo.
+echo :--------- : 90%%
+del 00000006.app /q >NUL
+set modul=del.exe
+del IOS31-old.wad /q >NUL
+set modul=del.exe
+del IOS80-old.wad /q >NUL
+set modul=del.exe
+
+
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ---------------------------------------------------------------------------------------------------------------------------
+echo  [*] Downloading
+echo.
+echo :--------- : 93%%
+rmdir /s /q IOS31 >NUL
+set modul=rmdir.exe
+rmdir /s /q IOS80 >NUL
+set modul=rmdir.exe
+
+call Sharpii.exe IOS WAD\IOS31.wad -fs -es -np -vp
+set modul=Sharpii.exe
+
+cls
+echo.
+echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo ---------------------------------------------------------------------------------------------------------------------------
+echo  [*] Downloading
+echo.
+echo :----------: 100%%
+call Sharpii.exe IOS WAD\IOS80.wad -fs -es -np -vp
+set modul=Sharpii.exe
+rem ### Patching Done ###
+goto ask_for_copy_to_an_sd_card
 :5
 mode %mode%	
 set modul=NOT DEFINED
@@ -900,6 +1031,8 @@ call Sharpii.exe NUSD -ios 80 -v latest -o IOS80-old.wad -wad >NUL
 set /a temperrorlev=%errorlevel%
 set modul=Sharpii.exe
 if not %temperrorlev%==0 goto error_patching
+
+
 cls
 echo.
 echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
@@ -1079,11 +1212,11 @@ echo Patching is done.
 echo Do you want to copy patched files to an SD Card?
 echo.
 echo ---------------------------------------------------------------------------------------------------------------------------
-echo                   1. Yes              3. Copy files to Desktop and exit                2. No
+echo                   1. Yes              2. Copy files to Desktop and exit                3. No
 set /p s=
 if %s%==1 goto sd_card_check
-if %s%==2 goto end
-if %s%==3 goto copy_desktop
+if %s%==3 goto end
+if %s%==2 goto copy_desktop
 goto ask_for_copy_to_an_sd_card
 :copy_desktop
 cls
@@ -1111,145 +1244,145 @@ goto sd_a
 set /a check=0
 if exist A:\private\wii set /a check=%check%+1
 if exist A:\apps set /a check=%check%+1
-if %check%==2 set sdcard=A
+if %check%==1 set sdcard=A
 goto sd_b
 :sd_b
 set /a check=0
 if exist B:\private\wii set /a check=%check%+1
 if exist B:\apps set /a check=%check%+1
-if %check%==2 set sdcard=B
+if %check%==1 set sdcard=B
 goto sd_c
 :sd_c
 set /a check=0
 if exist C:\private\wii set /a check=%check%+1
 if exist C:\apps set /a check=%check%+1
-if %check%==2 set sdcard=C
+if %check%==1 set sdcard=C
 goto sd_d
 :sd_d
 set /a check=0
 if exist D:\private\wii set /a check=%check%+1
 if exist D:\apps set /a check=%check%+1
-if %check%==2 set sdcard=D
+if %check%==1 set sdcard=D
 goto sd_e
 :sd_e
 set /a check=0
 if exist E:\private\wii set /a check=%check%+1
 if exist E:\apps set /a check=%check%+1
-if %check%==2 set sdcard=E
+if %check%==1 set sdcard=E
 goto sd_f
 :sd_f
 set /a check=0
 if exist F:\private\wii set /a check=%check%+1
 if exist F:\apps set /a check=%check%+1
-if %check%==2 set sdcard=F
+if %check%==1 set sdcard=F
 goto sd_g
 :sd_g
 set /a check=0
 if exist G:\private\wii set /a check=%check%+1
 if exist G:\apps set /a check=%check%+1
-if %check%==2 set sdcard=G
+if %check%==1 set sdcard=G
 goto sd_h
 :sd_h
 set /a check=0
 if exist H:\private\wii set /a check=%check%+1
 if exist H:\apps set /a check=%check%+1
-if %check%==2 set sdcard=H
+if %check%==1 set sdcard=H
 goto sd_i
 :sd_i
 set /a check=0
 if exist I:\private\wii set /a check=%check%+1
 if exist I:\apps set /a check=%check%+1
-if %check%==2 set sdcard=J
+if %check%==1 set sdcard=J
 goto sd_j
 :sd_j
 set /a check=0
 if exist J:\private\wii set /a check=%check%+1
 if exist J:\apps set /a check=%check%+1
-if %check%==2 set sdcard=J
+if %check%==1 set sdcard=J
 goto sd_k
 :sd_k
 set /a check=0
 if exist K:\private\wii set /a check=%check%+1
 if exist K:\apps set /a check=%check%+1
-if %check%==2 set sdcard=K
+if %check%==1 set sdcard=K
 goto sd_l
 :sd_l
 set /a check=0
 if exist L:\private\wii set /a check=%check%+1
 if exist L:\apps set /a check=%check%+1
-if %check%==2 set sdcard=L
+if %check%==1 set sdcard=L
 goto sd_m
 :sd_m
 set /a check=0
 if exist M:\private\wii set /a check=%check%+1
 if exist M:\apps set /a check=%check%+1
-if %check%==2 set sdcard=M
+if %check%==1 set sdcard=M
 goto sd_n
 :sd_n
 set /a check=0
 if exist N:\private\wii set /a check=%check%+1
 if exist N:\apps set /a check=%check%+1
-if %check%==2 set sdcard=N
+if %check%==1 set sdcard=N
 goto sd_o
 :sd_o
 set /a check=0
 if exist O:\private\wii set /a check=%check%+1
 if exist O:\apps set /a check=%check%+1
-if %check%==2 set sdcard=O
+if %check%==1 set sdcard=O
 goto sd_p
 :sd_p
 set /a check=0
 if exist P:\private\wii set /a check=%check%+1
 if exist P:\apps set /a check=%check%+1
-if %check%==2 set sdcard=P
+if %check%==1 set sdcard=P
 goto sd_r
 :sd_r
 set /a check=0
 if exist R:\private\wii set /a check=%check%+1
 if exist R:\apps set /a check=%check%+1
-if %check%==2 set sdcard=R
+if %check%==1 set sdcard=R
 goto sd_s
 :sd_s
 set /a check=0
 if exist S:\private\wii set /a check=%check%+1
 if exist S:\apps set /a check=%check%+1
-if %check%==2 set sdcard=S
+if %check%==1 set sdcard=S
 goto sd_t
 :sd_t
 set /a check=0
 if exist T:\private\wii set /a check=%check%+1
 if exist T:\apps set /a check=%check%+1
-if %check%==2 set sdcard=T
+if %check%==1 set sdcard=T
 goto sd_u
 :sd_u
 set /a check=0
 if exist U:\private\wii set /a check=%check%+1
 if exist U:\apps set /a check=%check%+1
-if %check%==2 set sdcard=U
+if %check%==1 set sdcard=U
 goto sd_w
 :sd_w
 set /a check=0
 if exist W:\private\wii set /a check=%check%+1
 if exist W:\apps set /a check=%check%+1
-if %check%==2 set sdcard=W
+if %check%==1 set sdcard=W
 goto sd_x
 :sd_x
 set /a check=0
 if exist X:\private\wii set /a check=%check%+1
 if exist X:\apps set /a check=%check%+1
-if %check%==2 set sdcard=X
+if %check%==1 set sdcard=X
 goto sd_y
 :sd_y
 set /a check=0
 if exist Y:\private\wii set /a check=%check%+1
 if exist Y:\apps set /a check=%check%+1
-if %check%==2 set sdcard=Y
+if %check%==1 set sdcard=Y
 goto sd_z
 :sd_z
 set /a check=0
 if exist Z:\private\wii set /a check=%check%+1
 if exist Z:\apps set /a check=%check%+1
-if %check%==2 set sdcard=Z
+if %check%==1 set sdcard=Z
 goto sd_card_show
 :sd_card_show
 cls
