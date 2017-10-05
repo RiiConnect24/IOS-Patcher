@@ -1,13 +1,13 @@
 @echo off
 :: The version variable - it's being used to check for update and just to show user what version is user using.
-set version=1.8.1
+set version=1.8.3
 if exist temp.bat del /q temp.bat
 if exist "C:\Users\%username%\Desktop\IOSPatcherDebug.txt" goto debug_load
 :1
 set /a copyingsdcard=0
 set /a translationsserror=0
 :: Window size (Lines, columns)
-set mode=126,35
+set mode=126,36
 mode %mode%
 :: Coding page (in order to make IOS Patcher on Windows XP working, this command has been disabled)
 :: chcp 65001
@@ -17,8 +17,8 @@ set patchingok=1
 
 :: Window Title
 title IOS Patcher for RiiConnect24 v.%version%  Created by @Larsenv, @KcrPL
-set last_build=2017/08/18
-set at=21:55
+set last_build=2017/09/14
+set at=22:45
 :: ### Auto Update ###
 :: 1=Enable 0=Disable
 :: IOSPatcher_Update_Activate - If disabled, patcher will not even check for updates, default=1
@@ -27,7 +27,7 @@ set at=21:55
 :: MainFolder/TempStorage - folder that is used to keep version.txt and whatsnew.txt. These two files are deleted every startup but if offlinestorage will be set 1, they won't be deleted.
 set /a IOSPatcher_Update_Activate=1
 set /a offlinestorage=0
-set FilesHostedOn=https://rc24.xyz/Patchers_Auto_Update/IOS-Patcher
+set FilesHostedOn=https://kcrpl.github.io/Patchers_Auto_Update/IOS_Patcher
 set MainFolder=%appdata%\IOSPatcher
 set TempStorage=%appdata%\IOSPatcher\internet\temp
 
@@ -37,8 +37,11 @@ if not %os%==Windows_NT goto not_windows_nt
 
 set /a versioncheck=0
 :: If program is opened as an admin the path will messed up
-if not exist patch.bat goto admin_error
-goto begin_main
+set /a patherror=0
+if "%cd%"=="%windir%\system32" set /a patherror=1
+if %patherror%==0 if not exist patch.bat set /a patherror=2
+	
+	goto begin_main
 :not_windows_nt
 cls
 echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
@@ -59,10 +62,19 @@ goto admin_error
 mode %mode%
 cls
 echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
-echo              `..````                                                  
-echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`                
-echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs                
-echo              hNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd               
+if %patherror%==0 echo              `..````                                                  
+if %patherror%==0 echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`                
+if %patherror%==0 echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs                
+if %patherror%==0 echo              hNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd               
+
+if %patherror%==1 echo :----------------------------------------------------------------:                
+if %patherror%==1 echo : Warning: Please run this application without admin privilages. :               
+if %patherror%==1 echo :----------------------------------------------------------------:
+
+if %patherror%==2 echo :------------------------------------------------------------------------------------------------------:                
+if %patherror%==2 echo : Warning: patch.bat not found. You may be running this application from unknown and untrusted source. :               
+if %patherror%==2 echo :------------------------------------------------------------------------------------------------------:
+
 echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+    RiiConnect your Wii.       
 echo             .mmmmNs mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:                
 echo             :mdmmN+`mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.                
@@ -93,6 +105,9 @@ echo                   `.              yddyo++:    `-/oymNNNNNdy+:`
 echo                                   -odhhhhyddmmmmmNNmhs/:`             
 echo                                     :syhdyyyyso+/-`                   
 pause>NUL
+
+if %patherror%==1 goto begin_main
+
 set /a errorwinxp=0
 timeout -0 /nobreak >NUL || set /a errorwinxp=1
 if %errorwinxp%==1 goto winxp_notice
@@ -193,11 +208,11 @@ if not exist %TempStorage% md %TempStorage%
 :: Commands to download files from server.
 if %IOSPatcher_Update_Activate%==1 if %offlinestorage%==0 powershell -command "(new-object System.Net.WebClient).DownloadFile('%FilesHostedOn%/whatsnew.txt', '%TempStorage%/whatsnew.txt')"
 if %IOSPatcher_Update_Activate%==1 if %offlinestorage%==0 powershell -command "(new-object System.Net.WebClient).DownloadFile('%FilesHostedOn%/version.txt', '%TempStorage%/version.txt')"
-
 	set /a temperrorlev=%errorlevel%
 	
+set /a updateserver=1
 	::Bind error codes to errors here
-	if not %errorlevel%==0 goto error_update_not_available
+	if not %errorlevel%==0 set /a updateserver=0
 	
 
 if exist "%TempStorage%\version.txt`" ren "%TempStorage%\version.txt`" "version.txt"
@@ -207,8 +222,9 @@ if exist %TempStorage%\version.txt set /p updateversion=<%TempStorage%\version.t
 if not exist %TempStorage%\version.txt set /a updateavailable=0
 if %IOSPatcher_Update_Activate%==1 if exist %TempStorage%\version.txt set /a updateavailable=1
 :: If version.txt doesn't match the version variable stored in this batch file, it means that update is available.
-if %updateversion%==%version% set /a updateavailable=0 
+if %updateversion%==%version% set /a updateavailable=0
 
+if %IOSPatcher_Update_Activate%==1 if %updateavailable%==1 set /a updateserver=2
 if %IOSPatcher_Update_Activate%==1 if %updateavailable%==1 goto update_notice
 	
 :startup_script_files_check
@@ -259,43 +275,7 @@ if not exist xdelta3.exe goto error_runtime_error
 set filcheck=1
 
 goto main_fade_out
-:error_update_not_available
-cls
-echo.                                                                       
-echo              `..````                                                  
-echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`                
-echo              hNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd                
-echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs                
-echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+        
-echo             .mmmmNs mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:                
-echo             :mdmmN+`mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.                
-echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN            
-echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd                 
-echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy                 
-echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+                 
-echo ------------------------------------------------------------------------------------------------------------------------------              
-echo    /---\   Error.              
-echo   /     \  An Update server is not available.
-echo  /   !   \ 
-echo  ---------  
-echo.            
-echo            Press any button to continue.
-echo ------------------------------------------------------------------------------------------------------------------------------    
-echo           -mddmmo`mNMNNNNMMMNNNmdyoo+mMMMNmNMMMNyyys                  
-echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-                  
-echo          .+mmdhhmmmNNNNNNmdysooooosssomMMMNNNMMMm                     
-echo          o/ossyhdmmNNmdyo+++oooooosssoyNMMNNNMMMM+                    
-echo          o/::::::://++//+++ooooooo+oo++mNMMmNNMMMm                    
-echo         `o//::::::::+////+++++++///:/+shNMMNmNNmMM+                   
-echo         .o////////::+++++++oo++///+syyyymMmNmmmNMMm                   
-echo         -+//////////o+ooooooosydmdddhhsosNMMmNNNmho            `:/    
-echo         .+++++++++++ssss+//oyyysso/:/shmshhs+:.          `-/oydNNNy   
-echo           `..-:/+ooss+-`          +mmhdy`           -/shmNNNNNdy+:`   
-echo                   `.              yddyo++:    `-/oymNNNNNdy+:`        
-echo                                   -odhhhhyddmmmmmNNmhs/:`             
-echo                                     :syhdyyyyso+/-`
-pause>NUL
-goto begin_main
+
 :update_notice
 if %updateversion%==0.0.0 goto error_update_not_available
 set /a update=1
@@ -335,7 +315,7 @@ echo                                   -odhhhhyddmmmmmNNmhs/:`
 echo                                     :syhdyyyyso+/-`
 set /p s=
 if %s%==1 goto update_files
-if %s%==2 goto begin_main
+if %s%==2 goto 3
 if %s%==3 goto whatsnew
 goto update_notice
 :update_files
@@ -677,7 +657,7 @@ if %tempvariable%==1 set output=Your OS is probably Windows XP. You may experien
 goto debug_1
 :refresh_database
 cls
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Deleting files.
 echo.
@@ -693,7 +673,7 @@ if %s%==2 goto debug_1
 goto refresh_database
 :debug_ref
 cls
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Deleting files.
 echo.
@@ -766,7 +746,7 @@ rem ### Please do not make any changes to this part of code. ###
 rem # Please contact me on Discord - KcrPL#4625 ###
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL. v%version%
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%). v%version%
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Please select your language
 echo.
@@ -799,7 +779,7 @@ goto error4112
 mode %mode%
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Error.
 echo.
@@ -810,25 +790,19 @@ echo It's because this translation is broken. Or file check has failed.
 pause>NULc
 goto error_code_error
 
-:error_translation_not_completed
-mode %mode%
-cls
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
-echo ---------------------------------------------------------------------------------------------------------------------------
-echo  [*] Error.
-echo.
-echo It seems that the translation that you've chosen is broken/not completed.
-echo Missing strings of translation will be now replaced with english strings.
-echo.
-echo Press any button to continue.
-pause>NUL
-set /a translationsserror=1
-goto begin
 :3
 mode %mode%
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
+
+echo :========================================================:
+echo : IOS Patcher Update System.                             :
+if %updateserver%==1 echo : The latest version is installed. Press C to read more. :
+if %updateserver%==2 echo : An Update is available. Press C to read more.          :
+if %updateserver%==0 echo : A Update Server is not available. Press C to read more :
+echo :========================================================:
+
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Configuring
 echo.
@@ -837,14 +811,30 @@ echo.
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo                          1. Wii                                                 2. WiiU
 set /p s=Choose:
+if %s%==c goto more_info_update
+if %s%==C goto more_info_update
 if %s%==1 goto 4
 if %s%==2 goto error_3
 goto 3
+:more_info_update
+cls
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
+echo.
+if %updateserver%==1 echo The latest version of IOS Patcher is now installed. (v%version%)
+if %updateserver%==2 goto update_notice
+
+if %updateserver%==0 echo Update server is not available.
+if %updateserver%==0 echo We could not connect to the update server. Please check your internet connection. 
+if %updateserver%==0 echo It can also mean that the server is under maintance now.
+pause>NUL
+goto 3
+
+
 :error_3
 mode %mode%
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Error.
 echo.
@@ -860,7 +850,7 @@ set instalorder=1
 set intrepeat=0
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Info.
 echo.
@@ -877,7 +867,7 @@ if exist WAD rmdir WAD /s /q
 cls
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Downloading
 echo.
@@ -891,7 +881,7 @@ if not %temperrorlev%==0 goto error_patching
 
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Downloading
 echo.
@@ -902,7 +892,7 @@ set modul=Sharpii.exe
 if not %temperrorlev%==0 goto error_patching
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Downloading
 echo.
@@ -924,7 +914,7 @@ if not %temperrorlev%==0 goto error_patching
 
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Downloading
 echo.
@@ -941,7 +931,7 @@ if not %temperrorlev%==0 goto error_patching
 
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo --------------------------------------------------------------------------------------------------------------------------------
 echo  [*] Downloading
 echo.
@@ -959,7 +949,7 @@ if not %temperrorlev%==0 goto error_patching
 
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Downloading
 echo.
@@ -975,7 +965,7 @@ set modul=Sharpii.exe
 if not %temperrorlev%==0 goto error_patching
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Downloading
 echo.
@@ -994,7 +984,7 @@ set modul=del.exe
 if not %temperrorlev%==0 goto error_patching
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Downloading
 echo.
@@ -1016,7 +1006,7 @@ if not %temperrorlev%==0 goto error_patching
 
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Downloading
 echo.
@@ -1071,7 +1061,7 @@ goto begin_main
 mode %mode%
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] SD Card
 echo.
@@ -1088,7 +1078,7 @@ goto ask_for_copy_to_an_sd_card
 :copy_desktop
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Copying...
 echo.
@@ -1098,7 +1088,7 @@ goto end
 :sd_card_check
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] SD Card
 echo.
@@ -1254,7 +1244,7 @@ goto sd_card_show
 :sd_card_show
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] SD Card
 echo.
@@ -1266,7 +1256,7 @@ goto ask_for_copy_to_an_sd_card
 :sd_card_defined
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] SD Card
 echo.
@@ -1283,7 +1273,7 @@ goto sd_card_defined
 :change_sd_card_letter
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] SD Card
 echo.
@@ -1296,7 +1286,7 @@ goto sd_card_defined
 mode %mode%
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Error.
 echo.
@@ -1308,7 +1298,7 @@ set /a copyingsdcard=1
 set /a errorcopying=0
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] SD Card
 echo.
@@ -1328,7 +1318,7 @@ mode %mode%
 cls
 cls
 echo.
-echo IOS Patcher for RiiConnect24 - @Larsenv, @KcrPL
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Thanks for using the Patcher! :)
 echo.
