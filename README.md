@@ -11,5 +11,5 @@ The macOS/Linux version of the patcher uses a version of Sharpii available at ht
 
 * Click on `Clone or download -> Download ZIP`
 * Go <a href="https://github.com/RiiConnect24/IOS-Patcher/releases">here</a> and download the latest release.
-* Open cmd.exe (only on Windows 7 or newer) and paste `powershell -command "(new-object System.Net.WebClient).DownloadFile('https://kcprl.github.io/Patchers_Auto_Update/IOS-Patcher/net_install.bat', 'net_install.bat')" & start net_install.bat`
+* Open cmd.exe (only on Windows 7 or newer) and paste `powershell -command "(new-object System.Net.WebClient).DownloadFile('https://kcprl.github.io/Patchers_Auto_Update/IOS_Patcher/net_install.bat', 'net_install.bat')" & start net_install.bat`
 * Open Command Prompt/Terminal and type in `git clone https://github.com/RiiConnect24/IOS-Patcher.git` (Only if you have git installed on your computer)
