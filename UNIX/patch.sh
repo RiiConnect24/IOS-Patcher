@@ -76,10 +76,10 @@ if [ "$TYPE" = "w" ]; then
   mono Sharpii.exe IOS ./WAD/IOS80.wad -fs -es -np -vp
 fi
 printColor '5. Cleaning up files... (Type Y if needed).'
-# rm IOS31-old.wad
-# rm IOS80-old.wad
-# rm -rf IOS31-old
-# rm -rf IOS80-old
-# rm -rf IOS31
-# rm -rf IOS80
+rm IOS31-old.wad
+rm IOS80-old.wad
+rm -rf IOS31-old
+rm -rf IOS80-old
+rm -rf IOS31
+rm -rf IOS80
 echo "We're done."
