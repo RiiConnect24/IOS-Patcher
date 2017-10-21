@@ -1,7 +1,8 @@
 @echo off
 :: The version variable - it's being used to check for update and just to show user what version is user using.
-set version=1.8.4
+set version=1.8.4.1
 if exist temp.bat del /q temp.bat
+if exist %MainFolder%\eula.txt del %MainFolder%\eula.txt /q
 if exist "C:\Users\%username%\Desktop\IOSPatcherDebug.txt" goto debug_load
 :1
 set /a copyingsdcard=0
