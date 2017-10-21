@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 cd -P -- "$(dirname -- "$0")"
 TYPE="none"
-echo "This is a patcher that creates an IOS31 WAD and in the case of a vWii an IOS80 WAD."
+echo "This is a patcher that creates an IOS31 and IOS80 WAD."
 case "$OSTYPE" in
   linux*)
     hash xdelta3 2>/dev/null || { echo >&2 "I'm missing xdelta3, please install with package manager, or compile and add it to your path."; exit 1; }
