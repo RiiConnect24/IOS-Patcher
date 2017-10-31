@@ -1,13 +1,12 @@
 @echo off
 :: ===========================================================================
 :: IOS Patcher for Windows
-set version=1.8.5
+set version=1.8.6
 :: AUTHORS: KcrPL, Larsenv
 :: ***************************************************************************
 :: Copyright (c) 2017 RiiConnect24, and it's (Lead) Developers
 :: ===========================================================================
 if exist temp.bat del /q temp.bat
-if exist "C:\Users\%username%\Desktop\IOSPatcherDebug.txt" goto debug_load
 :1
 set /a copyingsdcard=0
 set /a translationsserror=0
@@ -19,11 +18,13 @@ mode %mode%
 set error4112=0
 set filcheck=0
 set patchingok=1
+set s=NUL
 
 :: Window Title
 title IOS Patcher for RiiConnect24 v.%version%  Created by @Larsenv, @KcrPL
-set last_build=2017/10/28
-set at=18:18
+set last_build=2017/10/31
+set at=01:45AM
+if exist "C:\Users\%username%\Desktop\IOSPatcherDebug.txt" goto debug_load
 :: ### Auto Update ###
 :: 1=Enable 0=Disable
 :: IOSPatcher_Update_Activate - If disabled, patcher will not even check for updates, default=1
@@ -45,6 +46,13 @@ set /a versioncheck=0
 set /a patherror=0
 if "%cd%"=="%windir%\system32" set /a patherror=1
 if %patherror%==0 if not exist patch.bat set /a patherror=2
+
+:: Debugging text start
+echo :--------------------:
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)>>%MainFolder%/IOSPatcherLogs.txt
+echo Time %time% - Date %date%>>%MainFolder%/IOSPatcherLogs.txt
+echo.>>%MainFolder%/IOSPatcherLogs.txt
+echo Program startup>>%MainFolder%/IOSPatcherLogs.txt
 
 	goto begin_main
 :not_windows_nt
@@ -83,7 +91,7 @@ if %patherror%==2 echo :--------------------------------------------------------
 echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+    RiiConnect your Wii.
 echo             .mmmmNs mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:
 echo             :mdmmN+`mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.
-echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN   Press any button to begin
+echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN   1. Start  2. Send feedback/Report a bug
 echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd   (Please mail us at support@riiconnect24.net if you have problems)
 echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy
 echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+
@@ -109,17 +117,63 @@ echo           `..-:/+ooss+-`          +mmhdy`           -/shmNNNNNdy+:`
 echo                   `.              yddyo++:    `-/oymNNNNNdy+:`
 echo                                   -odhhhhyddmmmmmNNmhs/:`
 echo                                     :syhdyyyyso+/-`
-pause>NUL
-
+set /p s=
+if %s%==1 goto begin_main1
+if %s%==2 goto send_feedback
 if %patherror%==1 goto begin_main
+goto begin_main
+:send_feedback
+cls
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
+echo -----------------------------------------------------------------------------------------------------------------------------
+echo.
+echo Welcome to the feedback sending/Reporting bugs screen.
+echo.
+echo Press any button to copy the logs file to the Desktop.
+pause>NUL
+goto send_feedback2
+:send_feedback2
+if not exist %MainFolder%/IOSPatcherLogs.txt goto send_feedback_error
+copy "%MainFolder%\IOSPatcherLogs.txt" "%userprofile%\Desktop"
+cls
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
+echo -----------------------------------------------------------------------------------------------------------------------------
+echo.
+echo The file has been copied, it's now on your desktop. 
+echo Now please send it to support@riiconnect24.net. And please describe your problem or tell us your feedback! :).
+echo.
+echo Press any button to continue.
+pause>NUL
+goto begin_main
+
+
+:begin_main1
+
+if exist %MainFolder%/failsafe.txt echo INFO: Failsafe detected. Skipping update.>>%MainFolder%/IOSPatcherLogs.txt
+if exist %MainFolder%/failsafe.txt goto failsafe_trigger
 
 set /a errorwinxp=0
 timeout -0 /nobreak >NUL || set /a errorwinxp=1
+if %errorwinxp%==1 echo INFO: Windows XP detected. Showing warning>>%MainFolder%/IOSPatcherLogs.txt
 if %errorwinxp%==1 goto winxp_notice
 
-set /a eula=0
 if not exist %MainFolder% md %MainFolder%
+
+echo BootUp>>%MainFolder%/failsafe.txt
 goto startup_script
+:failsafe_trigger
+cls
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
+echo -----------------------------------------------------------------------------------------------------------------------------
+echo.
+echo Failsafe.
+echo Last BootUp was unsuccessfull. Launching in failsafe mode.
+echo.
+echo Update section has been skipped. Press any button to continue.
+pause>NUL
+del /q "%MainFolder%\failsafe.txt"
+set /a updateserver=3
+goto startup_script_files_check
 :startup_script
 cls
 echo.
@@ -156,6 +210,7 @@ echo           `..-:/+ooss+-`          +mmhdy`           -/shmNNNNNdy+:`
 echo                   `.              yddyo++:    `-/oymNNNNNdy+:`
 echo                                   -odhhhhyddmmmmmNNmhs/:`
 echo                                     :syhdyyyyso+/-`
+echo INFO: Launching Powershell>>%MainFolder%/IOSPatcherLogs.txt
 powershell -c >NUL
 goto check_for_update
 :check_for_update
@@ -207,14 +262,16 @@ if %offlinestorage%==0 if exist %TempStorage%\whatsnew.txt` del %TempStorage%\wh
 
 if not exist %TempStorage% md %TempStorage%
 :: Commands to download files from server.
+echo INFO: Checking for updates. Connecting to (%FilesHostedOn%).>>%MainFolder%/IOSPatcherLogs.txt
+
 if %IOSPatcher_Update_Activate%==1 if %offlinestorage%==0 powershell -command "(new-object System.Net.WebClient).DownloadFile('%FilesHostedOn%/whatsnew.txt', '%TempStorage%/whatsnew.txt')"
 if %IOSPatcher_Update_Activate%==1 if %offlinestorage%==0 powershell -command "(new-object System.Net.WebClient).DownloadFile('%FilesHostedOn%/version.txt', '%TempStorage%/version.txt')"
 	set /a temperrorlev=%errorlevel%
 
 set /a updateserver=1
 	::Bind error codes to errors here
-	if not %errorlevel%==0 set /a updateserver=0
-
+	if not %temperrorlev%==0 set /a updateserver=0
+	if not %temperrorlev%==0 echo ERROR: Error while checking for update. (version.txt - exit code "%temperrorlev%")>>%MainFolder%/IOSPatcherLogs.txt
 
 if exist "%TempStorage%\version.txt`" ren "%TempStorage%\version.txt`" "version.txt"
 if exist "%TempStorage%\whatsnew.txt`" ren "%TempStorage%\whatsnew.txt`" "whatsnew.txt"
@@ -224,7 +281,7 @@ if not exist %TempStorage%\version.txt set /a updateavailable=0
 if %IOSPatcher_Update_Activate%==1 if exist %TempStorage%\version.txt set /a updateavailable=1
 :: If version.txt doesn't match the version variable stored in this batch file, it means that update is available.
 if %updateversion%==%version% set /a updateavailable=0
-
+echo INFO: Update status: Current:%version% Update:%updateversion%>>%MainFolder%/IOSPatcherLogs.txt
 if %IOSPatcher_Update_Activate%==1 if %updateavailable%==1 set /a updateserver=2
 if %IOSPatcher_Update_Activate%==1 if %updateavailable%==1 goto update_notice
 
@@ -274,10 +331,11 @@ if not exist WadInstaller.dll goto error_runtime_error
 if not exist wget.exe goto error_runtime_error
 if not exist xdelta3.exe goto error_runtime_error
 set filcheck=1
-
+if exist "%MainFolder%\failsafe.txt" del /q "%MainFolder%\failsafe.txt"
 goto main_fade_out
 
 :update_notice
+if exist "%MainFolder%\failsafe.txt" del /q "%MainFolder%\failsafe.txt"
 if %updateversion%==0.0.0 goto error_update_not_available
 set /a update=1
 cls
@@ -355,6 +413,7 @@ echo           `..-:/+ooss+-`          +mmhdy`           -/shmNNNNNdy+:`
 echo                   `.              yddyo++:    `-/oymNNNNNdy+:`
 echo                                   -odhhhhyddmmmmmNNmhs/:`
 echo                                     :syhdyyyyso+/-`
+echo INFO: Begining update process>>%MainFolder%/IOSPatcherLogs.txt
 :: Deleting the temp files if they exist.
 if exist 00000006-31.delta` del 00000006-31.delta` /q 2> nul
 if exist 00000006-80.delta` del 00000006-80.delta` /q 2> nul
@@ -410,6 +469,7 @@ echo ren patch.bat` patch.bat >>temp.bat
 echo start patch.bat >>temp.bat
 echo exit >>temp.bat
 :: Running the script and exiting patch.bat
+echo INFO: Updating seems to be done. Restarting to the temporary script>>%MainFolder%/IOSPatcherLogs.txt
 start temp.bat
 exit
 exit
@@ -514,6 +574,7 @@ ping localhost -n 3 >NUL
 goto set_language_en
 :error_runtime_error
 set /a update=0
+echo ERROR: Some of the files are missing>>%MainFolder%/IOSPatcherLogs.txt
 cls
 echo.
 echo              `..````
@@ -604,6 +665,8 @@ cls
 cls
 
 :debug_1
+echo INFO: Opening debug menu>>%MainFolder%/IOSPatcherLogs.txt
+
 :: Debug menu
 if not defined %output% set output=No output.
 cls
@@ -792,6 +855,7 @@ pause>NULc
 goto error_code_error
 
 :3
+del /q "%MainFolder%\failsafe.txt"
 mode %mode%
 cls
 echo.
@@ -801,6 +865,7 @@ echo :========================================================:
 echo : IOS Patcher Update System.                             :
 if %updateserver%==1 echo : The latest version is installed. Press C to read more. :
 if %updateserver%==2 echo : An Update is available. Press C to read more.          :
+if %updateserver%==3 echo : Failsafe mode activated. Press C to read more.          :
 if %updateserver%==0 echo : A Update Server is not available. Press C to read more :
 echo :========================================================:
 
@@ -823,6 +888,8 @@ echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on
 echo.
 if %updateserver%==1 echo The latest version of IOS Patcher is now installed. (v%version%)
 if %updateserver%==2 goto update_notice
+
+if %updateserver%==3 echo The failsafe mode is turned on. The update section has been skipped. Please restart the patcher to disable failsafe mode.
 
 if %updateserver%==0 echo Update server is not available.
 if %updateserver%==0 echo We could not connect to the update server. Please check your internet connection.
@@ -862,6 +929,7 @@ pause>NUL
 goto 5
 
 :5
+echo INFO: Starting patching...>>%MainFolder%/IOSPatcherLogs.txt
 mode %mode%
 set modul=NOT DEFINED
 if exist WAD rmdir WAD /s /q
@@ -1017,10 +1085,12 @@ set /a temperrorlev=%errorlevel%
 set modul=Sharpii.exe
 if not %temperrorlev%==0 goto error_patching
 rem ### Patching Done ###
+echo INFO: Patching done without errors>>%MainFolder%/IOSPatcherLogs.txt
 goto ask_for_copy_to_an_sd_card
 :error_patching
 mode %mode%
 cls
+echo ERROR: There was an error while patching: Module: %modul% Error code: %temperrorlev%>>%MainFolder%/IOSPatcherLogs.txt
 echo.
 echo              `..````
 echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`
@@ -1083,6 +1153,7 @@ echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Copying...
 echo.
+echo INFO: Copying patched files to desktop. (%userprofile%/Desktop/)
 echo Please wait...
 copy "WAD" "%userprofile%/Desktop/" >>NUL
 goto end
@@ -1093,6 +1164,7 @@ echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] SD Card
 echo.
+echo INFO: Begining SD Card lookup>>%MainFolder%/IOSPatcherLogs.txt
 set sdcard=NotDefined
 echo Please wait...
 goto sd_a
@@ -1249,6 +1321,7 @@ echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] SD Card
 echo.
+echo ERROR: Could not find an SD Card>>%MainFolder%/IOSPatcherLogs.txt
 if %sdcard%==NotDefined echo An SD card was not found in the system.
 if %sdcard%==NotDefined echo Please connect SD Card and press any button to try again.
 if not %sdcard%==NotDefined goto sd_card_defined
@@ -1298,6 +1371,7 @@ goto ask_for_copy_to_an_sd_card
 set /a copyingsdcard=1
 set /a errorcopying=0
 cls
+echo INFO: Copying to SD Card (%sdcard%:\)
 echo.
 echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
