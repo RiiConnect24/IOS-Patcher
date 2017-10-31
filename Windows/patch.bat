@@ -1371,7 +1371,7 @@ goto ask_for_copy_to_an_sd_card
 set /a copyingsdcard=1
 set /a errorcopying=0
 cls
-echo INFO: Copying to SD Card (%sdcard%:\)
+echo INFO: Copying to SD Card (%sdcard%:\)>>%MainFolder%\IOSPatcherLogs.txt
 echo.
 echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 echo ---------------------------------------------------------------------------------------------------------------------------
