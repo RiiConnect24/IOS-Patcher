@@ -1,10 +1,10 @@
 @echo off
 :: ===========================================================================
 :: IOS Patcher for Windows
-set version=1.8.6
+set version=1.8.7
 :: AUTHORS: KcrPL, Larsenv
 :: ***************************************************************************
-:: Copyright (c) 2017 RiiConnect24, and it's (Lead) Developers
+:: Copyright (c) 2017 RiiConnect24, KcrPL and it's (Lead) Developers
 :: ===========================================================================
 if exist temp.bat del /q temp.bat
 :1
@@ -37,6 +37,16 @@ set FilesHostedOn=https://raw.githubusercontent.com/KcrPL/KcrPL.github.io/master
 set MainFolder=%appdata%\IOSPatcher
 set TempStorage=%appdata%\IOSPatcher\internet\temp
 
+:: Cleanup after update
+if exist 00000006-31.delta` del /q 00000006-31.delta`
+if exist 00000006-80.delta` del /q 00000006-80.delta`
+if exist libWiiSharp.dll` del /q libWiiSharp.dll`
+if exist Sharpii.exe` del /q Sharpii.exe`
+if exist WadInstaller.dll` del /q WadInstaller.dll`
+if exist wget.exe` del /q wget.exe`
+if exist xdelta3.exe` del /q xdelta3.exe`
+
+
 :: Trying to prevent running from OS that is not Windows.
 if %os%=="" goto not_windows_nt
 if not %os%==Windows_NT goto not_windows_nt
@@ -49,6 +59,7 @@ if %patherror%==0 if not exist patch.bat set /a patherror=2
 
 :: Debugging text start
 echo :--------------------:
+echo.>>%MainFolder%/IOSPatcherLogs.txt
 echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)>>%MainFolder%/IOSPatcherLogs.txt
 echo Time %time% - Date %date%>>%MainFolder%/IOSPatcherLogs.txt
 echo.>>%MainFolder%/IOSPatcherLogs.txt
@@ -86,14 +97,15 @@ if %patherror%==1 echo :--------------------------------------------------------
 
 if %patherror%==2 echo :------------------------------------------------------------------------------------------------------:
 if %patherror%==2 echo : Warning: patch.bat not found. You may be running this application from unknown and untrusted source. :
+if %patherror%==2 echo : If the patcher is in the .zip file, extract it.                                                      :
 if %patherror%==2 echo :------------------------------------------------------------------------------------------------------:
 
-echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+    RiiConnect your Wii.
+if not %patherror%==2 echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+    RiiConnect your Wii.
 echo             .mmmmNs mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:
 echo             :mdmmN+`mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.
 echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN   1. Start  2. Send feedback/Report a bug
 echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd   (Please mail us at support@riiconnect24.net if you have problems)
-echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy
+echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy 
 echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+
 echo             mmmmms smMMMMMMMMMmddMMmmNmNMMMMMMMMMMMM:
 echo            `mmmmmo hNMMMMMMMMMmddNMMMNNMMMMMMMMMMMMM.
@@ -117,9 +129,10 @@ echo           `..-:/+ooss+-`          +mmhdy`           -/shmNNNNNdy+:`
 echo                   `.              yddyo++:    `-/oymNNNNNdy+:`
 echo                                   -odhhhhyddmmmmmNNmhs/:`
 echo                                     :syhdyyyyso+/-`
-set /p s=
+set /p s=Type the number and hit ENTER: 
 if %s%==1 goto begin_main1
 if %s%==2 goto send_feedback
+if %s%==debug goto debug_1
 if %patherror%==1 goto begin_main
 goto begin_main
 :send_feedback
@@ -129,7 +142,7 @@ echo ---------------------------------------------------------------------------
 echo.
 echo Welcome to the feedback sending/Reporting bugs screen.
 echo.
-echo Press any button to copy the logs file to the Desktop.
+echo Press any key to copy the logs file to the Desktop.
 pause>NUL
 goto send_feedback2
 :send_feedback2
@@ -142,7 +155,7 @@ echo.
 echo The file has been copied, it's now on your desktop. 
 echo Now please send it to support@riiconnect24.net. And please describe your problem or tell us your feedback! :).
 echo.
-echo Press any button to continue.
+echo Press any key to continue.
 pause>NUL
 goto begin_main
 
@@ -169,7 +182,7 @@ echo.
 echo Failsafe.
 echo Last BootUp was unsuccessfull. Launching in failsafe mode.
 echo.
-echo Update section has been skipped. Press any button to continue.
+echo Update section has been skipped. Press any key to continue.
 pause>NUL
 del /q "%MainFolder%\failsafe.txt"
 set /a updateserver=3
@@ -492,7 +505,7 @@ echo ---------------------------------------------------------------------------
 echo.
 echo Error. What's new file is not available.
 echo.
-echo Press any button to go back.
+echo Press any key to go back.
 pause>NUL
 goto update_notice
 :winxp_notice
@@ -591,7 +604,7 @@ echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+
 echo -----------------------------------------------------------------------------------------------------------------------------
 echo    /---\   ERROR.
 echo   /     \  Some files needed to run this program weren't found.
-echo  /   !   \ Press any button to download these files.
+echo  /   !   \ Press any key to download these files.
 echo  ---------
 echo -----------------------------------------------------------------------------------------------------------------------------
 echo            mmmmmh ymMMMMMMMMMNNmmmNmNNNMNNMMMMNyyhhh`
@@ -629,7 +642,7 @@ echo ---------------------------------------------------------------------------
 echo    /---\   ERROR.
 echo   /     \  Translation file is broken or file check has failed...
 echo  /   !   \
-echo  --------- Press any button to go back.
+echo  --------- Press any key to go back.
 echo -----------------------------------------------------------------------------------------------------------------------------
 echo            mmmmmh ymMMMMMMMMMNNmmmNmNNNMNNMMMMNyyhhh`
 echo           `mmmmmy hmMMNMNNMMMNNmmmmmdNMMNmmMMMMhyhhy
@@ -665,8 +678,6 @@ cls
 cls
 
 :debug_1
-echo INFO: Opening debug menu>>%MainFolder%/IOSPatcherLogs.txt
-
 :: Debug menu
 if not defined %output% set output=No output.
 cls
@@ -798,10 +809,6 @@ Sharpii.exe IOS WAD\IOS80.wad -fs -es -np -vp
 set output=Patching and downloading IOS 31, 80 done.
 goto debug_1
 
-
-
-
-
 :set_language
 set translationsserror=0
 mode %mode%
@@ -821,24 +828,22 @@ echo I don't know how you got here (probably from debug menu).
 echo If from debug menu, congratulation :P.
 echo.
 echo It was very fun to create this section of the program but it's time to delete it.
-echo If you were using it, I'm sorry. Over 50% of every language were not translated.
+echo If you were using it, I'm sorry. Over 50%% of every language were not translated.
 echo Thanks to:
-echo  TimNook for Deutsch translation, iDroid for French translation, GameCube for Italian translation,
+echo  TimNook for German translation, iDroid for French translation, GameCube for Italian translation,
 echo   Artuto for Spanish translation, prosuWANTED for Russian translation and Fun4TubeGr for Greek translation.
 echo.
 echo                                                                                            Thanks for understanding.
 echo                                                                                                              -KcrPL.
 echo.
 echo Press anything to go back to main menu.
+pause>NUL
 goto begin_main
 
 :set_language_en
 cls
 goto begin
 
-:DoNotTouchThisSection
-set error4112=1
-goto error4112
 :error_code_error
 mode %mode%
 cls
@@ -855,7 +860,7 @@ pause>NULc
 goto error_code_error
 
 :3
-del /q "%MainFolder%\failsafe.txt"
+if exist "%MainFolder%\failsafe.txt" del /q "%MainFolder%\failsafe.txt"
 mode %mode%
 cls
 echo.
@@ -868,7 +873,7 @@ if %updateserver%==2 echo : An Update is available. Press C to read more.       
 if %updateserver%==3 echo : Failsafe mode activated. Press C to read more.          :
 if %updateserver%==0 echo : A Update Server is not available. Press C to read more :
 echo :========================================================:
-
+echo.
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Configuring
 echo.
@@ -897,7 +902,6 @@ if %updateserver%==0 echo It can also mean that the server is under maintance no
 pause>NUL
 goto 3
 
-
 :error_3
 mode %mode%
 cls
@@ -923,170 +927,142 @@ echo ---------------------------------------------------------------------------
 echo  [*] Info.
 echo.
 echo We need to download IOS 31 and 80.
-echo Click any button to proceed to download.
+echo Click any key to proceed to download.
 echo.
 pause>NUL
+goto set_variables
+:set_variables
+cls
+set /a counter_done=0
+set /a percent=0
+goto 5
+:5
+set /a percent=%percent%+1
+
+if /i %percent% GTR 0 if /i %percent% LSS 10 set /a counter_done=0
+if /i %percent% GTR 10 if /i %percent% LSS 20 set /a counter_done=1
+if /i %percent% GTR 20 if /i %percent% LSS 30 set /a counter_done=2
+if /i %percent% GTR 30 if /i %percent% LSS 40 set /a counter_done=3
+if /i %percent% GTR 40 if /i %percent% LSS 50 set /a counter_done=4
+if /i %percent% GTR 50 if /i %percent% LSS 60 set /a counter_done=5
+if /i %percent% GTR 60 if /i %percent% LSS 70 set /a counter_done=6
+if /i %percent% GTR 70 if /i %percent% LSS 80 set /a counter_done=7
+if /i %percent% GTR 80 if /i %percent% LSS 90 set /a counter_done=8
+if /i %percent% GTR 90 if /i %percent% LSS 100 set /a counter_done=9
+if %percent%==100 set /a counter_done=10
+cls
+echo.
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
+echo ---------------------------------------------------------------------------------------------------------------------------
+echo  [*] Downloading
+echo.
+if %counter_done%==0 echo :          : %percent% %%
+if %counter_done%==1 echo :-         : %percent% %%
+if %counter_done%==2 echo :--        : %percent% %%
+if %counter_done%==3 echo :---       : %percent% %%
+if %counter_done%==4 echo :----      : %percent% %%
+if %counter_done%==5 echo :-----     : %percent% %%
+if %counter_done%==6 echo :------    : %percent% %%
+if %counter_done%==7 echo :-------   : %percent% %%
+if %counter_done%==8 echo :--------  : %percent% %%
+if %counter_done%==9 echo :--------- : %percent% %%
+if %counter_done%==10 echo :----------: %percent% %%
+
+if %percent%==25 call Sharpii.exe NUSD -ios 31 -v latest -o IOS31-old.wad -wad >NUL
+if %percent%==25 set /a temperrorlev=%errorlevel%
+if %percent%==25 set modul=Sharpii.exe
+if %percent%==25 if not %temperrorlev%==0 goto error_patching
+
+if %percent%==50 call Sharpii.exe NUSD -ios 80 -v latest -o IOS80-old.wad -wad >NUL
+if %percent%==50 set /a temperrorlev=%errorlevel%
+if %percent%==50 set modul=Sharpii.exe
+if %percent%==50 if not %temperrorlev%==0 goto error_patching
+
+if %percent%==55 call Sharpii.exe WAD -u IOS31-old.wad IOS31/ >NUL
+if %percent%==55 set /a temperrorlev=%errorlevel%
+if %percent%==55 set modul=Sharpii.exe
+if %percent%==55 if not %temperrorlev%==0 goto error_patching
+
+if %percent%==58 call Sharpii.exe WAD -u IOS80-old.wad IOS80/ >NUL
+if %percent%==58 set /a temperrorlev=%errorlevel%
+if %percent%==58 set modul=Sharpii.exe
+if %percent%==58 if not %temperrorlev%==0 goto error_patching
+
+if %percent%==60 move IOS31\00000006.app 00000006.app >NUL
+if %percent%==60 set /a temperrorlev=%errorlevel%
+if %percent%==60 set modul=move.exe
+if %percent%==60 if not %temperrorlev%==0 goto error_patching
+
+if %percent%==65 call xdelta3.exe -f -d -s 00000006.app 00000006-31.delta IOS31\00000006.app >NUL
+if %percent%==65 set /a temperrorlev=%errorlevel%
+if %percent%==65 set modul=xdelta.exe
+if %percent%==65 if not %temperrorlev%==0 goto error_patching
+
+if %percent%==70 move IOS80\00000006.app 00000006.app >NUL
+if %percent%==70 set /a temperrorlev=%errorlevel%
+if %percent%==70 set modul=move.exe
+if %percent%==70 if not %temperrorlev%==0 goto error_patching
+
+if %percent%==73 call xdelta3.exe -f -d -s 00000006.app 00000006-80.delta IOS80\00000006.app >NUL
+if %percent%==73 set /a temperrorlev=%errorlevel%
+if %percent%==73 set modul=xdelta3.exe
+if %percent%==73 if not %temperrorlev%==0 goto error_patching
+
+if %percent%==75 mkdir WAD
+if %percent%==75 set /a temperrorlev=%errorlevel%
+if %percent%==75 set modul=mkdir.exe
+if %percent%==75 if not %temperrorlev%==0 goto error_patching
+
+if %percent%==77 call Sharpii.exe WAD -p IOS31\ WAD\IOS31.wad -fs >NUL
+if %percent%==77 set /a temperrorlev=%errorlevel%
+if %percent%==77 set modul=Sharpii.exe
+if %percent%==77 if not %temperrorlev%==0 goto error_patching
+
+if %percent%==80 call Sharpii.exe WAD -p IOS80\ WAD\IOS80.wad -fs >NUL
+if %percent%==80 set /a temperrorlev=%errorlevel%
+if %percent%==80 set modul=Sharpii.exe
+if %percent%==80 if not %temperrorlev%==0 goto error_patching
+
+if %percent%==83 del 00000006.app /q >NUL
+if %percent%==83 set /a temperrorlev=%errorlevel%
+if %percent%==83 set modul=del.exe
+if %percent%==83 if not %temperrorlev%==0 goto error_patching
+
+if %percent%==86 del IOS31-old.wad /q >NUL
+if %percent%==86 set /a temperrorlev=%errorlevel%
+if %percent%==86 set modul=del.exe
+if %percent%==86 if not %temperrorlev%==0 goto error_patching
+
+if %percent%==90 del IOS80-old.wad /q >NUL
+if %percent%==90 set /a temperrorlev=%errorlevel%
+if %percent%==90 set modul=del.exe
+if %percent%==90 if not %temperrorlev%==0 goto error_patching
+
+if %percent%==93 rmdir /s /q IOS31 >NUL
+if %percent%==93 set /a temperrorlev=%errorlevel%
+if %percent%==93 set modul=rmdir.exe
+if %percent%==93 if not %temperrorlev%==0 goto error_patching
+
+if %percent%==95 rmdir /s /q IOS80 >NUL
+if %percent%==95 set /a temperrorlev=%errorlevel%
+if %percent%==95 set modul=rmdir.exe
+if %percent%==95 if not %temperrorlev%==0 goto error_patching
+
+if %percent%==97 call Sharpii.exe IOS WAD\IOS31.wad -fs -es -np -vp>NUL
+if %percent%==97 set /a temperrorlev=%errorlevel%
+if %percent%==97 set modul=Sharpii.exe
+if %percent%==97 if not %temperrorlev%==0 goto error_patching
+
+if %percent%==99 call Sharpii.exe IOS WAD\IOS80.wad -fs -es -np -vp>NUL
+if %percent%==99 set /a temperrorlev=%errorlevel%
+if %percent%==99 set modul=Sharpii.exe
+if %percent%==99 if not %temperrorlev%==0 goto error_patching
+
+if %percent%==100 echo INFO: Patching done without errors>>%MainFolder%/IOSPatcherLogs.txt
+if %percent%==100 goto ask_for_copy_to_an_sd_card
+ping localhost -n 1 >NUL
 goto 5
 
-:5
-echo INFO: Starting patching...>>%MainFolder%/IOSPatcherLogs.txt
-mode %mode%
-set modul=NOT DEFINED
-if exist WAD rmdir WAD /s /q
-cls
-cls
-echo.
-echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
-echo ---------------------------------------------------------------------------------------------------------------------------
-echo  [*] Downloading
-echo.
-echo :          : 0%%
-rem ### Patching ###
-call Sharpii.exe NUSD -ios 31 -v latest -o IOS31-old.wad -wad >NUL
-set /a temperrorlev=%errorlevel%
-set modul=Sharpii.exe
-if not %temperrorlev%==0 goto error_patching
-
-
-cls
-echo.
-echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
-echo ---------------------------------------------------------------------------------------------------------------------------
-echo  [*] Downloading
-echo.
-echo :--        : 20%%
-call Sharpii.exe NUSD -ios 80 -v latest -o IOS80-old.wad -wad >NUL
-set /a temperrorlev=%errorlevel%
-set modul=Sharpii.exe
-if not %temperrorlev%==0 goto error_patching
-cls
-echo.
-echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
-echo ---------------------------------------------------------------------------------------------------------------------------
-echo  [*] Downloading
-echo.
-echo :----      : 40%%
-call Sharpii.exe WAD -u IOS31-old.wad IOS31/ >NUL
-set /a temperrorlev=%errorlevel%
-set modul=Sharpii.exe
-if not %temperrorlev%==0 goto error_patching
-
-call Sharpii.exe WAD -u IOS80-old.wad IOS80/ >NUL
-set /a temperrorlev=%errorlevel%
-set modul=Sharpii.exe
-if not %temperrorlev%==0 goto error_patching
-
-move IOS31\00000006.app 00000006.app >NUL
-set /a temperrorlev=%errorlevel%
-set modul=move.exe
-if not %temperrorlev%==0 goto error_patching
-
-cls
-echo.
-echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
-echo ---------------------------------------------------------------------------------------------------------------------------
-echo  [*] Downloading
-echo.
-echo :-----     : 50%%
-call xdelta3.exe -f -d -s 00000006.app 00000006-31.delta IOS31\00000006.app >NUL
-set /a temperrorlev=%errorlevel%
-set modul=xdelta.exe
-if not %temperrorlev%==0 goto error_patching
-
-move IOS80\00000006.app 00000006.app >NUL
-set /a temperrorlev=%errorlevel%
-set modul=move.exe
-if not %temperrorlev%==0 goto error_patching
-
-cls
-echo.
-echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
-echo -------------------------------------------------------------------------------------------------------------------------------
-echo  [*] Downloading
-echo.
-echo :-------   : 70%%
-
-call xdelta3.exe -f -d -s 00000006.app 00000006-80.delta IOS80\00000006.app >NUL
-set /a temperrorlev=%errorlevel%
-set modul=xdelta3.exe
-if not %temperrorlev%==0 goto error_patching
-
-mkdir WAD
-set /a temperrorlev=%errorlevel%
-set modul=mkdir.exe
-if not %temperrorlev%==0 goto error_patching
-
-cls
-echo.
-echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
-echo ---------------------------------------------------------------------------------------------------------------------------
-echo  [*] Downloading
-echo.
-echo :--------  : 80%%
-call Sharpii.exe WAD -p IOS31\ WAD\IOS31.wad -fs >NUL
-set /a temperrorlev=%errorlevel%
-set modul=Sharpii.exe
-if not %temperrorlev%==0 goto error_patching
-
-call Sharpii.exe WAD -p IOS80\ WAD\IOS80.wad -fs >NUL
-set /a temperrorlev=%errorlevel%
-set modul=Sharpii.exe
-if not %temperrorlev%==0 goto error_patching
-cls
-echo.
-echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
-echo ---------------------------------------------------------------------------------------------------------------------------
-echo  [*] Downloading
-echo.
-echo :--------- : 90%%
-del 00000006.app /q >NUL
-set /a temperrorlev=%errorlevel%
-set modul=del.exe
-if not %temperrorlev%==0 goto error_patching
-del IOS31-old.wad /q >NUL
-set /a temperrorlev=%errorlevel%
-set modul=del.exe
-if not %temperrorlev%==0 goto error_patching
-del IOS80-old.wad /q >NUL
-set /a temperrorlev=%errorlevel%
-set modul=del.exe
-if not %temperrorlev%==0 goto error_patching
-cls
-echo.
-echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
-echo ---------------------------------------------------------------------------------------------------------------------------
-echo  [*] Downloading
-echo.
-echo :--------- : 93%%
-rmdir /s /q IOS31 >NUL
-set /a temperrorlev=%errorlevel%
-set modul=rmdir.exe
-if not %temperrorlev%==0 goto error_patching
-
-rmdir /s /q IOS80 >NUL
-set /a temperrorlev=%errorlevel%
-set modul=rmdir.exe
-if not %temperrorlev%==0 goto error_patching
-
-call Sharpii.exe IOS WAD\IOS31.wad -fs -es -np -vp
-set /a temperrorlev=%errorlevel%
-set modul=Sharpii.exe
-if not %temperrorlev%==0 goto error_patching
-
-cls
-echo.
-echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
-echo ---------------------------------------------------------------------------------------------------------------------------
-echo  [*] Downloading
-echo.
-echo :----------: 100%%
-call Sharpii.exe IOS WAD\IOS80.wad -fs -es -np -vp
-set /a temperrorlev=%errorlevel%
-set modul=Sharpii.exe
-if not %temperrorlev%==0 goto error_patching
-rem ### Patching Done ###
-echo INFO: Patching done without errors>>%MainFolder%/IOSPatcherLogs.txt
-goto ask_for_copy_to_an_sd_card
 :error_patching
 mode %mode%
 cls
@@ -1140,7 +1116,7 @@ echo Patching is done.
 echo Do you want to copy patched files to an SD Card?
 echo.
 echo ---------------------------------------------------------------------------------------------------------------------------
-echo                   1. Yes              3. Copy files to Desktop and exit                2. No
+echo  1. Yes  2. No  3. Copy files to Desktop and exit
 set /p s=
 if %s%==1 goto sd_card_check
 if %s%==2 goto end
@@ -1172,147 +1148,118 @@ goto sd_a
 :: Every Wii SD Card should have two folders in it: apps and private. That's how it's being checked :)
 :sd_a
 set /a check=0
-if exist A:\private\wii set /a check=%check%+1
 if exist A:\apps set /a check=%check%+1
-if %check%==2 set sdcard=A
+if %check%==1 set sdcard=A
 goto sd_b
 :sd_b
 set /a check=0
-if exist B:\private\wii set /a check=%check%+1
 if exist B:\apps set /a check=%check%+1
-if %check%==2 set sdcard=B
-goto sd_c
-:sd_c
-set /a check=0
-if exist C:\private\wii set /a check=%check%+1
-if exist C:\apps set /a check=%check%+1
-if %check%==2 set sdcard=C
+if %check%==1 set sdcard=B
 goto sd_d
 :sd_d
 set /a check=0
-if exist D:\private\wii set /a check=%check%+1
 if exist D:\apps set /a check=%check%+1
-if %check%==2 set sdcard=D
+if %check%==1 set sdcard=D
 goto sd_e
 :sd_e
 set /a check=0
-if exist E:\private\wii set /a check=%check%+1
 if exist E:\apps set /a check=%check%+1
-if %check%==2 set sdcard=E
+if %check%==1 set sdcard=E
 goto sd_f
 :sd_f
 set /a check=0
-if exist F:\private\wii set /a check=%check%+1
 if exist F:\apps set /a check=%check%+1
-if %check%==2 set sdcard=F
+if %check%==1 set sdcard=F
 goto sd_g
 :sd_g
 set /a check=0
-if exist G:\private\wii set /a check=%check%+1
 if exist G:\apps set /a check=%check%+1
-if %check%==2 set sdcard=G
+if %check%==1 set sdcard=G
 goto sd_h
 :sd_h
 set /a check=0
-if exist H:\private\wii set /a check=%check%+1
 if exist H:\apps set /a check=%check%+1
-if %check%==2 set sdcard=H
+if %check%==1 set sdcard=H
 goto sd_i
 :sd_i
 set /a check=0
-if exist I:\private\wii set /a check=%check%+1
 if exist I:\apps set /a check=%check%+1
-if %check%==2 set sdcard=J
+if %check%==1 set sdcard=J
 goto sd_j
 :sd_j
 set /a check=0
-if exist J:\private\wii set /a check=%check%+1
 if exist J:\apps set /a check=%check%+1
-if %check%==2 set sdcard=J
+if %check%==1 set sdcard=J
 goto sd_k
 :sd_k
 set /a check=0
-if exist K:\private\wii set /a check=%check%+1
 if exist K:\apps set /a check=%check%+1
-if %check%==2 set sdcard=K
+if %check%==1 set sdcard=K
 goto sd_l
 :sd_l
 set /a check=0
-if exist L:\private\wii set /a check=%check%+1
 if exist L:\apps set /a check=%check%+1
-if %check%==2 set sdcard=L
+if %check%==1 set sdcard=L
 goto sd_m
 :sd_m
 set /a check=0
-if exist M:\private\wii set /a check=%check%+1
 if exist M:\apps set /a check=%check%+1
-if %check%==2 set sdcard=M
+if %check%==1 set sdcard=M
 goto sd_n
 :sd_n
 set /a check=0
-if exist N:\private\wii set /a check=%check%+1
 if exist N:\apps set /a check=%check%+1
-if %check%==2 set sdcard=N
+if %check%==1 set sdcard=N
 goto sd_o
 :sd_o
 set /a check=0
-if exist O:\private\wii set /a check=%check%+1
 if exist O:\apps set /a check=%check%+1
-if %check%==2 set sdcard=O
+if %check%==1 set sdcard=O
 goto sd_p
 :sd_p
 set /a check=0
-if exist P:\private\wii set /a check=%check%+1
 if exist P:\apps set /a check=%check%+1
-if %check%==2 set sdcard=P
+if %check%==1 set sdcard=P
 goto sd_r
 :sd_r
 set /a check=0
-if exist R:\private\wii set /a check=%check%+1
 if exist R:\apps set /a check=%check%+1
-if %check%==2 set sdcard=R
+if %check%==1 set sdcard=R
 goto sd_s
 :sd_s
 set /a check=0
-if exist S:\private\wii set /a check=%check%+1
 if exist S:\apps set /a check=%check%+1
-if %check%==2 set sdcard=S
+if %check%==1 set sdcard=S
 goto sd_t
 :sd_t
 set /a check=0
-if exist T:\private\wii set /a check=%check%+1
 if exist T:\apps set /a check=%check%+1
-if %check%==2 set sdcard=T
+if %check%==1 set sdcard=T
 goto sd_u
 :sd_u
 set /a check=0
-if exist U:\private\wii set /a check=%check%+1
 if exist U:\apps set /a check=%check%+1
-if %check%==2 set sdcard=U
+if %check%==1 set sdcard=U
 goto sd_w
 :sd_w
 set /a check=0
-if exist W:\private\wii set /a check=%check%+1
 if exist W:\apps set /a check=%check%+1
-if %check%==2 set sdcard=W
+if %check%==1 set sdcard=W
 goto sd_x
 :sd_x
 set /a check=0
-if exist X:\private\wii set /a check=%check%+1
 if exist X:\apps set /a check=%check%+1
-if %check%==2 set sdcard=X
+if %check%==1 set sdcard=X
 goto sd_y
 :sd_y
 set /a check=0
-if exist Y:\private\wii set /a check=%check%+1
 if exist Y:\apps set /a check=%check%+1
-if %check%==2 set sdcard=Y
+if %check%==1 set sdcard=Y
 goto sd_z
 :sd_z
 set /a check=0
-if exist Z:\private\wii set /a check=%check%+1
 if exist Z:\apps set /a check=%check%+1
-if %check%==2 set sdcard=Z
+if %check%==1 set sdcard=Z
 goto sd_card_show
 :sd_card_show
 cls
@@ -1323,7 +1270,7 @@ echo  [*] SD Card
 echo.
 echo ERROR: Could not find an SD Card>>%MainFolder%/IOSPatcherLogs.txt
 if %sdcard%==NotDefined echo An SD card was not found in the system.
-if %sdcard%==NotDefined echo Please connect SD Card and press any button to try again.
+if %sdcard%==NotDefined echo Please connect SD Card and press any key to try again.
 if not %sdcard%==NotDefined goto sd_card_defined
 pause>NUL
 goto ask_for_copy_to_an_sd_card
@@ -1353,7 +1300,7 @@ echo  [*] SD Card
 echo.
 echo Current SD Card Letter: %sdcard%
 echo.
-echo Type in new drive letter (e.g H)
+echo Type in new drive letter (example: H)
 set /p sdcard=
 goto sd_card_defined
 :sd_card_error
