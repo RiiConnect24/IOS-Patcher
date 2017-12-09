@@ -1,7 +1,7 @@
 @echo off
 :: ===========================================================================
 :: IOS Patcher for Windows
-set version=1.8.7
+set version=1.8.8
 :: AUTHORS: KcrPL, Larsenv
 :: ***************************************************************************
 :: Copyright (c) 2017 RiiConnect24, KcrPL and it's (Lead) Developers
@@ -13,8 +13,6 @@ set /a translationsserror=0
 :: Window size (Lines, columns)
 set mode=126,36
 mode %mode%
-:: Coding page (in order to make IOS Patcher on Windows XP working, this command has been disabled)
-:: chcp 65001
 set error4112=0
 set filcheck=0
 set patchingok=1
@@ -22,8 +20,8 @@ set s=NUL
 
 :: Window Title
 title IOS Patcher for RiiConnect24 v.%version%  Created by @Larsenv, @KcrPL
-set last_build=2017/10/31
-set at=01:45AM
+set last_build=2017/12/10
+set at=1:00
 if exist "C:\Users\%username%\Desktop\IOSPatcherDebug.txt" goto debug_load
 :: ### Auto Update ###
 :: 1=Enable 0=Disable
@@ -36,6 +34,18 @@ set /a offlinestorage=0
 set FilesHostedOn=https://raw.githubusercontent.com/KcrPL/KcrPL.github.io/master/Patchers_Auto_Update/IOS_Patcher
 set MainFolder=%appdata%\IOSPatcher
 set TempStorage=%appdata%\IOSPatcher\internet\temp
+
+if not exist %MainFolder% md %MainFolder%
+if not exist %TempStorage% md %TempStorage%
+
+:: Checking if I have access to files on your computer
+if exist %TempStorage%\checkforaccess.txt del /q %TempStorage%\checkforaccess.txt
+
+echo test >>%TempStorage%\checkforaccess.txt
+set /a file_access=1
+if not exist %TempStorage%\checkforaccess.txt set /a file_access=0
+
+if exist %TempStorage%\checkforaccess.txt del /q %TempStorage%\checkforaccess.txt
 
 :: Cleanup after update
 if exist 00000006-31.delta` del /q 00000006-31.delta`
@@ -85,7 +95,7 @@ goto admin_error
 :begin_main
 mode %mode%
 cls
-echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
+echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version% (Compiled on %last_build% at %at%)
 if %patherror%==0 echo              `..````
 if %patherror%==0 echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`
 if %patherror%==0 echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs
@@ -170,8 +180,6 @@ timeout -0 /nobreak >NUL || set /a errorwinxp=1
 if %errorwinxp%==1 echo INFO: Windows XP detected. Showing warning>>%MainFolder%/IOSPatcherLogs.txt
 if %errorwinxp%==1 goto winxp_notice
 
-if not exist %MainFolder% md %MainFolder%
-
 echo BootUp>>%MainFolder%/failsafe.txt
 goto startup_script
 :failsafe_trigger
@@ -223,6 +231,9 @@ echo           `..-:/+ooss+-`          +mmhdy`           -/shmNNNNNdy+:`
 echo                   `.              yddyo++:    `-/oymNNNNNdy+:`
 echo                                   -odhhhhyddmmmmmNNmhs/:`
 echo                                     :syhdyyyyso+/-`
+
+if %file_access%==0 goto startup_script_files_check
+
 echo INFO: Launching Powershell>>%MainFolder%/IOSPatcherLogs.txt
 powershell -c >NUL
 goto check_for_update
@@ -275,7 +286,7 @@ if %offlinestorage%==0 if exist %TempStorage%\whatsnew.txt` del %TempStorage%\wh
 
 if not exist %TempStorage% md %TempStorage%
 :: Commands to download files from server.
-echo INFO: Checking for updates. Connecting to (%FilesHostedOn%).>>%MainFolder%/IOSPatcherLogs.txt
+echo INFO: Checking for updates. Connecting to (%FilesHostedOn%)>>%MainFolder%/IOSPatcherLogs.txt
 
 if %IOSPatcher_Update_Activate%==1 if %offlinestorage%==0 powershell -command "(new-object System.Net.WebClient).DownloadFile('%FilesHostedOn%/whatsnew.txt', '%TempStorage%/whatsnew.txt')"
 if %IOSPatcher_Update_Activate%==1 if %offlinestorage%==0 powershell -command "(new-object System.Net.WebClient).DownloadFile('%FilesHostedOn%/version.txt', '%TempStorage%/version.txt')"
@@ -584,7 +595,7 @@ echo                                   -odhhhhyddmmmmmNNmhs/:`
 echo                                     :syhdyyyyso+/-`
 echo.
 ping localhost -n 3 >NUL
-goto set_language_en
+goto begin
 :error_runtime_error
 set /a update=0
 echo ERROR: Some of the files are missing>>%MainFolder%/IOSPatcherLogs.txt
@@ -725,7 +736,7 @@ if %tempvariable%==0 set output=It seems that the files are OK!
 goto debug_1
 :debug_system_Req
 set /a tempvariable=0
-timeout 1 /nobreak || set /a tempvariable=1 >NUL
+timeout 1 /nobreak >NUL || set /a tempvariable=1
 
 if %tempvariable%==0 set output=There should be no problems with this program.
 if %tempvariable%==1 set output=Your OS is probably Windows XP. You may experience some problems with this program.
@@ -840,10 +851,6 @@ echo Press anything to go back to main menu.
 pause>NUL
 goto begin_main
 
-:set_language_en
-cls
-goto begin
-
 :error_code_error
 mode %mode%
 cls
@@ -862,17 +869,21 @@ goto error_code_error
 :3
 if exist "%MainFolder%\failsafe.txt" del /q "%MainFolder%\failsafe.txt"
 mode %mode%
+
+if %file_access%==0 set /a updateserver=4
+
 cls
 echo.
 echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version%. (Compiled on %last_build% at %at%)
 
-echo :========================================================:
-echo : IOS Patcher Update System.                             :
-if %updateserver%==1 echo : The latest version is installed. Press C to read more. :
-if %updateserver%==2 echo : An Update is available. Press C to read more.          :
-if %updateserver%==3 echo : Failsafe mode activated. Press C to read more.          :
-if %updateserver%==0 echo : A Update Server is not available. Press C to read more :
-echo :========================================================:
+echo :=======================================================================:
+echo   IOS Patcher Update System.
+if %updateserver%==1 echo   The latest version is installed. Press C to read more.
+if %updateserver%==2 echo   An Update is available. Press C to read more.
+if %updateserver%==3 echo   Failsafe mode activated. Press C to read more.
+if %updateserver%==4 echo   I don't have access to files on your computer. Press C to read more
+if %updateserver%==0 echo   A Update Server is not available. Press C to read more
+echo :=======================================================================:
 echo.
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo  [*] Configuring
@@ -895,6 +906,9 @@ if %updateserver%==1 echo The latest version of IOS Patcher is now installed. (v
 if %updateserver%==2 goto update_notice
 
 if %updateserver%==3 echo The failsafe mode is turned on. The update section has been skipped. Please restart the patcher to disable failsafe mode.
+
+if %updateserver%==4 echo I don't have access to files on your computer. That doesn't mean that I can't work.
+if %updateserver%==4 echo I will try to patch IOS's. But updating has been skipped.
 
 if %updateserver%==0 echo Update server is not available.
 if %updateserver%==0 echo We could not connect to the update server. Please check your internet connection.
@@ -1008,7 +1022,7 @@ if %percent%==73 set /a temperrorlev=%errorlevel%
 if %percent%==73 set modul=xdelta3.exe
 if %percent%==73 if not %temperrorlev%==0 goto error_patching
 
-if %percent%==75 mkdir WAD
+if %percent%==75 if not exist WAD mkdir WAD
 if %percent%==75 set /a temperrorlev=%errorlevel%
 if %percent%==75 set modul=mkdir.exe
 if %percent%==75 if not %temperrorlev%==0 goto error_patching
@@ -1038,12 +1052,12 @@ if %percent%==90 set /a temperrorlev=%errorlevel%
 if %percent%==90 set modul=del.exe
 if %percent%==90 if not %temperrorlev%==0 goto error_patching
 
-if %percent%==93 rmdir /s /q IOS31 >NUL
+if %percent%==93 if exist IOS31 rmdir /s /q IOS31 >NUL
 if %percent%==93 set /a temperrorlev=%errorlevel%
 if %percent%==93 set modul=rmdir.exe
 if %percent%==93 if not %temperrorlev%==0 goto error_patching
 
-if %percent%==95 rmdir /s /q IOS80 >NUL
+if %percent%==95 if exist IOS80 rmdir /s /q IOS80 >NUL
 if %percent%==95 set /a temperrorlev=%errorlevel%
 if %percent%==95 set modul=rmdir.exe
 if %percent%==95 if not %temperrorlev%==0 goto error_patching
@@ -1084,7 +1098,7 @@ echo    /---\   ERROR.
 echo   /     \  There was an error while patching.
 echo  /   !   \ Error Code: %temperrorlev%
 echo  --------- Failing module: %modul%
-echo.
+echo Please mail us at support@riiconnect24.net and describe your problem to us.
 echo.
 if %temperrorlev%==-532459699 echo Please check your internet connection.
 if %temperrorlev%==-2146232576 echo Please install .NET Framework 3.5, than try to patch again.
