@@ -3,7 +3,7 @@ cd "%~d0%~p0"
 @echo off
 :: ===========================================================================
 :: IOS Patcher for Windows
-set version=1.8.9
+set version=1.8.9-BugFix1
 :: AUTHORS: KcrPL, Larsenv
 :: ***************************************************************************
 :: Copyright (c) 2018 RiiConnect24, KcrPL and it's (Lead) Developers
@@ -23,7 +23,7 @@ set s=NUL
 :: Window Title
 title IOS Patcher for RiiConnect24 v.%version%  Created by @Larsenv, @KcrPL
 set last_build=2017/01/14
-set at=1:43
+set at=11:32
 if exist "C:\Users\%username%\Desktop\IOSPatcherDebug.txt" goto debug_load
 :: ### Auto Update ###
 :: 1=Enable 0=Disable
@@ -560,6 +560,7 @@ echo                   `.              yddyo++:    `-/oymNNNNNdy+:`
 echo                                   -odhhhhyddmmmmmNNmhs/:`
 echo                                     :syhdyyyyso+/-`
 pause>NUL
+set updateserver=0
 goto main_fade_out
 :main_fade_out
 cls
@@ -953,6 +954,7 @@ goto set_variables
 cls
 set /a counter_done=0
 set /a percent=0
+set /a temperrorlev=0
 goto 5
 :5
 set /a percent=%percent%+1
@@ -1105,7 +1107,8 @@ echo  --------- Failing module: %modul%
 echo Please mail us at support@riiconnect24.net and describe your problem to us.
 echo.
 if %temperrorlev%==-532459699 echo Please check your internet connection.
-if %temperrorlev%==-2146232576 echo Please install .NET Framework 3.5, than try to patch again.
+if %temperrorlev%==-2146232576 echo Please install .NET Framework 3.5, then try to patch again.
+if %temperrorlev%==-1073741515 echo Sharpii general failure. Try to install .NET Framework 3.5 and try again.
 echo       Press any key to return to main menu.
 echo ---------------------------------------------------------------------------------------------------------------------------
 echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-
@@ -1379,8 +1382,8 @@ if %exiting%==3 echo :---       : 3
 if %exiting%==2 echo :--        : 2
 if %exiting%==1 echo :-         : 1
 if %exiting%==0 echo :          :
-if %copyingsdcard%==0 if %exiting%==0 start "WAD"
-if %copyingsdcard%==1 if %exiting%==0 start "%sdcard%:\WAD"
+if %copyingsdcard%==0 if %exiting%==0 start WAD
+if %copyingsdcard%==1 if %exiting%==0 start %sdcard%:\WAD
 if %exiting%==0 exit
 if %timeouterror%==0 timeout 1 /nobreak >NUL
 if %timeouterror%==1 ping localhost -n 2 >NUL
