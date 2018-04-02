@@ -1,0 +1,102 @@
+IOS Patcher Translation File (c) KcrPL
+---------------------------------------
+Please fill these information:
+
+Author of translation: 
+Name of your language in English: 
+Your Discord username#discrim or EMAIL: 
+
+Please only change the text on the right! (Don't change "set string=". Only the text on the right!)
+
+Also, I need your language code on your computer so the patcher can automatically load the language upon startup.
+
+Please open cmd.exe and run this command (copy the command below and in cmd.exe on Windows 7, on cmd.exe right click and Paste, on Windows 10 CTRL+V)
+Your computer must be set to the language that you're translating to!
+
+@echo off & FOR /F "tokens=2 delims==" %a IN ('wmic os get OSLanguage /Value') DO set OSLanguage=%a & echo OS Language: %OSLanguage%
+(If it outputs you %OSLanguage%, please paste it again and hit ENTER)
+
+Please fill -> OSLanguage=
+Without this ^ I won't accept your translation.
+
+set string1=Warning: Please run this application without admin privilages.
+set string2=Warning: patch.bat not found. You may be running this application from unknown and untrusted source. 
+set string3=Start
+set string4=Send feedback/Report a bug
+set string5=Please mail us at support@riiconnect24.net if you have problems
+set string6=Type the number that you can see above and hit ENTER
+set string7=Welcome to the feedback sending/Reporting bugs screen.
+set string8=Press any key to copy the logs file to the Desktop.
+set string9=The file has been copied, it's now on your desktop.
+set string10=Now please send it to support@riiconnect24.net. And please describe your problem or tell us your feedback! :)
+set string11=Press any key to continue.
+set string12=Safe mode
+set string13=Last BootUp was unsuccessfull. Launching in safe mode.
+set string14=Updating has been skipped. 
+set string15=Launching powershell
+set string16=Checking for updates
+set string17=Please wait
+set string18=An Update is available
+set string19=An Update for this program is available. We suggest updating the IOS Patcher to the latest version.
+set string20=Current version
+set string21=New version
+set string22=Update
+set string23=Dismiss
+set string24=What's new in this update?
+set string25=Updating
+set string26=IOS Patcher will restart shortly
+set string27=What's new in update
+set string28=Error. What's new is not available at the moment.
+set string29=Error
+set string30=Some files needed to run this program weren't found.
+set string31=Press any key to redownload these files.
+set string32=IOS Patcher Update System.
+set string33=The latest version is installed.
+set string34=An Update is available.
+set string35=Safe mode activated.
+set string36=I don't have access to files on your computer
+set string37=Update Server is not available.
+set string38=Press C to read more.
+set string39=Configuring
+set string40=Are you gonna be using this patcher for Wii or WiiU?
+set string41=The latest version of IOS Patcher is now installed.
+set string42=Safe mode is turned on. Updating has been skipped. Please restart the patcher to disable safe mode.
+set string43=I don't have access to files on your computer. That doesn't mean that I can't work.
+set string44=I will try to patch IOS's. But updating has been skipped.
+set string45=We could not connect to the update server. Please check your internet connection.
+set string46=It can also mean that the server is under maintance now.
+set string47=Unfortunately, you cannot use this patcher for Wii U.
+set string48=We need to download IOS 31 and 80.
+set string49=Press any button to proceed to download.
+set string50=Downloading
+set string51=There was an error while patching.
+set string52=Error Code
+set string53=Failing module
+set string54=Please mail us at support@riiconnect24.net and describe your problem to us.
+set string55=Please check your internet connection.
+set string56=Please install .NET Framework 3.5, then try to patch again.
+set string57=Sharpii general failure.
+set string58=Press any key to return to main menu.
+set string59=Patching is done.
+set string60=Do you want to copy patched files to an SD Card?
+set string61=Yes
+set string62=No
+set string63=Copy files to Desktop and exit
+set string64=Copying
+set string65=SD Card
+set string66=An SD card was not found in the system.
+set string67=Please connect SD Card and press any key to try again.
+set string68=Current SD Card Letter
+set string69=Do you want to change SD Card drive letter?
+set string70=Continue and copy files to SD Card
+set string71=Change drive letter
+set string72=Exit
+set string73=There was an error while copying files.
+set string74=Thanks for using the Patcher!
+set string75=Patching is done
+set string76=Patched IOS files will be in folder called "WAD".
+set string77=Files has been copied to SD Card to folder called "WAD"
+set string78=Exiting the patcher in...
+set string79=Attempt to load diacritic characters [Windows 8.1/10]
+
+Done! Please send it back to me on Discord (KcrPL#4625) or send this to our support email (support@riiconnect24.net)
