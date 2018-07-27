@@ -458,18 +458,18 @@ set mode=126,36
 mode %mode%
 
 set string1=Warning: Please run this application without admin privilages.
-set string2=Warning: patch.bat not found. You may be running this application from unknown and untrusted source. 
+set string2=Warning: patch.bat not found. You may be running this application from an unknown or untrusted source. 
 set string3=Start
 set string4=Send feedback/Report a bug
 set string5=Please mail us at support@riiconnect24.net if you have problems
 set string6=Type the number that you can see above and hit ENTER
-set string7=Welcome to the feedback sending/Reporting bugs screen.
+set string7=Send feedback
 set string8=Press any key to copy the logs file to the Desktop.
-set string9=The file has been copied, it's now on your desktop.
-set string10=Now please send it to support@riiconnect24.net. And please describe your problem or tell us your feedback! :)
+set string9=The file is now on your desktop.
+set string10=Now please send it to support@riiconnect24.net. And please describe your problem or tell us your feedback!
 set string11=Press any key to continue.
 set string12=Safe mode
-set string13=Last BootUp was unsuccessfull. Launching in safe mode.
+set string13=Last Boot was unsuccessful. Launching in safe mode.
 set string14=Updating has been skipped. 
 set string15=Launching powershell
 set string16=Checking for updates
@@ -492,17 +492,17 @@ set string32=IOS Patcher Update System.
 set string33=The latest version is installed.
 set string34=An Update is available.
 set string35=Safe mode activated.
-set string36=I don't have access to files on your computer
+set string36=Cannot access files on your computer.
 set string37=Update Server is not available.
 set string38=Press C to read more.
 set string39=Configuring
-set string40=Are you gonna be using this patcher for Wii or WiiU?
+set string40=Are you patching Wii or Wii U?
 set string41=The latest version of IOS Patcher is now installed.
 set string42=Safe mode is turned on. Updating has been skipped. Please restart the patcher to disable safe mode.
-set string43=I don't have access to files on your computer. That doesn't mean that I can't work.
-set string44=I will try to patch IOS's. But updating has been skipped.
+set string43=Cannot access files on your computer. We may still be able to patch.
+set string44=Did not update, trying to patch IOS
 set string45=We could not connect to the update server. Please check your internet connection.
-set string46=It can also mean that the server is under maintance now.
+set string46=It can also mean that the server is under maintenance now.
 set string47=Unfortunately, you cannot use this patcher for Wii U.
 set string48=We need to download IOS 31 and 80.
 set string49=Press any button to proceed to download.
@@ -532,8 +532,8 @@ set string72=Exit
 set string73=There was an error while copying files.
 set string74=Thanks for using the Patcher!
 set string75=Patching is done
-set string76=Patched IOS files will be in folder called "WAD".
-set string77=Files has been copied to SD Card to folder called "WAD"
+set string76=Patched IOS files will be in a folder called "WAD".
+set string77=Files has been copied to your SD Card in a folder called "WAD"
 set string78=Exiting the patcher in...
 set string79=Attempt to load diacritic characters [Windows 8.1/10]
 
@@ -1063,8 +1063,7 @@ goto begin_main
 cls
 echo %header%
 echo.
-echo Please don't run our IOS Patcher in MS-DOS :P.
-echo Run it only on Windows Vista+ computer. :)
+echo RC24 Patcher requires Windows Vista or newer
 pause>NUL
 exit
 :admin_error
@@ -1072,7 +1071,7 @@ cls
 echo %header%
 echo.
 echo ERROR.
-echo An error has been occurred. Please try to run this program without ADMIN privileges (or change this batch file name to patch.bat)
+echo An error has occurred. Please try to run this program without admin privileges (or change this batch file name to patch.bat)
 pause>NUL
 goto admin_error
 :begin_main
