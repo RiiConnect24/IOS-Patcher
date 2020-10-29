@@ -7,6 +7,8 @@ This patcher patches the RSA Key and applies mail patches in IOS31 for Wii/vWii 
 
 The macOS/Linux version of the patcher uses a version of Sharpii available at https://github.com/spotlightishere/sharpii
 
+>IOS Patcher has been replaced by the [RiiConnect24 Patcher](https://github.com/riiconnect24/riiconnect24-patcher). Official support has been ended on 2020/10/29
+
 ## You can download IOS Patcher in 4 ways
 
 * Click on `Clone or download -> Download ZIP`
