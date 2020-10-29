@@ -3,7 +3,7 @@ cd "%~d0%~p0"
 @echo off
 :: ===========================================================================
 :: IOS Patcher for Windows
-set version=1.9.0
+set version=1.9.1
 :: AUTHORS: KcrPL, Larsenv
 :: ***************************************************************************
 :: Copyright (c) 2018 RiiConnect24, KcrPL and it's (Lead) Developers
@@ -22,8 +22,8 @@ set s=NUL
 
 :: Window Title
 title IOS Patcher for RiiConnect24 v.%version%  Created by @Larsenv, @KcrPL
-set last_build=2018/04/02
-set at=21:45
+set last_build=2020/10/29
+set at=18:42
 if exist "C:\Users\%username%\Desktop\IOSPatcherDebug.txt" goto debug_load
 :: ### Auto Update ###
 :: 1=Enable 0=Disable
@@ -33,7 +33,7 @@ if exist "C:\Users\%username%\Desktop\IOSPatcherDebug.txt" goto debug_load
 :: MainFolder/TempStorage - folder that is used to keep version.txt and whatsnew.txt. These two files are deleted every startup but if offlinestorage will be set 1, they won't be deleted.
 set /a IOSPatcher_Update_Activate=1
 set /a offlinestorage=0
-set FilesHostedOn=https://raw.githubusercontent.com/KcrPL/KcrPL.github.io/master/Patchers_Auto_Update/IOS_Patcher
+set FilesHostedOn=https://kcrpl.github.io/Patchers_Auto_Update/IOS_Patcher
 set MainFolder=%appdata%\IOSPatcher
 set TempStorage=%appdata%\IOSPatcher\internet\temp
 
@@ -87,6 +87,7 @@ if %OSLanguage%==1036 set language=French& goto set_language_french
 if %OSLanguage%==1045 set language=Polish& goto set_language_polish
 if %OSLanguage%==0413 set language=Dutch& goto set_language_dutch
 if %OSLanguage%==1031 set language=German& goto set_language_german
+if %OSLanguage%==1040 set language=Italian& goto set_language_italian
 if %OSLanguage%==1055 set language=Turkish& goto set_language_unicode_ask
 if %OSLanguage%==1049 set language=Russian& goto set_language_unicode_ask
 goto set_language_english
@@ -106,6 +107,351 @@ set /p s=Type the number that you can see above and hit ENTER:
 if %s%==1 goto set_language_%language%
 if %s%==2 goto set_language_english
 goto set_language_unicode_ask
+
+:set_language_brazilian
+mode 138,36
+set string1=Atencao: Por favor abra esse aplicacao com os privilegios de administrador.
+set string2=Atencao: patch.bat Nao Encontrado. Voce pode estar usando essa aplicacao em uma fonte desconhecida. 
+set string3=Iniciar
+set string4=Enviar Feedback/Reportar um Bug
+set string5=Por favor envie um e-mail em support@riiconnect24.net se voce tem problemas.
+set string6=Escreva algum numero que esta acima e aperte ENTER
+set string7=Seja bem-vindo a secao de enviar feedbacks/reportar bugs.
+set string8=Pressione qualquer tecla e copie o arquivo ''logs'' para a area de trabalho.
+set string9=O Arquivo foi copiado,agora esta na sua Area de trabalho.
+set string10=Por favor envie para support@riiconnect24.net. e descreva seu problema ou fale-nos o seu feedback! (;
+set string13=O Ultimo BootUp foi malsucedido. Abrindo no modo seguro.
+set string14=A Atualizacao foi pulada.
+set string15=Iniciando powershell
+set string16=Procurando por atualizacoes...
+set string17=Por favor espere
+set string18=Uma atualizacao esta disponivel.
+set string19=Uma atualizacao para esse programa esta disponivel. Nos sugerimos atualizar o IOS Patcher para a ultima versao.
+set string20=Versao Atual
+set string21=Nova versao
+set string22=Atualizar
+set string23=Dispensar
+set string24=O Que tem de novo nessa atualizacao?
+set string25=Atualizando
+set string26=IOS Patcher vai reniciar em em breve
+set string27=O Que tem de novo nessa atualizacao?
+set string28=Erro. O Que tem de novo nao esta disponivel no momento.
+set string29=Erro
+set string30=Alguns Arquivos necessarios para usar esse programa nao foi encontrado.
+set string31=Pressione qualquer tecla para rebaixar esses arquivos.
+set string32=Sistema de atualizacao de IOS Patcher
+set string33=A Ultima versao esta instalada.
+set string34=Uma Atualizacao esta disponivel
+set string35=Modo seguro ativado.
+set string36=Eu nao tenho acesso dos arquivos no seu computador.
+set string37=O Servidor de atualizacao nao esta disponivel.
+set string38=Pressione C para ler mais.
+set string39=Configurando
+set string40=Voce esta usando esse patcher para Wii ou WiiU?
+set string41=A Ultima versao de IOS Patcher esta instalada.
+set string42=O Modo seguro esta ativo. As atualizacoes foram puladas. Por favor reinicie o Patcher para desativar o modo seguro.
+set string43=Eu nao tenho acesso dos arquivos no seu computador. Isso significa que eu nao consigo trabalhar.
+set string44=Eu vou tentar Patchar as IOS's. Mais as atualizacoes foram puladas.
+set string45=Nos nao conseguimos conectar no servidor de atualizacao. Por favor cheque sua conexao da internet.
+set string46=Tambem pode significar que o servidor esta em manutencao.
+set string47=Infelizmente,voce nao pode usar esse patcher para Wii U.
+set string48=Nos precisamos baixar a IOS 31 e 80.
+set string49=Pressione qualquer botao para baixar.
+set string50=Baixando...
+set string51=Houve algum erro enquando estavamos patchando.
+set string52=Codigo de erro
+set string53=Modulo falhando.
+set string54=Por favor envie um e-mail em support@riiconnect24.net e describa seu problema para nos.
+set string55=Por favor cheque sua conexao de internet.
+set string56=Por favor instale .NET Framework 3.5, e tente patchar dinovo.
+set string57=Sharpii falhou.
+set string58=Pressione qualquer tecla para voltar ao menu principal.
+set string59=O Processo de patch foi concluido.
+set string60=voce quer copiar os arquivos patchados para um cartao SD?
+set string61=Sim
+set string62=Nao
+set string63=Copiar arquivos para a Area de trabalho e sair.
+set string64=Copiando
+set string65=Cartao SD
+set string66=Nenhum Cartao SD foi encontrado no sistema.
+set string67=Por favor conecte o cartao SD,pressione qualquer tecla e tente novamente.
+set string68=Atual Cartao SD letra
+set string69=Voce quer mudar a letra do cartao SD?
+set string70=Continue e copiar arquivos no Cartao SD
+set string71=Mudar letra do drive
+set string72=Sair
+set string73=Houve um erro ao copiar arquivos.
+set string74=Obrigado por usar o Patcher ! (:
+set string75=O Patch esta concluido.
+set string76=Os arquivos IOS patchados estarao numa pasta chamada ''WAD''.
+set string77=Os arquivos foram copiados no cartao SD numa pasta chamada ''WAD''.
+set string78=Saindo do patcher em ...
+set string79=Tentativa de carregar caracteres diacriticos (Windows 8.1/10)
+set string80=Updating failed.
+set string81=There was an error while downloading files from the update server.
+set language=Portuguese (Brazilian)
+set /a diacritic_show=1
+goto begin_main
+
+:set_language_brazilian_diacritic
+mode 138,36
+chcp 65001
+set string1=Atençao: Por favor abra esse aplicaçao com os privilégios de administrador.
+set string2=Atençao: patch.bat Nao Encontrado. Voce pode estar usando essa aplicaçao em uma fonte desconhecida. 
+set string3=Iniciar
+set string4=Enviar Feedback/Reportar um Bug
+set string5=Por favor envie um e-mail em support@riiconnect24.net se voce tem problemas.
+set string6=Escreva algum numero que esta acima e aperte ENTER
+set string7=Seja bem-vindo a seçao de enviar feedbacks/reportar bugs.
+set string8=Pressione qualquer tecla e copie o arquivo ''logs'' para a area de trabalho.
+set string9=O Arquivo foi copiado,agora esta na sua Area de trabalho.
+set string10=Por favor envie para support@riiconnect24.net. e descreva seu problema ou fale-nos o seu feedback! (;
+set string13=O Ultimo BootUp foi malsucedido. Abrindo no modo seguro.
+set string14=A Atualizaçao foi pulada.
+set string15=Iniciando powershell
+set string16=Procurando por atualizaçoes...
+set string17=Por favor espere
+set string18=Uma atualizaçao esta disponivel.
+set string19=Uma atualizaçao para esse programa esta disponivel. Nos sugerimos atualizar o IOS Patcher para a ultima versao.
+set string20=Versao Atual
+set string21=Nova versao
+set string22=Atualizar
+set string23=Dispensar
+set string24=O Que tem de novo nessa atualizaçao?
+set string25=Atualizando
+set string26=IOS Patcher vai reniciar em em breve
+set string27=O Que tem de novo nessa atualizaçao?
+set string28=Erro. O Que tem de novo nao esta disponivel no momento.
+set string29=Erro
+set string30=Alguns Arquivos necessarios para usar esse programa nao foi encontrado.
+set string31=Pressione qualquer tecla para rebaixar esses arquivos.
+set string32=Sistema de atualizaçao de IOS Patcher
+set string33=A Ultima versao esta instalada.
+set string34=Uma Atualizaçao esta disponivel
+set string35=Modo seguro ativado.
+set string36=Eu nao tenho acesso dos arquivos no seu computador.
+set string37=O Servidor de atualizaçao nao esta disponivel.
+set string38=Pressione C para ler mais.
+set string39=Configurando
+set string40=Voce esta usando esse patcher para Wii ou WiiU?
+set string41=A Ultima versao de IOS Patcher esta instalada.
+set string42=O Modo seguro esta ativo. As atualizaçoes foram puladas. Por favor reinicie o Patcher para desativar o modo seguro.
+set string43=Eu nao tenho acesso dos arquivos no seu computador. Isso significa que eu nao consigo trabalhar.
+set string44=Eu vou tentar Patchar as IOS's. Mais as atualizaçoes foram puladas.
+set string45=Nos nao conseguimos conectar no servidor de atualizaçao. Por favor cheque sua conexao da internet.
+set string46=Tambem pode significar que o servidor esta em manutençao.
+set string47=Infelizmente,voce nao pode usar esse patcher para Wii U.
+set string48=Nos precisamos baixar a IOS 31 e 80.
+set string49=Pressione qualquer botao para baixar.
+set string50=Baixando...
+set string51=Houve algum erro enquando estavamos patchando.
+set string52=Codigo de erro
+set string53=Modulo falhando.
+set string54=Por favor envie um e-mail em support@riiconnect24.net e describa seu problema para nos.
+set string55=Por favor cheque sua conexao de internet.
+set string56=Por favor instale .NET Framework 3.5, e tente patchar dinovo.
+set string57=Sharpii falhou.
+set string58=Pressione qualquer tecla para voltar ao menu principal.
+set string59=O Processo de patch foi concluido.
+set string60=voce quer copiar os arquivos patchados para um cartao SD?
+set string61=Sim
+set string62=Nao
+set string63=Copiar arquivos para a Area de trabalho e sair.
+set string64=Copiando
+set string65=Cartao SD
+set string66=Nenhum Cartao SD foi encontrado no sistema.
+set string67=Por favor conecte o cartao SD,pressione qualquer tecla e tente novamente.
+set string68=Atual Cartao SD letra
+set string69=Voce quer mudar a letra do cartao SD?
+set string70=Continue e copiar arquivos no Cartao SD
+set string71=Mudar letra do drive
+set string72=Sair
+set string73=Houve um erro ao copiar arquivos.
+set string74=Obrigado por usar o Patcher ! (:
+set string75=O Patch esta concluido.
+set string76=Os arquivos IOS patchados estarao numa pasta chamada ''WAD''.
+set string77=Os arquivos foram copiados no cartao SD numa pasta chamada ''WAD''.
+set string78=Saindo do patcher em ...
+set string79=Tentativa de carregar caracteres diacriticos (Windows 8.1/10)
+set string80=Updating failed.
+set string81=There was an error while downloading files from the update server.
+set language=Portuguese (Brazilian)
+set /a diacritic_show=0
+goto begin_main
+
+:set_language_italian
+mode 125,36
+set string1=Attenzione: Si prega di avviare l'applicazione senza permessi di amministratore.
+set string2=Attenzione: patch.bat non trovato. Potresti stare eseguendo questa applicazione da fonti sconosciute o non sicure. 
+set string3=Inizia
+set string4=Invia feedback/Segnala un problema
+set string5=Invia un email a support@riiconnect24.net se hai problemi
+set string6=Scrivi il numero che vedi sopra e premi INVIO
+set string7=Benvenuto nella schermata di invio feedback/Segnalazione problemi.
+set string8=Premi qualsiasi tasto per copiare i file di log sul Desktop.
+set string9=Il file e stato copiato, ora e sul tuo Desktop.
+set string10=Ora per favore invia il file a support@riiconnect24.net. E desvrivi il tuo problema o dicci il tuo feedback! :)
+set string11=Premi un tasto qualsiasi per continuare.
+set string12=Modalita sicura
+set string13=L'ultimo avvio non ha avuto successo. Avvio in Modalita sicura.
+set string14=L'aggiornamento e stato saltato. 
+set string15=Avvio powershell
+set string16=Controllo gli aggiornamenti
+set string17=Attendi
+set string18=Un aggiornamento e disponibile
+set string19=Un aggiornamento per questo programma e disponibile. Consigliamo di aggiornare IOS Patcher all'ultima versione.
+set string20=Versione attuale
+set string21=Nuova versione
+set string22=Aggiorna
+set string23=Ignora
+set string24=Cosa c'e di nuovo in questo aggiornamento?
+set string25=Aggiornando
+set string26=IOS Patcher si riavviera tra poco
+set string27=Cosa c'e di nuovo
+set string28=Errore. Cosa c'e di nuovo non e disponibile al momento.
+set string29=Errore
+set string30=Alcuni file richiesti per eseguire questo programma non sono stati trovati.
+set string31=Premi un tasto qualsiasi per riscaricare questi file.
+set string32=Sistema di Aggiornamento IOS Patcher.
+set string33=L'ultima versione e installata.
+set string34=e disponibile un Aggiornamento.
+set string35=Modalita Sicura attivata.
+set string36=Non ho accesso ai file sul tuo computer
+set string37=Il server di Aggiornamento non e disponibile.
+set string38=Premi C per leggere di piu.
+set string39=Configurando
+set string40=Userai questo patcher su Wii o WiiU?
+set string41=L'ultima verione di IOS Patcher e stata installata.
+set string42=Modalita Sicura e attiva. L'aggiornamento e stato saltato. Riavvia il patcher per disabilitare la Modalita Sicura.
+set string43=Non ho accesso ai file sul tuo computer. Questo non vuol dire che non posso funzionare.
+set string44=Proverò a patchare IOS. Ma l'aggiornamento e stato saltato.
+set string45=Non sono riuscito a connettermi al server di aggiornamento. Controlla la tua connessione internet.
+set string46=Puo anche significare che il server e in manutenzione.
+set string47=Sfortunatamente, non puoi utilizzare questo patcher per Wii U.
+set string48=Devo scaricare IOS 31 e 80.
+set string49=Premi un tasto qualsiasi per iniziare il download.
+set string50=Scaricando
+set string51=C'e stato un errore durante il patching.
+set string52=Codice Errore
+set string53=Errore in modulo
+set string54=Per favore inviaci un email a support@riiconnect24.net e descrivici il tuo problema.
+set string55=Controlla la tua connessione internet.
+set string56=Installa .NET Framework 3.5, poi prova a patchare nuovamente.
+set string57=Fallimento generale Sharpii.
+set string58=Premi un tasto qualsiasi per tornare al menu principale.
+set string59=Il patching e terminato.
+set string60=Vuoi copiare i file patchati su una scheda SD?
+set string61=Sì
+set string62=No
+set string63=Copia i file sul Desktop ed esci
+set string64=Copiando
+set string65=Scheda SD
+set string66=Non e stata trovata una Scheda SD nel sistema.
+set string67=Connetti una Scheda SD e premi un tasto qualsiasi per riprovare.
+set string68=Lettera Scheda SD corrente
+set string69=Vuoi cambiare la lettera della Scheda SD?
+set string70=Continua e copia i file sulla Scheda SD
+set string71=Cambia lettera
+set string72=Esci
+set string73=C'e stato un errore nel copiare i file.
+set string74=Grazie per aver usato il Patcher!
+set string75=Il patching e terminato
+set string76=I file IOS patchati saranno nella cartella "WAD".
+set string77=I file sono stati copiati nella Scheda SD nella cartella "WAD"
+set string78=Uscendo dal Patcher in...
+set string79=Tentativo di caricare caratteri diacritici [Windows 8.1/10]
+set string80=Aggiornamento fallito.
+set string81=Si e verificato un errore nel tentativo di scaricare file dal server di aggiornamento.
+
+set language=Italian
+set /a diacritic_show=1
+goto begin_main
+:set_language_italian_diacritic
+mode 125,36
+set string1=Attenzione: Si prega di avviare l'applicazione senza permessi di amministratore.
+set string2=Attenzione: patch.bat non trovato. Potresti stare eseguendo questa applicazione da fonti sconosciute o non sicure. 
+set string3=Inizia
+set string4=Invia feedback/Segnala un problema
+set string5=Invia un email a support@riiconnect24.net se hai problemi
+set string6=Scrivi il numero che vedi sopra e premi INVIO
+set string7=Benvenuto nella schermata di invio feedback/Segnalazione problemi.
+set string8=Premi qualsiasi tasto per copiare i file di log sul Desktop.
+set string9=Il file è stato copiato, ora è sul tuo Desktop.
+set string10=Ora per favore invia il file a support@riiconnect24.net. E desvrivi il tuo problema o dicci il tuo feedback! :)
+set string11=Premi un tasto qualsiasi per continuare.
+set string12=Modalità sicura
+set string13=L'ultimo avvio non ha avuto successo. Avvio in Modalità sicura.
+set string14=L'aggiornamento è stato saltato. 
+set string15=Avvio powershell
+set string16=Controllo gli aggiornamenti
+set string17=Attendi
+set string18=Un aggiornamento è disponibile
+set string19=Un aggiornamento per questo programma è disponibile. Consigliamo di aggiornare IOS Patcher all'ultima versione.
+set string20=Versione attuale
+set string21=Nuova versione
+set string22=Aggiorna
+set string23=Ignora
+set string24=Cosa c'è di nuovo in questo aggiornamento?
+set string25=Aggiornando
+set string26=IOS Patcher si riavvierà tra poco
+set string27=Cosa c'è di nuovo
+set string28=Errore. Cosa c'è di nuovo non è disponibile al momento.
+set string29=Errore
+set string30=Alcuni file richiesti per eseguire questo programma non sono stati trovati.
+set string31=Premi un tasto qualsiasi per riscaricare questi file.
+set string32=Sistema di Aggiornamento IOS Patcher.
+set string33=L'ultima versione è installata.
+set string34=È disponibile un Aggiornamento.
+set string35=Modalità Sicura attivata.
+set string36=Non ho accesso ai file sul tuo computer
+set string37=Il server di Aggiornamento non è disponibile.
+set string38=Premi C per leggere di più.
+set string39=Configurando
+set string40=Userai questo patcher su Wii o WiiU?
+set string41=L'ultima verione di IOS Patcher è stata installata.
+set string42=Modalità Sicura è attiva. L'aggiornamento è stato saltato. Riavvia il patcher per disabilitare la Modalità Sicura.
+set string43=Non ho accesso ai file sul tuo computer. Questo non vuol dire che non posso funzionare.
+set string44=Proverò a patchare IOS. Ma l'aggiornamento è stato saltato.
+set string45=Non sono riuscito a connettermi al server di aggiornamento. Controlla la tua connessione internet.
+set string46=Puo anche significare che il server è in manutenzione.
+set string47=Sfortunatamente, non puoi utilizzare questo patcher per Wii U.
+set string48=Devo scaricare IOS 31 e 80.
+set string49=Premi un tasto qualsiasi per iniziare il download.
+set string50=Scaricando
+set string51=C'è stato un errore durante il patching.
+set string52=Codice Errore
+set string53=Errore in modulo
+set string54=Per favore inviaci un email a support@riiconnect24.net e descrivici il tuo problema.
+set string55=Controlla la tua connessione internet.
+set string56=Installa .NET Framework 3.5, poi prova a patchare nuovamente.
+set string57=Fallimento generale Sharpii.
+set string58=Premi un tasto qualsiasi per tornare al menu principale.
+set string59=Il patching è terminato.
+set string60=Vuoi copiare i file patchati su una scheda SD?
+set string61=Sì
+set string62=No
+set string63=Copia i file sul Desktop ed esci
+set string64=Copiando
+set string65=Scheda SD
+set string66=Non è stata trovata una Scheda SD nel sistema.
+set string67=Connetti una Scheda SD e premi un tasto qualsiasi per riprovare.
+set string68=Lettera Scheda SD corrente
+set string69=Vuoi cambiare la lettera della Scheda SD?
+set string70=Continua e copia i file sulla Scheda SD
+set string71=Cambia lettera
+set string72=Esci
+set string73=C'è stato un errore nel copiare i file.
+set string74=Grazie per aver usato il Patcher!
+set string75=Il patching è terminato
+set string76=I file IOS patchati saranno nella cartella "WAD".
+set string77=I file sono stati copiati nella Scheda SD nella cartella "WAD"
+set string78=Uscendo dal Patcher in...
+set string79=Tentativo di caricare caratteri diacritici [Windows 8.1/10]
+set string80=Aggiornamento fallito.
+set string81=Si è verificato un errore nel tentativo di scaricare file dal server di aggiornamento.
+set language=Italian
+set /a diacritic_show=0
+goto begin_main
 :set_language_french
 mode 140,36
 set string1=Attention: Lancez cette application sans les privileges administrateur.
@@ -187,6 +533,8 @@ set string76=Les fichiers seront copies dans le dossier nomme "WAD".
 set string77=Les fichiers ont ete copies sur votre peripherique dans le dossier "WAD"
 set string78=Le patcher se fermera dans...
 set string79=Tentative de chargement de catacteres diacritiques [Windows 8.1/10]
+set string80=La mise a jour a echoue.
+set string81=Une erreur est survenue lors du telechargement des fichiers depuis le serveur de mise a jour.
 
 set language=French
 set /a diacritic_show=1
@@ -273,6 +621,8 @@ set string76=Les fichiers seront copiés dans le dossier nommé "WAD".
 set string77=Les fichiers ont été copiés sur votre périphérique dans le dossier "WAD"
 set string78=Le patcher se fermera dans...
 set string79=Tentative de chargement de catactères diacritiques [Windows 8.1/10]
+set string80=La mise à jour a échoué.
+set string81=Une erreur est survenue lors du téléchargement des fichiers depuis le serveur de mise à jour.
 
 set language=French
 set /a diacritic_show=0
@@ -359,6 +709,9 @@ set string75=Патчинг завершён
 set string76=Пропатчанные IOS файлы будут в папке "WAD".
 set string77=Файлы были копированы на SD карту в папку "WAD"
 set string78=Выход из патчера через...
+set string79=leave empty
+set string80=Ошибка обновления.
+set string81=Произошла ошибка при загрузке файлов с сервера обновлении.
 
 set language=Russian
 set /a diacritic_show=0
@@ -448,7 +801,8 @@ set string76=Yama yapılan IOSları "WAD" adlı klasöre koyunuz.
 set string77=Dosyalar "WAD" adlı klasöre kopyalandı.
 set string78=IOS Patcherdan çıkılmasına...
 set string79=Ayrıcı karakterler yüklenmeye çalışıldı. [Windows 8.1/10]
-
+set string80=Updating failed.
+set string81=There was an error while downloading files from the update server.
 set language=Turkish
 set /a diacritic_show=0
 goto begin_main
@@ -536,7 +890,8 @@ set string76=Patched IOS files will be in folder called "WAD".
 set string77=Files has been copied to SD Card to folder called "WAD"
 set string78=Exiting the patcher in...
 set string79=Attempt to load diacritic characters [Windows 8.1/10]
-
+set string80=Updating failed.
+set string81=There was an error while downloading files from the update server.
 set language=English
 set /a diacritic_show=0
 goto begin_main
@@ -622,6 +977,8 @@ set string76=Die gepatchten Dateien werden sich in dem Ordner "WAD" befinden.
 set string77=Die Dateien wurden auf die SD Karte in den Ordner "WAD" kopiert.
 set string78=Der Patcher wird geschloben in...
 set string79=Ich versuche gerade diakritische Zeichen zu laden... [Das funktioniert auf Windows 7 nicht]
+set string80=Das Updaten ist fehlgeschlagen
+set string81=Es gab einen Fehler, wahrend die Dateien vom Server runtergeladen wurden
 
 set language=German
 set /a diacritic_show=1
@@ -708,7 +1065,8 @@ set string76=Die gepatchten Dateien werden sich in dem Ordner "WAD" befinden.
 set string77=Die Dateien wurden auf die SD Karte in den Ordner "WAD" kopiert.
 set string78=Der Patcher wird geschlossen in...
 set string79=Ich versuche gerade diakritische Zeichen zu laden... [Das funktioniert auf Windows 7 nicht
-
+set string80=Das Updaten ist fehlgeschlagen
+set string81=Es gab einen Fehler, während die Dateien vom Server runtergeladen wurden
 set language=German
 set /a diacritic_show=0
 goto begin_main
@@ -796,7 +1154,8 @@ set string76=Pliki z poprawką są w folderze "WAD".
 set string77=Pliki zostały skopiowane na kartę SD do folderu "WAD"
 set string78=Wychodzenie z patchera za...
 set string79=Sprobuj zaladowac znaki diakrytyczne [Windows 8.1/10]
-
+set string80=Wystąpił błąd podczas aktualizacji.
+set string81=Wystąpił błąd podczas pobierania plików z serwera aktualizacji.
 
 set language=Polish
 set /a diacritic_show=0
@@ -882,6 +1241,8 @@ set string76=Pliki z poprawka sa w folderze "WAD".
 set string77=Pliki zostaly skopiowane na karte SD do folderu "WAD"
 set string78=Wychodzenie z patchera za...
 set string79=Sprobuj zaladowac znaki diakrytyczne [Windows 8.1/10]
+set string80=Wystapil bład podczas aktualizacji.
+set string81=Wystapil bład podczas pobierania plików z serwera aktualizacji.
 
 set language=Polish
 set /a diacritic_show=1
@@ -947,27 +1308,29 @@ set string54=Mail alsjeblieft naar support@riiconnect24.net en leg het probleem 
 set string55=Please check your internet connstring56=Installeer a.u.b. .NET Framework 3.5 en probeer het opnieuw.
 set string57=Algemene Sharpii fout.
 set string58=Druk op een toets om terug te keren naar het menu.
-set string59=Patchen is klaar.
-set string60=Wil je de gepatchte bestanden naar een SD kaart kopiëren?
+set string59=Patchen voltooid
+set string60=Wil je de gepatchte bestanden naar een SD-kaart kopiëren?
 set string61=Ja
 set string62=Nee
 set string63=Kopiëer bestanden naar bureaublad en sluit af
 set string64=Kopiëren
-set string65=SD Kaart
-set string66=An SD card was not found in the system.
-set string67=Verbind a.u.b. een SD kaart en probeer het opnieuw.
-set string68=Huidige SD kaart letter
-set string69=Wil je de SD kaart letter veranderen?
-set string70=Doorgaan en bestanden naar SD kaart kopiëren
+set string65=SD-kaart
+set string66=Er was geen SD-kaart in het systeem gevonden.
+set string67=Verbind a.u.b. een SD-kaart en probeer het opnieuw.
+set string68=Huidige SD-kaart letter
+set string69=Wil je de SD-kaart letter veranderen?
+set string70=Doorgaan en bestanden naar SD-kaart kopiëren
 set string71=Schijfletter veranderen
 set string72=Aflsuiten
-set string73=Er is een error opgetreden rijdens het kopiëren van de bestanden.
+set string73=Er is een fout opgetreden tijdens het kopiëren van de bestanden.
 set string74=Bedankt voor het gebruiken van de patcher!
 set string75=Patchen is klaar.
 set string76=Gepatchte IOS bestanden zijn geplaatst in de folder genaamd "WAD".
-set string77=Bestanden zijn gekopiëerd naar de SD kaart in een folder genaamd "WAD".
+set string77=Bestanden zijn gekopiëerd naar de SD-kaart in een folder genaamd "WAD".
 set string78=Patcher aflsuiten in...
 set string79=Probeer diakritische tekens te laden [Werkt niet met Windows 7]
+set string80=Updaten mislukt.
+set string81=Er is een fout opgetreden bij het downloaden van de bestanden van de update-server.
 
 set language=Dutch
 set /a diacritic_show=0
@@ -1034,26 +1397,28 @@ set string56=Installeer a.u.b. .NET Framework 3.5 en probeer het opnieuw.
 set string57=Algemene Sharpii fout.
 set string58=Druk op een toets om terug te keren naar het menu.
 set string59=Patchen is klaar.
-set string60=Wil je de gepatchte bestanden naar een SD kaart kopieren?
+set string60=Wil je de gepatchte bestanden naar een SD-kaart kopieren?
 set string61=Ja
 set string62=Nee
 set string63=Kopieer bestanden naar bureaublad en sluit af
 set string64=Kopieren
-set string65=SD Kaart
-set string66=An SD card was not found in the system.
-set string67=Verbind a.u.b. een SD kaart en probeer het opnieuw.
-set string68=Huidige SD kaart letter
-set string69=Wil je de SD kaart letter veranderen?
-set string70=Doorgaan en bestanden naar SD kaart kopieren
+set string65=SD-kaart
+set string66=Er was geen SD-kaart in het systeem gevonden.
+set string67=Verbind a.u.b. een SD-kaart en probeer het opnieuw.
+set string68=Huidige SD-kaart letter
+set string69=Wil je de SD-kaart letter veranderen?
+set string70=Doorgaan en bestanden naar SD-kaart kopieren
 set string71=Schijfletter veranderen
 set string72=Aflsuiten
-set string73=Er is een error opgetreden rijdens het kopieren van de bestanden.
+set string73=Er is een fout opgetreden tijdens het kopieren van de bestanden.
 set string74=Bedankt voor het gebruiken van de patcher!
-set string75=Patchen is klaar.
+set string75=Patchen voltooid
 set string76=Gepatchte IOS bestanden zijn geplaatst in de folder genaamd "WAD".
-set string77=Bestanden zijn gekopieerd naar de SD kaart in een folder genaamd "WAD".
+set string77=Bestanden zijn gekopieerd naar de SD-kaart in een folder genaamd "WAD".
 set string78=Patcher aflsuiten in...
 set string79=Probeer diakritische tekens te laden [Werkt niet met Windows 7]
+set string80=Updaten mislukt.
+set string81=Er is een fout opgetreden bij het downloaden van de bestanden van de update-server.
 
 set language=Dutch
 set /a diacritic_show=1
@@ -1067,32 +1432,15 @@ echo Please don't run our IOS Patcher in MS-DOS :P.
 echo Run it only on Windows Vista+ computer. :)
 pause>NUL
 exit
-:admin_error
-cls
-echo %header%
-echo.
-echo ERROR.
-echo An error has been occurred. Please try to run this program without ADMIN privileges (or change this batch file name to patch.bat)
-pause>NUL
-goto admin_error
 :begin_main
 cls
 echo %header%
-if %patherror%==0 echo              `..````
-if %patherror%==0 echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`
-if %patherror%==0 echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs
-if %patherror%==0 echo              hNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd
-
-if %patherror%==1 echo :----------------------------------------------------------------:
-if %patherror%==1 echo  %string1%
-if %patherror%==1 echo :----------------------------------------------------------------:
-
-if %patherror%==2 echo :------------------------------------------------------------------------------------------------------:
-if %patherror%==2 echo  %string2%
-if %patherror%==2 echo  %string3%
-if %patherror%==2 echo :------------------------------------------------------------------------------------------------------:
-
-if not %patherror%==2 echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+    RiiConnect your Wii.
+echo.
+echo              `..````
+echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`
+echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs
+echo              hNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd
+echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+    RiiConnect your Wii.
 echo             .mmmmNs mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:
 echo             :mdmmN+`mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.
 echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN   1. %string3%  2. %string4%
@@ -1114,14 +1462,14 @@ echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-
 echo          .+mmdhhmmmNNNNNNmdysooooosssomMMMNNNMMMm
 echo          o/ossyhdmmNNmdyo+++oooooosssoyNMMNNNMMMM+
 echo          o/::::::://++//+++ooooooo+oo++mNMMmNNMMMm
-echo         `o//::::::::+////+++++++///:/+shNMMNmNNmMM+
-echo         .o////////::+++++++oo++///+syyyymMmNmmmNMMm
-echo         -+//////////o+ooooooosydmdddhhsosNMMmNNNmho            `:/
-echo         .+++++++++++ssss+//oyyysso/:/shmshhs+:.          `-/oydNNNy
-echo           `..-:/+ooss+-`          +mmhdy`           -/shmNNNNNdy+:`
-echo                   `.              yddyo++:    `-/oymNNNNNdy+:`
-echo                                   -odhhhhyddmmmmmNNmhs/:`
-echo                                     :syhdyyyyso+/-`
+echo :---------------------------------------------------------------------------:
+echo : Outdated software!                                                        :
+echo : You are using an outdated software that has been replaced.                :
+echo : You will no longer receive feature updates or support with this software. :
+echo :                                                                           :
+echo : Instead, use the RiiConnect24 Patcher: http://patcher.rc24.xyz/           :
+echo :---------------------------------------------------------------------------:
+echo.
 set /p s=%string6%: 
 if %s%==1 goto begin_main1
 if %s%==2 goto send_feedback
@@ -1131,6 +1479,7 @@ if %s%==4 goto load_diacritic
 if %patherror%==1 goto begin_main
 goto begin_main
 :load_diacritic
+if "%language%"=="Portuguese (Brazilian)" goto set_language_brazilian_diacritic
 if %diacritic_show%==1 goto set_language_%language%_diacritic
 goto begin_main
 
@@ -1147,6 +1496,8 @@ echo 4. German (Author: TimNook)
 echo 5. Dutch (Author: Jelle/DismissedGuy)
 echo 6. Turkish (Author: Can Bora Ciner)
 echo 7. Russian (Author: prosuWANTED)
+echo 8. Italian (Author: Fra)
+echo 9. Portuguese (Brazilian) (Author: Lucas7)
 set /p s=Choose: 
 if %s%==1 goto set_language_english
 if %s%==2 goto set_language_polish
@@ -1155,6 +1506,8 @@ if %s%==4 goto set_language_german
 if %s%==5 goto set_language_dutch
 if %s%==6 set language=Turkish& goto set_language_unicode_ask
 if %s%==7 set language=Russian& goto set_language_unicode_ask
+if %s%==8 goto set_language_italian
+if %s%==9 goto set_language_brazilian
 goto change_language
 :send_feedback
 cls
@@ -1511,6 +1864,43 @@ start temp.bat
 exit
 exit
 exit
+:error_update_not_available
+cls
+echo.
+echo              `..````
+echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`
+echo              hNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMd
+echo              ddmNNd:dNMMMMNMMMMMMMMMMMMMMMMMMMMMMMMMMs
+echo             `mdmNNy dNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM+
+echo             .mmmmNs mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:
+echo             :mdmmN+`mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.
+echo             /mmmmN:-mNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMN
+echo             ommmmN.:mMMMMMMMMMMMMmNMMMMMMMMMMMMMMMMMd
+echo             smmmmm`+mMMMMMMMMMNhMNNMNNMMMMMMMMMMMMMMy
+echo             hmmmmh omMMMMMMMMMmhNMMMmNNNNMMMMMMMMMMM+
+echo -----------------------------------------------------------------------------------------------------------------------------
+echo    /---\   %string80%
+echo   /     \  %string81%
+echo  /   !   \
+echo  --------- %string11%
+echo -----------------------------------------------------------------------------------------------------------------------------
+echo            mmmmmh ymMMMMMMMMMNNmmmNmNNNMNNMMMMNyyhhh`
+echo           `mmmmmy hmMMNMNNMMMNNmmmmmdNMMNmmMMMMhyhhy
+echo           -mddmmo`mNMNNNNMMMNNNmdyoo+mMMMNmNMMMNyyys
+echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-
+echo          .+mmdhhmmmNNNNNNmdysooooosssomMMMNNNMMMm
+echo          o/ossyhdmmNNmdyo+++oooooosssoyNMMNNNMMMM+
+echo          o/::::::://++//+++ooooooo+oo++mNMMmNNMMMm
+echo         `o//::::::::+////+++++++///:/+shNMMNmNNmMM+
+echo         .o////////::+++++++oo++///+syyyymMmNmmmNMMm
+echo         -+//////////o+ooooooosydmdddhhsosNMMmNNNmho            `:/
+echo         .+++++++++++ssss+//oyyysso/:/shmshhs+:.          `-/oydNNNy
+echo           `..-:/+ooss+-`          +mmhdy`           -/shmNNNNNdy+:`
+echo                   `.              yddyo++:    `-/oymNNNNNdy+:`
+echo                                   -odhhhhyddmmmmmNNmhs/:`
+echo                                     :syhdyyyyso+/-`
+pause>NUL
+goto begin_main
 :whatsnew
 cls
 if not exist "%TempStorage%\whatsnew.txt" goto whatsnew_notexist
@@ -1653,7 +2043,7 @@ echo 10. Open command prompt
 set /p s=Choose:
 if %s%==1 goto debug_runtime
 if %s%==2 goto debug_system_Req
-if %s%==3 goto set_language
+if %s%==3 goto change_language
 if %s%==4 goto begin
 if %s%==5 exit
 if %s%==6 goto debug_download
@@ -1762,36 +2152,6 @@ Sharpii.exe IOS WAD\IOS80.wad -fs -es -np -vp
 set output=Patching and downloading IOS 31, 80 done.
 goto debug_1
 
-:set_language
-set translationsserror=0
-mode %mode%
-set s=NUL
-rem ### Please do not make any changes to this part of code. ###
-rem # Please contact me on Discord - KcrPL#4625 ###
-cls
-echo.
-echo RiiConnect24 IOS Patcher - (C) Larsenv, (C) KcrPL. v%version% (Compiled on %last_build% at %at%)
-echo ---------------------------------------------------------------------------------------------------------------------------
-echo  [*] Please select your language
-echo.
-echo.
-echo Notice from creator of this patcher.
-echo.
-echo I don't know how you got here (probably from debug menu).
-echo If from debug menu, congratulation :P.
-echo.
-echo It was very fun to create this section of the program but it's time to delete it.
-echo If you were using it, I'm sorry. Over 50%% of every language were not translated.
-echo Thanks to:
-echo  TimNook for German translation, iDroid for French translation, GameCube for Italian translation,
-echo   Artuto for Spanish translation, prosuWANTED for Russian translation and Fun4TubeGr for Greek translation.
-echo.
-echo                                                                                            Thanks for understanding.
-echo                                                                                                              -KcrPL.
-echo.
-echo Press anything to go back to main menu.
-pause>NUL
-goto begin_main
 :3
 if exist "%MainFolder%\failsafe.txt" del /q "%MainFolder%\failsafe.txt"
 mode %mode%
@@ -2006,6 +2366,7 @@ goto 5
 mode %mode%
 cls
 echo ERROR: There was an error while patching: Module: %modul% Error code: %temperrorlev%>>"%MainFolder%/IOSPatcherLogs.txt"
+echo %header%
 echo.
 echo              `..````
 echo              yNNNNNNNNMNNmmmmdddhhhyyyysssooo+++/:--.`
@@ -2025,13 +2386,13 @@ echo  /   !   \ %string52%: %temperrorlev%
 echo  --------- %string53%: %modul%
 echo %string54%
 echo.
-echo Error code: RC24-IOS-Patcher_v%version%_%temperrorlev%_%modul%_failure
-echo.
 if %temperrorlev%==-532459699 echo %string55%
 if %temperrorlev%==-2146232576 echo %string56%
 if %temperrorlev%==-1073741515 echo %string57% %string56%
 echo       %string58%
 echo ---------------------------------------------------------------------------------------------------------------------------
+echo           :mdmmmo-mNNNNNNNNNNdyo++sssyNMMMMMMMMMhs+-
+echo          .+mmdhhmmmNNNNNNmdysooooosssomMMMNNNMMMm
 echo          o/ossyhdmmNNmdyo+++oooooosssoyNMMNNNMMMM+
 echo          o/::::::://++//+++ooooooo+oo++mNMMmNNMMMm
 echo         `o//::::::::+////+++++++///:/+shNMMNmNNmMM+
